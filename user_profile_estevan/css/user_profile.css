@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Poppins&display=swap');
+/*----------HEADER AND NAV------------*/
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    max-width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+header{
+    background-color: #003049;
+    color: white;
+    font-family: 'Mate SC', serif;
+    height: 100%;
+}
+#menu {
+    float: right;
+}
+#menu ul{
+    display: flex;
+    text-decoration: none;
+    list-style-type: none;
+    margin-right: 1em;
+    margin-top: 1.5em;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+    font-weight:bold;
+    font-size:28px;
+    
+}
+a:hover{
+    color: #D62828;
+}
+a:visited {
+    color: #D62828;
+}
+
+footer{
+    background-color: #003049;
+    color: white;
+    font-family: 'Mate SC', serif;
+    width: 100%; 
+    margin-top: 30px;
+}
+
+/*---------INPUT--------------*/
+.profile-input, input[type=textarea]{
+    padding: 10px;
+    width: 600px;
+    height: 100px;
+}
+
+/*---------LOGIN NOTICE--------------*/
+.loginNotice {
+    font-size:larger;
+}
+
+/*---------BUTTON LOOK--------------*/
+.buttonLook {
+    background-color:#003049; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/*---------FACEBOOK N TWITTER LINKS--------------*/
+.facebook-link:link{
+    color: #003049;
+    text-decoration: none;
+}
+
+.twitter-link:link{
+    color: #003049;
+    text-decoration: none;
+}
+
+/*---------FOOTER--------------*/
+#linkIcon {
+    font-size:2.25em;
+    color:#003049;
+    margin-top:-10px;
+    margin-left:210px;
+  }
+
+
+  #footerCR {
+    padding-top:14px;
+    padding-bottom:14px;
+}
+
+.far, fa-copyright {
+    font-size:1.5em;
+    color:#D62828;
+   }
+
+.copyRightLogo {
+  text-align:center;
+  font-size:1em;
+}
+
+/*-----------BOOTSTRAP CHANGES------------*/
+body{margin-top:20px;}
+
+body {
+    color: #003049;
+}
+
+.profile-navbar .nav-item .nav-link {
+  color: #003049;
+}
+
+.profile-navbar .nav-item .nav-link.active {
+  color: #D62828;
+}
+
+.profile-navbar .nav-item .nav-link i {
+  font-size: 1.25rem;
+}
+
+.profile-feed-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e9e9e9;
+}
+.img-sm {
+    width: 43px;
+    height: 43px;
+}
+
+.img-lg{
+    width: 270px;
+    height: 280px;
+    border: 5px solid #003049;
+    margin-top: 30px;
+}
