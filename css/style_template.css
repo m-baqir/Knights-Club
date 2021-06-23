@@ -6,7 +6,7 @@
     margin: 0;
 }
 body{
-    max-width: 1200px;
+    max-width: 100%;
     /**Changed content font to Poppins*/
     font-family: 'Poppins', sans-serif;
 }

@@ -1,0 +1,14 @@
+.currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    top: -25px;
+  }
+  .period {
+    font-size: 1.2rem;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+  }
