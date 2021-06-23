@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Poppins&display=swap');
+/**remove all default padding and margins*/
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    max-width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+header{
+    background-color: #003049;
+    color: white;
+    font-family: 'Mate SC', serif;
+    height: 100px;
+}
+nav{
+    float: right;
+}
+nav ul{
+    display: flex;
+    text-decoration: none;
+    list-style-type: none;
+    margin-right: 1em;
+    margin-top: 1.5em;
+}
+footer{
+    background-color: #003049;
+    color: white;
+    font-family: 'Mate SC', serif;
+    height: 100px;
+}
+/**links styling*/
+a{
+    color: white;
+    text-decoration: none;
+}
+a:hover{
+    color: #D62828;
+}
+
+.mid{
+    text-align: center;
+}
+/*a:visited{
+    need to decide on a link visited color
+}*/
+@media screen {
+    
+}
