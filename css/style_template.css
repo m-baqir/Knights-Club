@@ -20,7 +20,7 @@ nav{
     float: right;
 }
 nav ul{
-    display: flex;
+    display: block;
     text-decoration: none;
     list-style-type: none;
     margin-right: 1em;
@@ -43,3 +43,13 @@ a:hover{
 /*a:visited{
     need to decide on a link visited color
 }*/
+
+
+@media screen and (max-width: 480px) {
+    header{
+        display: inline-block;
+    }
+    nav ul{
+        flex-direction: column;
+    }
+  }
