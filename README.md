@@ -1,6 +1,7 @@
 # Knights Club
 A social media platform that is currently a work in progress.
-Collaborators:
+---
+**Collaborators:**
 - [Ahmed](https://github.com/a-hagar)
 - [Suong](https://github.com/Suong-Tran)
 - [Thai](https://github.com/thaivo)
