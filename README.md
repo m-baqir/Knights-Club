@@ -1,2 +1,2 @@
 # Knights Club
- first template created
+A social media platform that is currently a work in progress.
