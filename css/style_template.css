@@ -31,6 +31,10 @@ footer{
     color: white;
     font-family: 'Mate SC', serif;
     height: 100px;
+    /*make footer stay at the bottom*/
+    bottom: 0;
+    position: absolute;
+    width: 100%;
 }
 /**links styling*/
 a{
