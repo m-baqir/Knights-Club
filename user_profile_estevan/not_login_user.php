@@ -211,6 +211,6 @@
       <a href="#">Sitemap |</a>
       <a href="#">Policy</a>
       <p class="copyRightLogo"><i class="far fa-copyright"></i> this is the footer</p>
-  </footer>
+    </footer>
 </body>
 </html>
