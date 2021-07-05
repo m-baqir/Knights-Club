@@ -25,14 +25,14 @@ header{
     margin-right: 1em;
     margin-top: 1.5em;
 }
+/* THERE IS A PROBLEM WITH GETTING THE TOPIC LINKS TO CHANGE COLOR 
+a {
+   color: black;
+   text-decoration: none;
+   font-weight:bold;
+   font-size:28px;
+}*/
 
-a{
-    color: black;
-    text-decoration: none;
-    font-weight:bold;
-    font-size:28px;
-    
-}
 a:hover{
     color: #D62828;
 }
