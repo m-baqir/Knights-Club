@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
-  <script type="text/javascript" async defer src="script.js"></script>
-  <link rel="stylesheet" href="./css/style_template.css" />
+  <script type="text/javascript" async defer src="../js/sidenav.js"></script>
+  <link rel="stylesheet" href="../css/style_template.css" />
   <meta name="viewport" content="width=device-width">
 </head>
 
@@ -25,7 +25,7 @@
       <div class="footer-col">
           <h3><a href="#">About Us</a></h3>
           <ul>
-              <li><a href="#">FAQ</a></li>
+              <li><a href="../FAQ_Vedanshi/FAQ.php">FAQ</a></li>
               <li><a href="#">Newsletter</a></li>
               <li><a href="">Advice</a></li>
               <li><a href="">Contact/Feedback</a></li>

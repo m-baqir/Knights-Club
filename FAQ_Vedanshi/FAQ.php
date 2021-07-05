@@ -7,28 +7,15 @@
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style_template.css" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/FAQstyle.css">
 
     <title>FAQ</title>
 </head>
 <body>
-<header>
-    <a href="#"><img src="../images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" /></a>
-    <nav>
-        <ul>
-            <!--*Navigation elements-->
-            <li><a href="#">Profile | </a></li>
-            <li><a href="#">Search| </a></li>
-            <li><a href="#">Subscribe| </a></li>
-            <li><a href="#">Advice| </a></li>
-            <li><a href="#">Newsletter| </a></li>
-            <li><a href="#">Search| </a></li>
-            <li><a href="#">Sign In| </a></li>
-            <li><a href="#">User Wall| </a></li>
-        </ul>
-    </nav>
-</header>
-
+</body>
+<?php
+    require_once ("../home_page/header.php");
+?>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -53,7 +40,7 @@
             <div class="mar-btm">
                 <h4 class="text-thin"><i class="fa fa-question-circle fa-lg fa-fw text-primary"></i> Can't find the answer? </h4>
 
-                <a href="../../Knights_Club/Knights-Club/ContactUs_Vedanshi/ContactUs.html" class="btn btn-primary">Contact us</a>
+                <a href="../ContactUs_Vedanshi/ContactUs.php" class="btn btn-primary">Contact us</a>
             </div>
             <!--===================================================-->
 
@@ -261,11 +248,8 @@
         </div>
     </div>
 </div>
-<footer>
-    <!--*need to figure out what we are going to include in the footer-->
-
-    <a href="#">Sitemap</a>
-    <a href="#">Policy</a>
-</footer>
+<?php
+    require_once ("../home_page/footer.php");
+?>
 </body>
 </html>

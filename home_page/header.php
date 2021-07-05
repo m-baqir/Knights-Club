@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <script type="text/javascript" async defer src="../js/sidenav.js"></script>
-  <link rel="stylesheet" href="./css/style_template.css" />
+  <link rel="stylesheet" href="../css/style_template.css" />
   <meta name="viewport" content="width=device-width">
 </head>
 
@@ -23,6 +23,6 @@
       <a href="#">Subscribe</a>
       <a href="#">Newsletter</a>
       <a href="#">About Us</a>
-      <a href="#">Contact</a>
+      <a href="../ContactUs_Vedanshi/ContactUs.php">Contact</a>
     </div>
   </header>

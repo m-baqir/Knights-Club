@@ -3,30 +3,17 @@
 <head>
   <title>Contact Us</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../../../Knights-Club-main/css/style_template.css" />
+  <link rel="stylesheet" href="../css/style_template.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
   <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/ContactUsStyle.css">
 </head>
 <body>
-<header>
-  <a href="#"><img src="../../../Knights-Club-main/images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" /></a>
-  <nav>
-    <ul>
-      <!--*Navigation elements-->
-      <li><a href="#">Profile | </a></li>
-      <li><a href="#">Search| </a></li>
-      <li><a href="#">Subscribe| </a></li>
-      <li><a href="#">Advice| </a></li>
-      <li><a href="#">Newsletter| </a></li>
-      <li><a href="#">Search| </a></li>
-      <li><a href="#">Sign In| </a></li>
-      <li><a href="#">User Wall| </a></li>
-    </ul>
-  </nav>
-</header>
+<?php
+require_once ("../home_page/header.php");
+?>
 <div class="container-contact100">
   <div class="wrap-contact100">
     <form class="contact100-form validate-form">
@@ -77,13 +64,11 @@
     </form>
   </div>
 </div>
-<footer>
-  <!--*need to figure out what we are going to include in the footer-->
-
-  <a href="#">Sitemap</a>
-  <a href="#">Policy</a>
-</footer>
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/main.js"></script>
+</body>
+<?php
+require_once ("../home_page/footer.php");
+?>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/Contactus.js"></script>
 </body>
 </html>
