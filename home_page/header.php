@@ -1,12 +1,12 @@
 <head>
   <meta charset="utf-8">
-  <script type="text/javascript" async defer src="script.js"></script>
+  <script type="text/javascript" async defer src="../js/sidenav.js"></script>
   <link rel="stylesheet" href="./css/style_template.css" />
   <meta name="viewport" content="width=device-width">
 </head>
 
 <header>
-    <a href="#"><img id="header-logo" src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" /></a>
+    <a href="#"><img id="header-logo" src="../images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" /></a>
     
     <span id="navBtn" onclick="openNav()">&#9776; MENU</span>
     <div id="sideNav" class="sidenav">
