@@ -1,0 +1,51 @@
+ul{
+    list-style-type: none;
+}
+
+a{
+    color: #007bff;
+}
+
+/*
+Main
+*/
+/**/
+#mobile_close_new_message{
+    display: none;
+}
+@media (max-width: 576px){
+    #mobile_close_new_message{
+        display: block;
+    }
+    #inbox_control_bar{
+        display: none;
+    }
+}
+
+/*
+message
+*/
+/* #back-to-mobile-inbox-control-bar{
+    display: none;
+}
+@media (max-width: 576px){
+    #back-to-mobile-inbox-control-bar{
+        display: block;
+    }
+} */
+.message:hover {
+    box-shadow: 1px 1px 1px grey;
+}
+#inbox:hover{
+    background: #003049;
+    color: aliceblue;
+}
+#sent:hover{
+    background: #003049;
+    color: aliceblue;
+}
+/* #inbox,#sent:hover {
+    
+    background: #003049;
+    color: aliceblue;
+} */

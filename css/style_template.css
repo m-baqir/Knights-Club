@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Poppins&display=swap');
 /**remove all default padding and margins*/
-*{
-    padding: 0;
-    margin: 0;
-}
-body{
-    max-width: 100%;
+html, body{
+    display: grid;
+    height: 100%;
+    margin:0;
+    padding:0;
+    position: relative;
     /**Changed content font to Poppins*/
     font-family: 'Poppins', sans-serif;
 }
@@ -14,23 +16,221 @@ header{
     background-color: #003049;
     color: white;
     font-family: 'Mate SC', serif;
-    height: 100px;
+    height: auto;
+    padding-bottom: 20px;
 }
-nav{
+#header-logo{
+    margin: 2% 0% 0% 5%;
+    width: 15%;
+}
+#navBtn{
+    margin: 4% 5% 0% 0%;
     float: right;
+    font-size:30px;
+    cursor:pointer;
 }
-nav ul{
-    display: flex;
-    text-decoration: none;
-    list-style-type: none;
-    margin-right: 1em;
-    margin-top: 1.5em;
-}
-footer{
-    background-color: #003049;
+.sidenav #searchBar {
+    padding: 0px;
+    height: 40px;
+    padding: 6px;
+    border: none;
+    margin: 8px 0px 0px 0px;
+    font-size: 17px;
+    box-sizing: border-box;
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  .sidenav button {
+    position: relative;
+    height: auto;
+    padding: 10px;
+    background: linear-gradient(to top, #0090b1, #3a7bd5);
     color: white;
-    font-family: 'Mate SC', serif;
-    height: 100px;
+    font-size: 17px;
+    border: none;
+    border-left: none; 
+    cursor: none;
+    border-radius: 0px 10px 10px 0px;
+  }
+  .sidenav button:hover {
+    background: #13324b;
+  }
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #001724;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 700;
+    color: #e7e6e6;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #bd2f2f;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+main{
+    display: block;
+    margin: auto;
+    height: 100%;
+    width: 80%;
+}
+#main-1{
+    margin: 5% 0px 1%;
+    padding: 7% 0 7% 0;
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    text-align: center;
+}
+#main-2{
+    margin: 5% 0px 2%;
+    padding: 7% 0 7% 0;
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    text-align: center;
+}
+#main-3{
+    margin: 0% 0 75px;
+    padding: 1% 0 7% 0;
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    text-align: center;
+}
+#main-1-img{
+    width: 45%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    float: left;
+}
+#main-2-img{
+    width: 30%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+}
+#main-1-text{
+    width: 50%;
+    float: right;
+    font-size: 1rem;
+}
+#main-2-text{
+    width: 40%;
+    float: left;
+    font-size: 1rem;
+}
+#main-3-text{
+    font-size: 1rem;
+    padding-bottom: 30px;
+}
+main p{
+    font-size: 1.5rem;
+}
+#joinBtn{
+    background-color: #003049;
+    margin-top: 100px;
+    padding: 30px 20px;
+    border-radius: 5px;
+    font-size: 25px;
+    font-weight: 800;
+}
+#joinBtn:hover{
+    background-color: #57b0e0;
+}
+
+
+footer{
+    margin-top: auto;
+}
+#footer-menu{
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    background-color: #003049;
+    text-align: left;
+    margin: auto;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+#footer-logo{
+    margin: 2% 0% 0% 5%;
+    width: 20%;
+    height: auto;
+    display: block;
+    float: left;
+}
+.footer-col{
+    display: inline-grid;
+    padding-left: 40px;
+    padding-top: 25px;
+    padding-right: 90px;
+    padding-bottom: 5px;
+}
+.footer-col h3{
+    text-align: left;
+    margin-bottom: 0;
+}
+.footer-col ul {
+    padding-left: 0;
+    text-align: left;
+    font-size: 1em;
+    list-style: none;
+}
+.footer-col a{
+    color: white;
+    text-decoration: none;
+}
+.footer-col a:hover{
+    color: #d85a64;
+}
+#copyright{
+    background-color: #003049;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    bottom: 0;
+    margin: auto;
+    height: 50px;
+    color: rgb(255, 255, 255);
+    padding-bottom: 20px;
+}
+#copyright p{
+    text-align: left;
+    padding-left: 5%;
+    font-size: 15px;
 }
 /**links styling*/
 a{
@@ -40,6 +240,100 @@ a{
 a:hover{
     color: #D62828;
 }
-/*a:visited{
-    need to decide on a link visited color
-}*/
+@media screen and (max-width: 786px) {
+    #header-logo{
+        margin: 4% 0% 0% 5%;
+        width: 25%;
+    }
+    #navBtn{
+        margin: 7% 5% 0% 0%;
+    }
+    #footer-col{
+        display: inline-block;
+        padding: 0px;
+        font-size: 30px;
+        text-align: center;
+        width: 30%;
+    }
+}
+@media screen and (max-width: 564px){
+    #footer-logo{
+        margin: auto;
+        display: block;
+        width: 80%;
+    }
+    #footer-col{
+        display: block;
+        position: relative;
+        float: none;
+        margin: auto;
+        padding: 0%;
+        font-size: 30px;
+        text-align: center;
+        width: 30%;
+        right: 0%;
+    }
+    #copyright p{
+        text-align: center;
+        padding-left: 0px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header{
+        display: inline-block;
+    }
+    #header-logo{
+        margin: 8% 0% 0% 5%;
+        width: 40%;
+    }
+    #navBtn{
+        margin: 11% 5% 0% 0%;
+    }
+    #main-1-img{
+        position: relative;
+        top: 0;
+        width: 100%;
+    }
+    #main-1-text{
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+    #main-2-img{
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 85%;
+    }
+    #main-2-text{
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+
+    #footer-col{
+        display: block;
+        padding-right: 5px;
+        padding-bottom: 10px;
+        font-size: 30px;
+        text-align: center;
+        width: 100%;
+    }
+    #footer-logo{
+        position: relative;
+        width: 80%;
+        padding: 20px 0px 20px 0px;
+    }
+    #footer-menu #footer-logo{
+        display: block;
+        margin: auto;
+        padding-left: 0px;
+    }
+    #copyright p{
+        text-align: center;
+        padding-left: 0px;
+        font-size: 18px;
+    }
+  }
