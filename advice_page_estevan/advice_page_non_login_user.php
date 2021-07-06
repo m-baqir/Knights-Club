@@ -10,15 +10,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/42ed6d485e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./css/advice_page.css" /> <!--Style Sheet that it links too-->
+    <!--Style Sheet that it links too-->
+    <link rel="stylesheet" href="./css/advice_page.css" /> 
+    <!--Additional CSS for header and footer-->
+    <link rel="stylesheet" href="../css/style_template.css" />
 </head>
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<!--
 <header>
     <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
     <nav id="menu">
       <ul>
-        <!--*Navigation elements-->
+        *Navigation elements
         <li><a href="#">Profile | </a></li>
         <li><a href="#">Search| </a></li>
         <li><a href="#">Subscribe| </a></li>
@@ -29,7 +34,8 @@
         <li><a href="#">User Wall </a></li>
       </ul>
     </nav>
-</header>
+</header>-->
+<?php require_once('../home_page/header.php'); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-8 left-side-sidebar">
@@ -146,11 +152,14 @@
         </div>
     </div>
 </div>
+<?php require_once('../home_page/footer.php'); ?>
+<!--
 <footer id="copyRight">
-    <!--*need to figure out what we are going to include in the footer-->
+    *need to figure out what we are going to include in the footer
     <a href="#">Sitemap |</a>
     <a href="#">Policy</a>
     <p class="copyRightLogo"><i class="far fa-copyright"></i> this is the footer</p>
 </footer>
+-->
 </body>
 </html>

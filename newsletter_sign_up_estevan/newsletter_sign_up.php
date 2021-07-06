@@ -30,13 +30,16 @@
 <!--===============================================================================================-->
 <script src="https://kit.fontawesome.com/42ed6d485e.js" crossorigin="anonymous"></script> <!--Adds the logo in the footer-->
 <!--===============================================================================================-->
+<!--Additional CSS for header and footer-->
+<link rel="stylesheet" href="../css/style_template.css" />
 </head>
 <body>
+	<!--
     <header>
         <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
         <nav id="menu">
           <ul>
-            <!--*Navigation elements-->
+            *Navigation elements
             <li><a href="#">Profile | </a></li>
             <li><a href="#">Search| </a></li>
             <li><a href="#">Subscribe| </a></li>
@@ -47,7 +50,9 @@
             <li><a href="#">User Wall </a></li>
           </ul>
         </nav>
-    </header>
+    </header>-->
+	<?php require_once('../home_page/header.php'); ?>
+	
 	<!--DELETE THE DIV SECTION IF THERE IS NO LOGIN USER-->
 	<div id="loginLocation">
 		<p class="loginNotice">Signed in as: Estevan Cordero</p>
@@ -148,14 +153,14 @@
 			</div>
 		</div>
 	</div>
-    <footer id="copyRight">
-        <!--*need to figure out what we are going to include in the footer-->
+	<?php require_once('../home_page/footer.php'); ?>
+    <!--<footer id="copyRight">
+        *need to figure out what we are going to include in the footer
         <a href="#">Sitemap |</a>
         <a href="#">Policy</a>
         <p class="copyRightLogo"><i class="far fa-copyright"></i> this is the footer</p>
-    </footer>
-
-
+    </footer>-->
+	
 	<div id="dropDownSelect1"></div>
 
 <!--===============================================================================================-->

@@ -11,18 +11,19 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/42ed6d485e.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./css/user_profile.css" />
   <!--Style Sheet that it links too-->
+  <link rel="stylesheet" href="./css/user_profile.css" />
+  <link rel="stylesheet" href="../css/style_template.css" />
   <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="./rss.xml" />
 </head>
 
 <body>
-  <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css">
+ <!--
   <header>
     <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
     <nav id="menu">
       <ul>
-        <!--*Navigation elements-->
+        *Navigation elements
         <li><a href="#">Profile | </a></li>
         <li><a href="#">Search| </a></li>
         <li><a href="#">Subscribe| </a></li>
@@ -34,6 +35,8 @@
       </ul>
     </nav>
   </header>
+  -->
+  <?php require_once('../home_page/header.php'); ?>
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -239,12 +242,13 @@
       </div>
     </div>
   </div>
-  <footer id="copyRight">
-    <!--*need to figure out what we are going to include in the footer-->
+  <?php require_once('../home_page/footer.php'); ?>
+  <!--<footer id="copyRight">
+    *need to figure out what we are going to include in the footer
     <a href="#">Sitemap |</a>
     <a href="#">Policy</a>
     <p class="copyRightLogo"><i class="far fa-copyright"></i> this is the footer</p>
-  </footer>
+  </footer>-->
 </body>
 
 </html>
