@@ -7,35 +7,17 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/d77bd3435b.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="../css/style_template.css"/>
-        <link rel="stylesheet" href="css/style.css"/>
+<!--        <link rel="stylesheet" href="../css/style_template.css"/>-->
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
         <script src="js/handler.js"></script>
     </head>
     <body>
-        <header>
-            <a href="#"><img src="../images/php-knights-logo.png" alt="site logo made of a knights helmet"
-                    width="200" /></a>
-            <!-- <nav class="nav"> -->
-                <!-- <ul>
-                    
-                    <li><a href="#">Profile </a></li>
-                    <li><a href="#">Search </a></li>
-                    <li><a href="#">Subscribe </a></li>
-                    <li><a href="#">Advice </a></li>
-                    <li><a href="#">Newsletter </a></li>
-                    <li><a href="#">Search </a></li>
-                    <li><a href="#">Sign In </a></li>
-                    <li><a href="#">User Wall </a></li>
-                </ul> -->
-                <!-- <a class="nav-link" href="#">Profile</a>
-                <a class="nav-link" href="#">Search</a>
-                <a class="nav-link" href="#">Subscribe</a>
-                <a class="nav-link" href="#">Advice</a>
-                <a class="nav-link" href="#">Newsletter</a>
-                <a class="nav-link" href="#">Search</a> -->
-                
-            <!-- </nav> -->
-        </header>
+<!--        <header>-->
+<!--            <a href="#"><img src="../images/php-knights-logo.png" alt="site logo made of a knights helmet"-->
+<!--                    width="200" /></a>-->
+<!--            -->
+<!--        </header>-->
+        <?php require_once('../home_page/header.php'); ?>
         <main>
            
             <div class="container">
@@ -48,7 +30,7 @@
                         <div class="card">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a href="inbox_compose.html">
+                                    <a href="inbox_compose.php">
                                         Compose
                                     </a>
                                 </li>
@@ -61,7 +43,7 @@
                         
                     </div>
 
-                    <div class="col-12 col-sm-8 d-flex flex-column" id="list_messages">
+                    <div class="col-12 col-sm-8 d-flex flex-column" id="list_messages_tools">
                         <div class="bd-highlight d-flex flex-column" id="tools">
                             <!-- <div class="collapse" id="navbarToggleExternalContent">
                               <div class="bg-dark p-4">
@@ -82,7 +64,7 @@
                                     <h2>Inbox</h2>
                                 </div>
                                 <div class="d-block d-block d-md-none" style="font-size: 36px; color: crimson;">
-                                    <a href="inbox_compose.html"><i class="fas fa-edit"></i></a>
+                                    <a href="inbox_compose.php"><i class="fas fa-edit"></i></a>
                                 </div>
                             </div>
                             <div class="d-flex flex-row bd-highlight">
@@ -105,37 +87,37 @@
 
                         </div>
                         
-                        <ul class="bd-highlight d-flex flex-column mb-3 list-group">
+                        <ul id="list_messages" class="bd-highlight d-flex flex-column mb-3 list-group">
                                 <li class="py-2 bd-highlight list-group-item">
                                             <div class="d-flex flex-row bd-highlight align-items-center">
                                                 <div class="p-2 bd-highlight">
                                                     <input type="checkbox">
                                                 </div>
-                                                <div class="p-2 flex-fill bd-highlight position-relative">
-                                                    <div class="d-flex bd-highlight align-items-center">
-                                                        <div class="p-2 bd-highlight">Jordan Henderson</div>
-                                                        <div class="p-2 flex-grow-1 bd-highlight text-truncate">The title of message</div>
-                                                        <a href="#" class="p-2 stretched-link bd-highlight"></a>
-                                                        <div class="p-2 bd-highlight text-right">27 Jun</div>
-                                                    </div>
+<!--                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">-->
+                                                    <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1">
+                                                        <div class="p-md-2 bd-highlight">Jordan Henderson</div>
+                                                        <div class="p-md-2 flex-grow-1 bd-highlight text-truncate">The title of message</div>
+                                                        <a href="message_content.php" class="p-0 stretched-link bd-highlight "></a>
+                                                        <div class="p-md-2 bd-highlight text-right">27 Jun</div>
+<!--                                                    </div>-->
                                                 </div>
                                             </div>
                                 </li>
-                                <li class="py-2 bd-highlight list-group-item">
-                                            <div class="d-flex bd-highlight align-items-center">
-                                                <div class="p-2 bd-highlight">
-                                                    <input type="checkbox">
-                                                </div>
-                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">
-                                                    <div class="d-flex bd-highlight">
-                                                        <div class="p-2 bd-highlight">Jordan Henderson</div>
-                                                        <div class="p-2 flex-grow-1 bd-highlight text-truncate">The title of message</div>
-                                                        <a href="#" class="p-2 stretched-link bd-highlight"></a>
-                                                        <div class="p-2 bd-highlight text-right">27 Jun</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                </li>
+                            <li class="py-2 bd-highlight list-group-item">
+                                <div class="d-flex flex-row bd-highlight align-items-center">
+                                    <div class="p-2 bd-highlight">
+                                        <input type="checkbox">
+                                    </div>
+                                    <!--                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">-->
+                                    <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1">
+                                        <div class="p-md-2 bd-highlight">Jordan Henderson</div>
+                                        <div class="p-md-2 flex-grow-1 bd-highlight text-truncate">The title of message</div>
+                                        <a href="message_content.php" class="p-0 stretched-link bd-highlight "></a>
+                                        <div class="p-md-2 bd-highlight text-right">27 Jun</div>
+                                        <!--                                                    </div>-->
+                                    </div>
+                                </div>
+                            </li>
                                 
                                 
                             <!-- </div> -->
@@ -152,12 +134,12 @@
             </div>
               
         </main>
-        <footer>
-            <!--*need to figure out what we are going to include in the footer-->
-            <p>this is the footer</p>
-            <a href="#">Sitemap</a>
-            <a href="#">Policy</a>
-          </footer>
+<?php require_once('../home_page/footer.php'); ?>
+<!--        <footer>-->
+<!--            <p>this is the footer</p>-->
+<!--            <a href="#">Sitemap</a>-->
+<!--            <a href="#">Policy</a>-->
+<!--          </footer>-->
     </body>
 </html>
 

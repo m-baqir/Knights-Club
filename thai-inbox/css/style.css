@@ -3,7 +3,7 @@ ul{
 }
 
 a{
-    color: #007bff;
+    color: #007bff !important;
 }
 
 /*
@@ -43,6 +43,11 @@ message
 #sent:hover{
     background: #003049;
     color: aliceblue;
+}
+
+#sender-date p{
+    font-size: 15px;
+    margin-bottom: 0;
 }
 /* #inbox,#sent:hover {
     
