@@ -12,24 +12,7 @@
         <link rel="stylesheet" href="css/style_compose.css"/>
 </head>
 <body>
-    <header>
-        <a href="#"><img src="../images/php-knights-logo.png" alt="site logo made of a knights helmet"
-                width="200" /></a>
-        <nav>
-            <ul>
-                <!--*Navigation elements-->
-                <li><a href="#">Profile </a></li>
-                <li><a href="#">Search </a></li>
-                <li><a href="#">Subscribe </a></li>
-                <li><a href="#">Advice </a></li>
-                <li><a href="#">Newsletter </a></li>
-                <li><a href="#">Search </a></li>
-                <li><a href="#">Sign In </a></li>
-                <li><a href="#">User Wall </a></li>
-            </ul>
-
-        </nav>
-    </header>
+<?php require_once('../home_page/header.php'); ?>
     <main>
         <div class="container">
             <div class="row border-top border-bottom">
@@ -46,7 +29,7 @@
                 <form class="flex-grow-1">
                     <div class="p-2" id="mobile_close_new_message">
                         <!--Only display in mobile-->
-                        <a id="closebtn" class="btn btn-primary" href="Inbox.html">Close</a>
+                        <a id="closebtn" class="btn btn-primary" href="Inbox.php">Close</a>
                     </div>
                     <div class="p-2 form-group">
                         <label for="receivers" class="p-2">Receiver(s): </label>
@@ -75,11 +58,6 @@
             </div>
         </div>
     </main>
-    <footer>
-        <!--*need to figure out what we are going to include in the footer-->
-        <p>this is the footer</p>
-        <a href="#">Sitemap</a>
-        <a href="#">Policy</a>
-      </footer>
+<?php require_once('../home_page/footer.php'); ?>
 </body>
 </html>

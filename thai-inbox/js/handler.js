@@ -1,6 +1,6 @@
 $(document).ready(()=>{
     let btn = document.getElementById("btn-back-to-mobile-inbox-control-bar");
-    let messages = document.getElementById("list_messages");
+    let messages = document.getElementById("list_messages_tools");
     let inbox_control_bar= document.getElementById("inbox_control_bar");
     btn.onclick = function(){
         // if (messages.style.display === "none"){
