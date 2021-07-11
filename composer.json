@@ -1,0 +1,9 @@
+{
+    "name": "webappdev/knightsclub",
+    "autoload": {
+        "psr-4": {
+            "Webappdev\\Knightsclub\\": "src/"
+        }
+    },
+    "require": {}
+}
