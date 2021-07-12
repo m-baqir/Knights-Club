@@ -129,7 +129,7 @@ $messages = $message->getMessages($dbConnection);
                                 $appearText.= '</div>
                                         <div class="p-md-2 flex-grow-1 bd-highlight text-truncate">';
                                 $appearText.= $msg->subject;
-                                $appearText.= '<a href="message_content.php" class="p-0 stretched-link bd-highlight "></a>';
+                                $appearText.= "<a href='message_content.php?id=".$msg->id."' class='p-0 stretched-link bd-highlight'></a>";
                                 $appearText.= '<div class="p-md-2 bd-highlight text-right">27 Jun</div></div></div></li>';
                                 echo $appearText;
                             }

@@ -1,4 +1,19 @@
+<?php
+use Webappdev\Knightsclub\models\Message;
+use Webappdev\Knightsclub\models\Database;
+require_once '..\vendor\autoload.php';
+$selectedMessage = null;
 
+if (isset($_GET['id']))
+{
+
+    $id = $_GET['id'];
+    $message =new Message();
+    $dbConnection = Database::getDb();
+    $selectedMessage = $message->getMessageById($id,$dbConnection);
+    //var_dump($selectedMessage);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -90,20 +105,32 @@
                                         <!-- <button type="button" class="btn btn-secondary">search</button> -->
                                     </div>
                                 </form>
-
                             </div>
 
                         </div>
                         <div class="bd-highlight d-flex flex-column">
-                            <h3>Message title</h3>
-                            <div class="bg-light">
-                                <div id="sender-date" class="">
-                                    <p class="font-weight-bold text">Sender</p>
-                                    <p>to me</p>
-                                    <p>June 27</p>
-                                </div>
-                                <p>message content</p>
-                            </div>
+                            <?php
+                                $content =  '<h3>'.$selectedMessage->subject.'</h3>'.
+                                            '<div class="bg-light">
+                                                <div id="sender-date" class="">
+                                                    <p class="font-weight-bold text">'.$selectedMessage->senderName.
+                                                    '</p>
+                                                    <p>to me</p>
+                                                    <p>June 27</p>
+                                                </div>
+                                                <p>'.$selectedMessage->message.'</p>
+                                            </div>';
+                                echo $content;
+                            ?>
+<!--                            <h3>Message title</h3>-->
+<!--                            <div class="bg-light">-->
+<!--                                <div id="sender-date" class="">-->
+<!--                                    <p class="font-weight-bold text">Sender</p>-->
+<!--                                    <p>to me</p>-->
+<!--                                    <p>June 27</p>-->
+<!--                                </div>-->
+<!--                                <p>message content</p>-->
+<!--                            </div>-->
 
                         </div>
                         <!--<ul id="message" class="bd-highlight d-flex flex-column mb-3 list-group">
