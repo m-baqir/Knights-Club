@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width initial-scale=1">
+<!--    <meta name="viewport" content="width=device-width initial-scale=1">-->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -24,7 +24,7 @@
     </form>
     <div class="justify-content-center">
         <div class="d-flex flex-wrap">
-            <div class="card flex-grow-1 m-2" style="width: 18rem;">
+            <div class="card flex-grow-1 m-2" ">
                 <img src="PaulScholes.jpg" class="card-img-top img-thumbnail img-size" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Paul Scholes</h5>
@@ -32,7 +32,7 @@
                     <a href="#" class="btn btn-primary">Make friend</a>
                 </div>
             </div>
-            <div class="card flex-grow-1 m-2" style="width: 18rem;">
+            <div class="card flex-grow-1 m-2">
                 <img src="GaryNeville.jpg" class="card-img-top img-thumbnail img-size" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Gary Neville</h5>
@@ -40,7 +40,7 @@
                     <a href="#" class="btn btn-primary">Make friend</a>
                 </div>
             </div>
-            <div class="card flex-grow-1 m-2" style="width: 18rem;">
+            <div class="card flex-grow-1 m-2">
                 <img src="JadonSancho.jpg" class="card-img-top img-thumbnail img-size" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Jadon Sancho</h5>
@@ -48,7 +48,7 @@
                     <a href="#" class="btn btn-primary">Make friend</a>
                 </div>
             </div>
-            <div class="card flex-grow-1 m-2" style="width: 18rem;">
+            <div class="card flex-grow-1 m-2">
                 <img src="HarryKane.jpg" class="card-img-top img-thumbnail img-size" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Harry Kane</h5>
@@ -56,7 +56,7 @@
                     <a href="#" class="btn btn-primary">Make friend</a>
                 </div>
             </div>
-            <div class="card m-2" style="width: 18rem;">
+            <div class="card m-2">
                 <img src="LukeShaw.jpg" class="card-img-top img-thumbnail img-size" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Luke Shaw</h5>

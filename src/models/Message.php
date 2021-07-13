@@ -19,6 +19,13 @@ class Message{
     }
 
     public function getMessageById($id, $db){
+        $selectQuery = "SELECT *,u2.username as senderName FROM inbox 
+                        JOIN user u1  ON inbox.receiver_id  = u1.id AND u1.id = 2
+                        JOIN user u2  ON inbox.sender_id  = u2.id";
+        $pdostmt = $db->prepare($selectQuery);
+        $pdostmt->execute();
 
+        $selectedMessage = $pdostmt->fetch(PDO::FETCH_OBJ);
+        return $selectedMessage;
     }
 }

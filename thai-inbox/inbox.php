@@ -1,14 +1,3 @@
-<?php
-use Webappdev\Knightsclub\models\Message;
-use Webappdev\Knightsclub\models\Database;
-require_once '../vendor/autoload.php';
-
-$dbConnection = Database::getDb();
-$message = new Message();
-$messages = $message->getMessages($dbConnection);
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,14 +9,9 @@ $messages = $message->getMessages($dbConnection);
         <script src="https://kit.fontawesome.com/d77bd3435b.js" crossorigin="anonymous"></script>
 <!--        <link rel="stylesheet" href="../css/style_template.css"/>-->
         <link type="text/css" rel="stylesheet" href="css/style.css"/>
-        <script src="js/handler.js"></script>
+        <script type="text/javascript" src="js/handler.js"></script>
     </head>
     <body>
-<!--        <header>-->
-<!--            <a href="#"><img src="../images/php-knights-logo.png" alt="site logo made of a knights helmet"-->
-<!--                    width="200" /></a>-->
-<!--            -->
-<!--        </header>-->
         <?php require_once('../home_page/header.php'); ?>
         <main>
            
@@ -71,7 +55,7 @@ $messages = $message->getMessages($dbConnection);
                                       <span class="navbar-toggler-icon"></span>
                                     </button>
                                 </nav>
-                                <div class="flex-grow-1 text-center ">
+                                <div class="flex-grow-1 text-center">
                                     <h2>Inbox</h2>
                                 </div>
                                 <div class="d-block d-block d-md-none" style="font-size: 36px; color: crimson;">
@@ -99,78 +83,21 @@ $messages = $message->getMessages($dbConnection);
                         </div>
                         
                         <ul id="list_messages" class="bd-highlight d-flex flex-column mb-3 list-group">
-                               <!-- <li class="py-2 bd-highlight list-group-item">
-                                            <div class="d-flex flex-row bd-highlight align-items-center">
-                                                <div class="p-2 bd-highlight">
-                                                    <input type="checkbox">
-                                                </div>
 
-                                                    <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1">
-                                                        <div class="p-md-2 bd-highlight">Jordan Henderson</div>
-                                                        <div class="p-md-2 flex-grow-1 bd-highlight text-truncate">The title of message</div>
-                                                        <a href="message_content.php" class="p-0 stretched-link bd-highlight "></a>
-                                                        <div class="p-md-2 bd-highlight text-right">27 Jun</div>
-
-                                                </div>
-                                            </div>
-                                </li>-->
                             <?php
-                            foreach ($messages as $msg)
-                            {
-                                $appearText = '<li class="py-2 bd-highlight list-group-item">
-                                <div class="d-flex flex-row bd-highlight align-items-center">
-                                    <div class="p-2 bd-highlight">
-                                        <input type="checkbox">
-                                    </div>
-                                    <!--                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">-->
-                                    <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1">';
-                                $appearText.='<div class="p-md-2 bd-highlight">';
-                                $appearText.= $msg->senderName;
-                                $appearText.= '</div>
-                                        <div class="p-md-2 flex-grow-1 bd-highlight text-truncate">';
-                                $appearText.= $msg->subject;
-                                $appearText.= '<a href="message_content.php" class="p-0 stretched-link bd-highlight "></a>';
-                                $appearText.= '<div class="p-md-2 bd-highlight text-right">27 Jun</div></div></div></li>';
-                                echo $appearText;
-                            }
+                            require_once "get-messages.php";
                             ?>
-<!--                            <li class="py-2 bd-highlight list-group-item">-->
-<!--                                <div class="d-flex flex-row bd-highlight align-items-center">-->
-<!--                                    <div class="p-2 bd-highlight">-->
-<!--                                        <input type="checkbox">-->
-<!--                                    </div>-->
-
-<!--                                    <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1">-->
-<!--                                        <div class="p-md-2 bd-highlight">Jordan Henderson</div>-->
-<!--                                        <div class="p-md-2 flex-grow-1 bd-highlight text-truncate">The title of message</div>-->
-<!--                                        <a href="message_content.php" class="p-0 stretched-link bd-highlight "></a>-->
-<!--                                        <div class="p-md-2 bd-highlight text-right">27 Jun</div>-->
-
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </li>-->
-                                
-                                
-                            <!-- </div> -->
                             
                         </ul>
                         
                     </div>
-                    <!--
-                    <div class="col-6">
-                        content of a particular message
-                    </div>
-                    -->
+
                 </div>
             </div>
               
         </main>
 <?php require_once('../home_page/footer.php'); ?>
-<!--        <footer>-->
-<!--            <p>this is the footer</p>-->
-<!--            <a href="#">Sitemap</a>-->
-<!--            <a href="#">Policy</a>-->
-<!--          </footer>-->
+
     </body>
 </html>
 
