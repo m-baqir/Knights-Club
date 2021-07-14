@@ -13,31 +13,11 @@
 </head>
 
 <body>
-  <header>
-    <a href="#"><img id="header-logo" src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" /></a>
-    
-    <span id="navBtn" onclick="openNav()">&#9776; MENU</span>
-    <div id="sideNav" class="sidenav">
-      <a id="closeBtn" onclick="closeNav()">&times;</a>
-      <a>
-        <form method="GET" action="search.php">
-          <div>
-            <input type="text" id="searchBar" placeholder="Search.." />
-            <button type="submit" id="searchBtn">Search</button>
-          </div>
-        </form>
-      </a>
-      <a href="#">Profile</a>
-      <a href="#">Subscribe</a>
-      <a href="#">Newsletter</a>
-      <a href="#">About Us</a>
-      <a href="#">Contact</a>
-    </div>
-  </header>
+<?php require_once('../home_page/header.php'); ?>
   <main>
     <div class="container">
       
-      <h1 ><a href="#" class="text-muted text-decoration-none">Suong's Profile</a></h1>
+      <h1 ><a href="../user_profile_estevan/login_user.php" class="text-muted text-decoration-none">Profile</a></h1>
     </div>
     
     <div id="carouselExampleIndicators" class="carousel slide container pt-2 pb-3" data-ride="carousel">     
