@@ -28,4 +28,16 @@ class Message{
         $selectedMessage = $pdostmt->fetch(PDO::FETCH_OBJ);
         return $selectedMessage;
     }
+
+    public function sendMessage($senderId, $receiverId, $subject, $message,$db){
+        $insertQuery = "INSERT INTO inbox(sender_id, receiver_id, subject, message, trash) 
+                        VALUES(:senderId, :receiverId, :subject, :message,0)";
+        $pdostmt = $db->prepare($insertQuery);
+        $pdostmt->bindParam(":senderId",$senderId);
+        $pdostmt->bindParam(":receiverId", $receiverId);
+        $pdostmt->bindParam(":subject", $subject);
+        $pdostmt->bindParam(":message", $message);
+
+        return $pdostmt->execute();
+    }
 }
