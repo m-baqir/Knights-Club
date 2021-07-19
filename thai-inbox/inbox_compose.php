@@ -1,3 +1,24 @@
+<?php
+use Webappdev\Knightsclub\models\Database;
+use Webappdev\Knightsclub\models\Message;
+use Webappdev\Knightsclub\models\User;
+require_once '../vendor/autoload.php';
+
+if(isset($_POST['sendMessage'])){
+    $dbConnection = Database::getDb();
+    $user = new User();
+    $receiverId = $user->getUserIdByUserName($_POST['receiver'],$dbConnection);
+    $message = new Message();
+    //hard code senderId to test. It should be current logged-in user's id
+    if($message->sendMessage(1, $receiverId->id,$_POST['subject'], $_POST['content'],$dbConnection))
+    {
+        echo 'sent message successfully to '.$receiverId->id;
+    }
+    else{
+        echo 'failed to send message to '.$receiverId->id;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +47,7 @@
                     </div>
                     
                 </div>
-                <form class="flex-grow-1">
+                <form class="flex-grow-1" method="POST">
                     <div class="p-2" id="mobile_close_new_message">
                         <!--Only display in mobile-->
                         <a id="closebtn" class="btn btn-primary" href="Inbox.php">Close</a>
@@ -47,7 +68,7 @@
                         
                     </div>
                     <div class="p-2">
-                        <button class="btn btn-primary" type="submit ">Send</button>
+                        <button class="btn btn-primary" type="submit" name="sendMessage">Send</button>
                     </div>
                 </form>
                 <!--

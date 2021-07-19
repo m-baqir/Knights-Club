@@ -10,6 +10,7 @@ if (isset($_GET['id']))
     $id = $_GET['id'];
     $message =new Message();
     $dbConnection = Database::getDb();
+    $message->markMessageAsRead($id, $dbConnection);
     $selectedMessage = $message->getMessageById($id,$dbConnection);
     //var_dump($selectedMessage);
 }
