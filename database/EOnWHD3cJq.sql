@@ -114,15 +114,17 @@ CREATE TABLE `inbox` (
   `receiver_id` int(11) NOT NULL,
   `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `trash` tinyint(1) NOT NULL
+  `trash` tinyint(1) NOT NULL DEFAULT 0,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `date` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `inbox`
 --
 
-INSERT INTO `inbox` (`id`, `sender_id`, `receiver_id`, `subject`, `message`, `trash`) VALUES
-(1, 1, 2, 'Hello World', 'Hello Estevan!', 0);
+INSERT INTO `inbox` (`id`, `sender_id`, `receiver_id`, `subject`, `message`, `trash`, `is_read`, `date`) VALUES
+(12, 1, 2, 'Questions about your hobbies', 'Hi How are you? What are your hobbies?', 0, 1, '2021-07-18 23:02:47');
 
 -- --------------------------------------------------------
 
@@ -340,7 +342,7 @@ ALTER TABLE `hobbies`
 -- AUTO_INCREMENT for table `inbox`
 --
 ALTER TABLE `inbox`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `newsletter`

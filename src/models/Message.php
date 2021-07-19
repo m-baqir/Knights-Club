@@ -11,12 +11,13 @@ class Message{
         /*$selectQuery = "SELECT *,u2.username as senderName FROM inbox
                         JOIN user u1  ON inbox.receiver_id  = u1.id AND u1.id = 2
                         JOIN user u2  ON inbox.sender_id  = u2.id";*/
-        $selectQuery = "SELECT u2.username as senderName, i.message, i.subject, i.id 
+        $selectQuery = "SELECT u2.username as senderName, i.message, i.subject, i.id , i.is_read, i.date
                         FROM inbox i 
                         JOIN user u1 
                             ON i.receiver_id = u1.id AND u1.id = 2 
                         JOIN user u2 
-                            ON i.sender_id = u2.id";
+                            ON i.sender_id = u2.id
+                        WHERE i.trash = 0";
 
         $pdostmt = $db->prepare($selectQuery);
         $pdostmt->execute();
@@ -42,8 +43,8 @@ class Message{
     }
 
     public function sendMessage($senderId, $receiverId, $subject, $message,$db){
-        $insertQuery = "INSERT INTO inbox(sender_id, receiver_id, subject, message, trash) 
-                        VALUES(:senderId, :receiverId, :subject, :message,0)";
+        $insertQuery = "INSERT INTO inbox(sender_id, receiver_id, subject, message) 
+                        VALUES(:senderId, :receiverId, :subject, :message)";
         $pdostmt = $db->prepare($insertQuery);
         $pdostmt->bindParam(":senderId",$senderId);
         $pdostmt->bindParam(":receiverId", $receiverId);
@@ -52,4 +53,12 @@ class Message{
 
         return $pdostmt->execute();
     }
+
+    public function markMessageAsRead($msgId, $db){
+        $updateQuery = "UPDATE inbox SET is_read = 1 WHERE id=:id";
+        $pdostmt = $db->prepare($updateQuery);
+        $pdostmt->bindParam(":id",$msgId);
+        return $pdostmt->execute();
+    }
+
 }
