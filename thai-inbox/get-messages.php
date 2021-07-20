@@ -19,7 +19,7 @@ foreach ($messages as $msg)
     $appearText = '<li class="py-2 bd-highlight list-group-item">
                                 <div class="d-flex flex-row bd-highlight align-items-center">
                                     <div class="p-2 bd-highlight">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="message" id="'.$msg->id.'">
                                     </div>
                                     <!--                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">-->
                                     <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1 position-relative">';

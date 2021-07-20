@@ -1,9 +1,9 @@
 function showMessages() {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
-        console.log('this.readyState ='+this.readyState);
-        console.log('this.status ='+this.status);
-        if (this.readyState === 4 && this.status === 200){
+        console.log('this.readyState =' + this.readyState);
+        console.log('this.status =' + this.status);
+        if (this.readyState === 4 && this.status === 200) {
             document.getElementById("list_messages").innerHTML = this.responseText;
         }
     };
@@ -11,26 +11,53 @@ function showMessages() {
     xmlHttp.send();
 }
 
-function handleAppearance(element, isVisible){
-    if(isVisible === false){
+function handleAppearance(element, isVisible) {
+    if (isVisible === false) {
         element.classList.toggle("visible", isVisible);
         element.classList.toggle("invisible", !isVisible);
         element.style.display = "none";
-    }
-    else {
+    } else {
         element.classList.toggle("visible", isVisible);
         element.classList.toggle("invisible", !isVisible);
         element.style.display = "block";
     }
 }
 
-window.onload = function (){
+function getIdsOfSelectedMessages(name) {
+    //Reference:https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
+    let selectedMessages = document.querySelectorAll(`input[name="${name}"]:checked`);
+    let messageIds = [];
+    selectedMessages.forEach((selectedMessage) => {
+        messageIds.push(selectedMessage.id);
+    })
+    let data = {"ids":messageIds};
+    return data;
+}
+
+function moveSelectedMessagesToTrash() {
+    let messageIds = getIdsOfSelectedMessages("message");
+    let xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function (){
+        if(this.readyState === 4  && this.status === 200){
+            console.log("successfully move to the trash" + this.responseText);
+        }
+    }
+
+    xmlHttpRequest.open("post","move-messages-to-trash.php");
+    xmlHttpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    //Reference: https://stackoverflow.com/questions/18866571/receive-json-post-with-php
+    xmlHttpRequest.send(JSON.stringify(messageIds));
+    //xmlHttpRequest.send(messageIds);
+
+}
+
+window.onload = function () {
     let btn = document.getElementById("btn-back-to-mobile-inbox-control-bar");
     let messages = document.getElementById("list_messages_tools");
-    let inbox_control_bar= document.getElementById("inbox_control_bar");
+    let inbox_control_bar = document.getElementById("inbox_control_bar");
     //loading the latest messages every 10 seconds.
-    setInterval(showMessages,10000);
-    btn.onclick = function(){
+    setInterval(showMessages, 10000);
+    btn.onclick = function () {
         /*messages.classList.toggle("visible",false);
         messages.classList.toggle("invisible",true);
         messages.style.display = "none";
@@ -38,37 +65,35 @@ window.onload = function (){
         inbox_control_bar.classList.toggle("invisible", false);
         inbox_control_bar.classList.toggle("visible",true);
         inbox_control_bar.style.display = "block";*/
-        handleAppearance(messages,false);
+        handleAppearance(messages, false);
         handleAppearance(inbox_control_bar, true);
     }
 
     let inbox = document.getElementById("inbox");
 
-        inbox.onclick = function(){
-            if(window.screen.width * window.devicePixelRatio < 576){
-                handleAppearance(messages,true);
-                handleAppearance(inbox_control_bar,false);
-            }
-            else{
-                handleAppearance(messages,true);
-                handleAppearance(inbox_control_bar,true);
-            }
-            showMessages();
+    inbox.onclick = function () {
+        if (window.screen.width * window.devicePixelRatio < 576) {
+            handleAppearance(messages, true);
+            handleAppearance(inbox_control_bar, false);
+        } else {
+            handleAppearance(messages, true);
+            handleAppearance(inbox_control_bar, true);
         }
+        showMessages();
+    }
 
-
-
+    
 
     function getResolution() {
         alert("Your screen resolution is: " + window.screen.width * window.devicePixelRatio + "x" + window.screen.height * window.devicePixelRatio);
     }
+
     // $('#btn-back-to-mobile-inbox-control-bar').click(function(){
     //     // $('#list_messages').animate({display:'none'},'slow');
     //     // $('inbox_control_bar').animate({display:'block'}, 'slow');
     //     $('#list_messages').hide();
     //     $('inbox_control_bar').show();
     // });
-
 
 
 }
