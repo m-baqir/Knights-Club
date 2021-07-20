@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 09, 2021 at 04:42 PM
--- Server version: 8.0.13-4
--- PHP Version: 7.2.24-0ubuntu0.18.04.7
+-- Host: 127.0.0.1
+-- Generation Time: Jul 20, 2021 at 07:18 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `EOnWHD3cJq`
+-- Database: `knightclub`
 --
 
 -- --------------------------------------------------------
@@ -82,7 +81,10 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `user_id`, `image_name`, `picextension`, `main_image`) VALUES
-(1, 1, 'test-img', 'jpg', 0);
+(1, 1, 'test-img', 'jpg', 0),
+(2, 1, 'ben-sweet-2LowviVHZ-E-unsplash', 'jpg', 0),
+(3, 2, 'eddy-lackmann-lLdGG3ESoiI-unsplash', 'jpg', 1),
+(4, 2, 'mateo-avila-chinchilla-x_8oJhYU31k-unsplash', 'jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -176,14 +178,14 @@ CREATE TABLE `user` (
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `link_to_facebook` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `link_to_twitter` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link_to_facebook` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link_to_twitter` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `age` int(11) NOT NULL,
   `date_of_signup` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `education` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `workplace` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_status` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `education` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `workplace` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `subscription_type` int(11) DEFAULT NULL,
   `hobbies_interest_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -330,7 +332,7 @@ ALTER TABLE `friends`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
