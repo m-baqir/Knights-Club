@@ -1,13 +1,35 @@
-function showMessages() {
+let controlType ={
+    INBOX: 1,
+    SENT: 2,
+    TRASH: 3,
+}
+var inboxLoadingIntervalId;
+
+function showMessages(control = 1) {
     let xmlHttp = new XMLHttpRequest();
+    let url = "get-messages.php";
     xmlHttp.onreadystatechange = function () {
-        console.log('this.readyState =' + this.readyState);
-        console.log('this.status =' + this.status);
+        //console.log('this.readyState =' + this.readyState);
+        //console.log('this.status =' + this.status);
         if (this.readyState === 4 && this.status === 200) {
             document.getElementById("list_messages").innerHTML = this.responseText;
         }
     };
-    xmlHttp.open("GET", "get-messages.php");
+
+    if (control === controlType.SENT){
+        clearInterval(inboxLoadingIntervalId);
+        url= url.concat("?controlType=2");
+    }
+    else if (control === controlType.TRASH)
+    {
+        clearInterval(inboxLoadingIntervalId);
+        url= url.concat("?controlType=3");
+    }
+    else {
+        inboxLoadingIntervalId = setInterval(showMessages,10000);
+    }
+    xmlHttp.open("GET", url);
+    xmlHttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     xmlHttp.send();
 }
 
@@ -51,12 +73,22 @@ function moveSelectedMessagesToTrash() {
 
 }
 
+function initOnClickEvent(element, control = 1) {
+    element.onclick = function () {
+
+        showMessages(control);
+    }
+}
+
 window.onload = function () {
     let btn = document.getElementById("btn-back-to-mobile-inbox-control-bar");
     let messages = document.getElementById("list_messages_tools");
     let inbox_control_bar = document.getElementById("inbox_control_bar");
+    let sent = document.getElementById("sent");
+    let trash = document.getElementById("trash");
+
     //loading the latest messages every 10 seconds.
-    setInterval(showMessages, 10000);
+    inboxLoadingIntervalId= setInterval(showMessages, 10000);
     btn.onclick = function () {
         /*messages.classList.toggle("visible",false);
         messages.classList.toggle("invisible",true);
@@ -71,7 +103,7 @@ window.onload = function () {
 
     let inbox = document.getElementById("inbox");
 
-    inbox.onclick = function () {
+    /*inbox.onclick = function () {
         if (window.screen.width * window.devicePixelRatio < 576) {
             handleAppearance(messages, true);
             handleAppearance(inbox_control_bar, false);
@@ -80,9 +112,10 @@ window.onload = function () {
             handleAppearance(inbox_control_bar, true);
         }
         showMessages();
-    }
-
-    
+    }*/
+    initOnClickEvent(inbox, controlType.INBOX)
+    initOnClickEvent(sent, controlType.SENT);
+    initOnClickEvent(trash, controlType.TRASH);
 
     function getResolution() {
         alert("Your screen resolution is: " + window.screen.width * window.devicePixelRatio + "x" + window.screen.height * window.devicePixelRatio);

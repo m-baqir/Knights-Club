@@ -41,8 +41,9 @@ if(isset($_POST['sendMessage'])){
                     <div class="card">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Compose</li>
-                            <li class="list-group-item">Inbox</li>
-                            <li class="list-group-item">Sent</li>
+                            <li class="list-group-item position-relative"><a href="inbox.php" class="stretched-link"></a>Inbox</li>
+                            <li class="list-group-item position-relative"><a href="inbox.php?controlType=2" class="stretched-link"></a>Sent</li>
+                            <li class="list-group-item position-relative"><a href="inbox.php?controlType=3" class="stretched-link"></a>Trash</li>
                         </ul>
                     </div>
                     

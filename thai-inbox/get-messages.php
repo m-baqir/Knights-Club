@@ -1,34 +1,18 @@
 <?php
-use Webappdev\Knightsclub\models\Message;
-use Webappdev\Knightsclub\models\Database;
+require_once 'load-messages-from-db.php';
+require_once 'merge_messages_to_html_text.php';
+$controlType = 1;
+if(isset($_GET['controlType'])){
+    //REMEMBER: type of $_GET['controlType'] is string, not number. Hence, using intval converts from string to int.
+    $controlType = intval($_GET['controlType']);
+}
+//Write file to debug
+/*$file = fopen("get-message.txt","w+");
+fwrite($file,$selectQuery."\n");*/
 
-require_once '../vendor/autoload.php';
-
-$dbConnection = Database::getDb();
-$message = new Message();
-$messages = $message->getMessages($dbConnection);
+$messages = loadMessagesFromDb($controlType);
 //var_dump($messages);//for Debug
 
-foreach ($messages as $msg)
-{
-    $bold = "";
-    if($msg->is_read === "0")
-    {
-        $bold = "font-weight-bold";
-    }
-    $appearText = '<li class="py-2 bd-highlight list-group-item">
-                                <div class="d-flex flex-row bd-highlight align-items-center">
-                                    <div class="p-2 bd-highlight">
-                                        <input type="checkbox" name="message" id="'.$msg->id.'">
-                                    </div>
-                                    <!--                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">-->
-                                    <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1 position-relative">';
-    $appearText.='<div class="p-md-2 bd-highlight '.$bold.'">';
-
-    $appearText.= $msg->senderName;
-    $appearText.= '</div><div class="p-md-2 flex-grow-1 bd-highlight text-truncate '.$bold.'">';
-    $appearText.= $msg->subject;
-    $appearText.= '<a href="message_content.php?id='.$msg->id.'" class="p-0 stretched-link bd-highlight"></a>';
-    $appearText.= '<div class="p-md-2 bd-highlight text-right">'.$msg->date.'</div></div></div></li>';
-    echo $appearText;
-}
+echo mergeMessagesToHTMLText($messages);
+/*fwrite($file,$finalText);
+fclose($file);*/

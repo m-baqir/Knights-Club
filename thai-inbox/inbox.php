@@ -1,3 +1,23 @@
+<?php
+require_once 'load-messages-from-db.php';
+require_once 'merge_messages_to_html_text.php';
+$controlType = 1;
+if(isset($_GET['controlType'])){
+    //REMEMBER: type of $_GET['controlType'] is string, not number. Hence, using intval converts from string to int.
+    $controlType = intval($_GET['controlType']);
+}
+//Write file to debug
+/*$file = fopen("get-message.txt","w+");
+fwrite($file,"type of variable controlType: ".gettype($controlType)."\n");
+$selectQuery = "";
+fwrite($file,$selectQuery."\n");*/
+
+$messages = loadMessagesFromDb($controlType);
+//var_dump($messages);//for Debug
+$appearText = mergeMessagesToHTMLText($messages);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -86,7 +106,7 @@
                         <ul id="list_messages" class="bd-highlight d-flex flex-column mb-3 list-group">
 
                             <?php
-                            require_once "get-messages.php";
+                            echo $appearText;
                             ?>
                             
                         </ul>
