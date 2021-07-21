@@ -33,6 +33,7 @@
                                     Inbox
                                 </li>
                                 <li class="list-group-item" id="sent">Sent</li>
+                                <li class="list-group-item" id="trash">Trash</li>
                             </ul>
                         </div>
                         
@@ -64,7 +65,7 @@
                             </div>
                             <div class="d-flex flex-row bd-highlight">
                                 <div class="bd-highlight m-1" style="font-size: 32px;">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-trash-alt" id="messageDeletion" onclick="moveSelectedMessagesToTrash()"></i>
                                 </div>
                                 <form class="bd-highlight flex-fill">
                                     <div class="input-group my-2 d-flex flex-row">

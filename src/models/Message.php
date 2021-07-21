@@ -61,4 +61,9 @@ class Message{
         return $pdostmt->execute();
     }
 
+    public function moveMessagesToTrash($ids, $db){
+        $updateQuery = "UPDATE inbox SET trash = 1 WHERE id IN (".$ids.")";
+        $pdostmt = $db->prepare($updateQuery);
+        return $pdostmt->execute();
+    }
 }
