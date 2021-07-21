@@ -51,10 +51,12 @@ if (isset($_GET['id']))
                                         Compose
                                     </a>
                                 </li>
-                                <li class="list-group-item" id="inbox">
+                                <li class="list-group-item position-relative" id="inbox">
+                                    <a href="inbox.php" class="stretched-link"></a>
                                     Inbox
                                 </li>
-                                <li class="list-group-item" id="sent">Sent</li>
+                                <li class="list-group-item position-relative" id="sent"><a href="inbox.php?controlType=2" class="stretched-link"></a> Sent</li>
+                                <li class="list-group-item position-relative" id="trash"><a href="inbox.php?controlType=3" class="stretched-link"></a>Trash</li>
                             </ul>
                         </div>
 
@@ -117,7 +119,7 @@ if (isset($_GET['id']))
                                                     <p class="font-weight-bold text">'.$selectedMessage->senderName.
                                                     '</p>
                                                     <p>to me</p>
-                                                    <p>June 27</p>
+                                                    <p>'.$selectedMessage->date.'</p>
                                                 </div>
                                                 <p>'.$selectedMessage->message.'</p>
                                             </div>';
