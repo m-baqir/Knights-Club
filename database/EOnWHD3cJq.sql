@@ -131,7 +131,7 @@ INSERT INTO `inbox` (`id`, `sender_id`, `receiver_id`, `subject`, `message`, `tr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newsletter`
+-- Table structure for table `newsletter-signup`
 --
 
 CREATE TABLE `newsletter` (
