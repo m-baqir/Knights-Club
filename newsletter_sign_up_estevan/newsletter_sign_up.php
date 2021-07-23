@@ -1,3 +1,29 @@
+<?php
+use Model\{Database, Newsletter};
+require_once 'vendor/autoload.php';
+    // error message when trying to use isset
+    // check with others and see what it could be.
+    if(isset($_POST['addNewsletter'])){
+
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $email = $_POST['email'];
+        $consent = $_POST['consent'];
+
+        $db = Database::getDb();
+        $su = new Newsletter();
+        $su = $su->addNewsletter($firstname, $lastname, $email, $consent, $db);
+
+        if($su) {
+            echo "Thank you for signing up";
+        } else {
+            echo "Failed in signing up";
+        }
+    }
+
+    // insert works add validation for consent, name, email
+    // make sure that each value is checked if used properly
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,23 +60,6 @@
 <link rel="stylesheet" href="../css/style_template.css" />
 </head>
 <body>
-	<!--
-    <header>
-        <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
-        <nav id="menu">
-          <ul>
-            *Navigation elements
-            <li><a href="#">Profile | </a></li>
-            <li><a href="#">Search| </a></li>
-            <li><a href="#">Subscribe| </a></li>
-            <li><a href="#">Advice| </a></li>
-            <li><a href="#">Newsletter| </a></li>
-            <li><a href="#">Search| </a></li>
-            <li><a href="#">Sign In| </a></li>
-            <li><a href="#">User Wall </a></li>
-          </ul>
-        </nav>
-    </header>-->
 	<?php require_once('../home_page/header.php'); ?>
 	
 	<!--DELETE THE DIV SECTION IF THERE IS NO LOGIN USER-->
@@ -61,18 +70,18 @@
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">	
-			<form class="contact100-form validate-form">
+			<form action="" method="post" class="contact100-form validate-form">
 				<span class="contact100-form-title">
 					Sign Up For Our Newsletter
 				</span>
 
-				<label class="label-input100" for="first-name">Tell us your name *</label>
+				<label class="label-input100" for="firstname">Tell us your name *</label>
 				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Type first name">
-					<input id="first-name" class="input100" type="text" name="first-name" placeholder="First name">
+					<input id="first-name" class="input100" type="text" name="firstname" placeholder="First name">
 					<span class="focus-input100"></span>
 				</div>
 				<div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Type last name">
-					<input class="input100" type="text" name="last-name" placeholder="Last name">
+					<input class="input100" type="text" name="lastname" placeholder="Last name">
 					<span class="focus-input100"></span>
 				</div>
 
@@ -82,9 +91,9 @@
 					<span class="focus-input100"></span>
 				</div>
 
-				<label class="label-input100" for="CONSENT">By clicking on the checkbox you have consensted in allow us to send email to you.</label>
+				<label class="label-input100" for="consent">By clicking on the checkbox you have consensted in allow us to send email to you.</label>
 				<div class="wrap-input100">
-					<input id="checkbox" class="input100" type="checkbox" name="CONSENT">
+					<input id="checkbox" class="input100" type="checkbox" name="consent">
 					<span class="focus-input100"></span>
 				</div>
 
@@ -95,7 +104,7 @@
 				</div>-->
 
 				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">
+					<button type="submit" name="addNewsletter" class="contact100-form-btn">
 						CONFIRM SIGN UP
 					</button>
 				</div>
