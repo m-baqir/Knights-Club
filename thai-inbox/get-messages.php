@@ -13,6 +13,6 @@ fwrite($file,$selectQuery."\n");*/
 $messages = loadMessagesFromDb($controlType);
 //var_dump($messages);//for Debug
 
-echo mergeMessagesToHTMLText($messages);
+echo mergeMessagesToHTMLText($messages,$controlType);
 /*fwrite($file,$finalText);
 fclose($file);*/

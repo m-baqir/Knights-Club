@@ -1,11 +1,12 @@
 <?php
-function mergeMessagesToHTMLText($messages): string
+function mergeMessagesToHTMLText($messages,$controlType): string
 {
     $appearText = '';
     foreach ($messages as $msg)
     {
         $bold = "";
-        if($msg->is_read === "0")
+
+        if($controlType === 1 &&$msg->is_read === "0")
         {
             $bold = "font-weight-bold";
         }
@@ -17,12 +18,16 @@ function mergeMessagesToHTMLText($messages): string
                                     <!--                                                <div class="p-2 flex-grow-1 bd-highlight position-relative">-->
                                     <div class="d-flex flex-column flex-md-row bd-highlight align-items-center flex-grow-1 position-relative">';
         $appearText.='<div class="p-md-2 bd-highlight '.$bold.'">';
-
-        $appearText.= $msg->senderName;
+        if ($controlType !== 2){
+            $appearText.= $msg->senderName;
+        }
+        else{
+            $appearText .= $msg->receiverName;
+        }
         $appearText.= '</div><div class="p-md-2 flex-grow-1 bd-highlight text-truncate '.$bold.'">';
-        $appearText.= $msg->subject;
+        $appearText.= $msg->message_subject;
         $appearText.= '<a href="message_content.php?id='.$msg->id.'" class="p-0 stretched-link bd-highlight"></a>';
-        $appearText.= '<div class="p-md-2 bd-highlight text-right">'.$msg->date.'</div></div></div></li>';
+        $appearText.= '<div class="p-md-2 bd-highlight text-right">'.$msg->message_date.'</div></div></div></li>';
 
     }
     return $appearText;

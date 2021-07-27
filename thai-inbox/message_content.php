@@ -113,15 +113,19 @@ if (isset($_GET['id']))
                         </div>
                         <div class="bd-highlight d-flex flex-column">
                             <?php
-                                $content =  '<h3>'.$selectedMessage->subject.'</h3>'.
+                                $receiver = 'me';
+                                $content =  '<h3>'.$selectedMessage->message_subject.'</h3>'.
                                             '<div class="bg-light">
                                                 <div id="sender-date" class="">
-                                                    <p class="font-weight-bold text">'.$selectedMessage->senderName.
-                                                    '</p>
-                                                    <p>to me</p>
-                                                    <p>'.$selectedMessage->date.'</p>
+                                                    <p class="font-weight-bold text">'.$selectedMessage->sender_username.
+                                                    '</p><p>to ';
+                                //if ($selectedMessage->receiver_id !== $_SESSION['current_user_id']){
+                                if ($selectedMessage->receiver_id !== 2){//hard coding to test
+                                    $receiver = $selectedMessage->receiver_name;
+                                }
+                                 $content .= $receiver.'</p><p>'.$selectedMessage->message_date.'</p>
                                                 </div>
-                                                <p>'.$selectedMessage->message.'</p>
+                                                <p>'.$selectedMessage->message_content.'</p>
                                             </div>';
                                 echo $content;
                             ?>

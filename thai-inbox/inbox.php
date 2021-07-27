@@ -14,7 +14,7 @@ fwrite($file,$selectQuery."\n");*/
 
 $messages = loadMessagesFromDb($controlType);
 //var_dump($messages);//for Debug
-$appearText = mergeMessagesToHTMLText($messages);
+$appearText = mergeMessagesToHTMLText($messages,$controlType);
 
 ?>
 
@@ -85,7 +85,8 @@ $appearText = mergeMessagesToHTMLText($messages);
                             </div>
                             <div class="d-flex flex-row bd-highlight">
                                 <div class="bd-highlight m-1" style="font-size: 32px;">
-                                    <i class="fas fa-trash-alt" id="messageDeletion" onclick="moveSelectedMessagesToTrash()"></i>
+                                    <!--Another tip: https://stackoverflow.com/questions/6621231/passing-php-variable-in-onclick-function-->
+                                    <i class="fas fa-trash-alt" id="messageDeletion" onclick="moveSelectedMessagesToTrash(<?php echo $controlType;?>)"></i>
                                 </div>
                                 <form class="bd-highlight flex-fill">
                                     <div class="input-group my-2 d-flex flex-row">

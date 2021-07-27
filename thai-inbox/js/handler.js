@@ -52,11 +52,12 @@ function getIdsOfSelectedMessages(name) {
     selectedMessages.forEach((selectedMessage) => {
         messageIds.push(selectedMessage.id);
     })
-    let data = {"ids":messageIds};
-    return data;
+
+    return messageIds;
 }
 
-function moveSelectedMessagesToTrash() {
+function moveSelectedMessagesToTrash(controlType) {
+
     let messageIds = getIdsOfSelectedMessages("message");
     let xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function (){
@@ -67,8 +68,10 @@ function moveSelectedMessagesToTrash() {
 
     xmlHttpRequest.open("post","move-messages-to-trash.php");
     xmlHttpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    let data = {"ids":messageIds, "controlType":controlType};
+    console.log("data: "+data);
     //Reference: https://stackoverflow.com/questions/18866571/receive-json-post-with-php
-    xmlHttpRequest.send(JSON.stringify(messageIds));
+    xmlHttpRequest.send(JSON.stringify(data));
     //xmlHttpRequest.send(messageIds);
 
 }

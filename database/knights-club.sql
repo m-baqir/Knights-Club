@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2021 at 05:19 PM
+-- Generation Time: Jul 27, 2021 at 08:38 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `knights-club`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `send_message` (IN `message_subject_value` VARCHAR(512), IN `message_content_value` VARCHAR(65000), IN `sender_id_value` INT, IN `receiver_id_value` INT)  BEGIN
+	DECLARE var_message_id INT;
+    SELECT MAX(id) +1 INTO var_message_id FROM messages;
+	INSERT INTO messages (id,message_subject, message_content, message_date) VALUES(var_message_id,message_subject_value, message_content_value, CURRENT_TIMESTAMP);
+    INSERT INTO message_senders (sender_id,message_id) VALUES (sender_id_value,var_message_id);
+    INSERT INTO message_receivers (receiver_id,message_id) VALUES (receiver_id_value,var_message_id);
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -104,24 +118,84 @@ INSERT INTO `hobbies` (`id`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `inbox`
+-- Table structure for table `messages`
 --
 
-CREATE TABLE `inbox` (
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `message_subject` varchar(200) NOT NULL,
+  `message_content` varchar(500) NOT NULL,
+  `message_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `message_subject`, `message_content`, `message_date`) VALUES
+(1, 'subject 1', 'content 1', '2021-07-26'),
+(3, 'subject 2', 'content 2', '2021-07-26'),
+(4, 'subject 3', 'content 3', '2021-07-26'),
+(5, 'subject 4', 'content 4', '2021-07-26'),
+(6, 'subject 5', 'content 5', '2021-07-26'),
+(7, 'subject 6', 'content 6', '2021-07-26'),
+(8, 'store_procedure_subject', 'stored procedure is created successfully', '2021-07-27'),
+(9, 'subject 100', 'content 100', '2021-07-27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message_receivers`
+--
+
+CREATE TABLE `message_receivers` (
+  `id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `is_read` tinyint(1) NOT NULL,
+  `in_trash` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `message_receivers`
+--
+
+INSERT INTO `message_receivers` (`id`, `receiver_id`, `message_id`, `is_read`, `in_trash`) VALUES
+(1, 2, 1, 1, 0),
+(2, 2, 3, 0, 0),
+(3, 2, 4, 0, 0),
+(4, 2, 5, 0, 0),
+(5, 2, 6, 1, 1),
+(6, 1, 7, 0, 0),
+(7, 2, 8, 1, 0),
+(8, 2, 9, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message_senders`
+--
+
+CREATE TABLE `message_senders` (
   `id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
-  `receiver_id` int(11) NOT NULL,
-  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `message` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `trash` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `message_id` int(11) NOT NULL COMMENT 'point to id of messages table',
+  `in_trash` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `inbox`
+-- Dumping data for table `message_senders`
 --
 
-INSERT INTO `inbox` (`id`, `sender_id`, `receiver_id`, `subject`, `message`, `trash`) VALUES
-(1, 1, 2, 'Hello World', 'Hello Estevan!', 0);
+INSERT INTO `message_senders` (`id`, `sender_id`, `message_id`, `in_trash`) VALUES
+(1, 1, 1, 0),
+(2, 1, 3, 0),
+(3, 1, 4, 0),
+(4, 1, 5, 0),
+(5, 1, 6, 0),
+(6, 2, 7, 1),
+(7, 1, 8, 0),
+(8, 1, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -268,12 +342,26 @@ ALTER TABLE `hobbies`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `inbox`
+-- Indexes for table `messages`
 --
-ALTER TABLE `inbox`
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `message_receivers`
+--
+ALTER TABLE `message_receivers`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `receiver_id` (`receiver_id`),
-  ADD KEY `sender_id` (`sender_id`);
+  ADD KEY `fk_receiver_message_id` (`message_id`),
+  ADD KEY `fk_receiver_user_id` (`receiver_id`);
+
+--
+-- Indexes for table `message_senders`
+--
+ALTER TABLE `message_senders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_sender_message_id` (`message_id`) USING BTREE,
+  ADD KEY `fk_sender_user_id` (`sender_id`) USING BTREE;
 
 --
 -- Indexes for table `newsletter`
@@ -338,10 +426,22 @@ ALTER TABLE `hobbies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `inbox`
+-- AUTO_INCREMENT for table `messages`
 --
-ALTER TABLE `inbox`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `message_receivers`
+--
+ALTER TABLE `message_receivers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `message_senders`
+--
+ALTER TABLE `message_senders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `newsletter`
@@ -395,6 +495,20 @@ ALTER TABLE `friends`
 --
 ALTER TABLE `gallery`
   ADD CONSTRAINT `gallery_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `message_receivers`
+--
+ALTER TABLE `message_receivers`
+  ADD CONSTRAINT `fk_receiver_message_id` FOREIGN KEY (`message_id`) REFERENCES `messages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_receiver_user_id` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `message_senders`
+--
+ALTER TABLE `message_senders`
+  ADD CONSTRAINT `fk_message_id` FOREIGN KEY (`message_id`) REFERENCES `messages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
