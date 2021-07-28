@@ -2,13 +2,13 @@
 
 use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Images;
-  require_once '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
   $gallery = new Images();
 
   $db = Database::getDb();
 
-  $users = $gallery->getImagesById("2",$db); //for now user ID will be hardcoded
+  $users = $gallery->getImagesById(2,$db); //for now user ID will be hardcoded
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +29,10 @@ use Webappdev\Knightsclub\models\Images;
 <body>
 <?php require_once('../home_page/header.php'); ?>
   <main>
-    <div class="container">
+    <div class="d-flex justify-content-between">
       
       <h1 ><a href="../user_profile_estevan/login_user.php" class="text-muted text-decoration-none"><?=$users[0]->username; ?>'s Profile</a></h1>
+      <?php require_once '../Suong-User-Status/userStatus.php' ?>
     </div>
     
     <div id="carouselExampleIndicators" class="carousel slide container pt-2 pb-3" data-ride="carousel">     
