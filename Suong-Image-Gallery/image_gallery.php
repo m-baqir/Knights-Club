@@ -32,7 +32,11 @@ require_once '../vendor/autoload.php';
     <div class="d-flex justify-content-between">
       
       <h1 ><a href="../user_profile_estevan/login_user.php" class="text-muted text-decoration-none"><?=$users[0]->username; ?>'s Profile</a></h1>
-      <?php require_once '../Suong-User-Status/userStatus.php' ?>
+      <div class="d-flex">
+        <?php require_once '../Suong-Notification/userNotification.php' ?>
+        <?php require_once '../Suong-User-Status/userStatus.php' ?>
+      </div>
+      
     </div>
     
     <div id="carouselExampleIndicators" class="carousel slide container pt-2 pb-3" data-ride="carousel">     
