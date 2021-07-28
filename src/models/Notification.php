@@ -6,10 +6,14 @@ use PDO;
 class Notification{
     //This function will fetch the information of an user inbox
     public function getUserInbox($id,$db){
-        $selectQuery = "SELECT u.username, i.subject, i.is_read
-                        FROM inbox i
+        $selectQuery = "SELECT u.username, mr.is_read
+                        FROM message_receivers mr
+                        JOIN messages m
+                            ON mr.message_id = m.id
+                        JOIN message_senders ms
+                            ON ms.message_id = m.id
                         JOIN user u
-                            ON u.id = i.sender_id
+                            ON u.id = ms.sender_id
                         WHERE receiver_id = :id";
         
         $pdostmt = $db->prepare($selectQuery);
@@ -20,7 +24,7 @@ class Notification{
         return $selectedUsers;
     }
 
-    //This function intake the id of an user and then output the online status of that user
+/*     //This function intake the id of an user and then output the online status of that user
     public function getUserStatus($id,$db){
         $selectQuery = "SELECT username, user_status
                         FROM user
@@ -48,5 +52,5 @@ class Notification{
         $count = $pdostmt->execute();
 
         return $count;
-    }
+    } */
 }

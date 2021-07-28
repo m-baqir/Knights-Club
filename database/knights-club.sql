@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2021 at 08:38 PM
+-- Generation Time: Jul 28, 2021 at 06:22 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `knights-club`
+-- Database: `knightclub`
 --
 
 DELIMITER $$
@@ -95,7 +95,9 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `user_id`, `image_name`, `picextension`, `main_image`) VALUES
-(1, 1, 'test-img', 'jpg', 0);
+(1, 1, 'ben-sweet-2LowviVHZ-E-unsplash', 'jpg', 0),
+(2, 2, 'eddy-lackmann-lLdGG3ESoiI-unsplash', 'jpg', 1),
+(3, 2, 'mateo-avila-chinchilla-x_8oJhYU31k-unsplash', 'jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -267,7 +269,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `link_to_facebook`, `link_to_twitter`, `phone_number`, `age`, `date_of_signup`, `education`, `workplace`, `user_status`, `subscription_type`, `hobbies_interest_id`) VALUES
 (1, 'AhmedH', '12345', 'ahmed@mail.ca', NULL, NULL, NULL, 26, '2021-07-09', NULL, NULL, NULL, NULL, NULL),
-(2, 'EstevanC', 'testpassword', 'estevan@mail.ca', NULL, NULL, NULL, 40, '2021-07-09', NULL, NULL, NULL, NULL, NULL);
+(2, 'EstevanC', 'testpassword', 'estevan@mail.ca', NULL, NULL, NULL, 40, '2021-07-09', NULL, NULL, 'hidden', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -417,7 +419,7 @@ ALTER TABLE `friends`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hobbies`
