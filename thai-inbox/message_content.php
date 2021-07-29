@@ -117,11 +117,11 @@ if (isset($_GET['id']))
                                 $content =  '<h3>'.$selectedMessage->message_subject.'</h3>'.
                                             '<div class="bg-light">
                                                 <div id="sender-date" class="">
-                                                    <p class="font-weight-bold text">'.$selectedMessage->sender_username.
+                                                    <p class="font-weight-bold text">'.$selectedMessage->senderName.
                                                     '</p><p>to ';
                                 //if ($selectedMessage->receiver_id !== $_SESSION['current_user_id']){
                                 if ($selectedMessage->receiver_id !== 2){//hard coding to test
-                                    $receiver = $selectedMessage->receiver_name;
+                                    $receiver = $selectedMessage->receiverName;
                                 }
                                  $content .= $receiver.'</p><p>'.$selectedMessage->message_date.'</p>
                                                 </div>

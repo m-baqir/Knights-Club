@@ -28,55 +28,19 @@ class Message{
             //$finalQuery = "";
             //For inbox
             if ($controlType === 1){//INBOX
-                $selectQuery .= "SELECT u1.username as senderName, m.id, m.message_subject, m.message_content, m.message_date, mr.is_read
-                        FROM messages m
-                        JOIN message_senders ms
-                        	ON m.id = ms.message_id
-                        JOIN user u1 
-                            ON ms.sender_id = u1.id
-                        JOIN message_receivers mr
-                        	ON m.id = mr.message_id
-                        JOIN user u2
-                        	ON mr.receiver_id = u2.id AND u2.id = 2
-                        WHERE mr.in_trash = 0";
+                $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date, is_read_receiver 
+                                    FROM message_sender_receiver_view 
+                                    WHERE receiver_id = 2 AND in_receiver_trash = 0";
             }
             else if ($controlType === 2){//SENT
-                $selectQuery .= "SELECT u2.username as receiverName, m.id, m.message_subject, m.message_content, m.message_date
-                        FROM messages m
-                        JOIN message_senders ms
-                        	ON m.id = ms.message_id
-                        JOIN user u1 
-                            ON ms.sender_id = u1.id  AND u1.id = 2
-                        JOIN message_receivers mr
-                        	ON m.id = mr.message_id
-                        JOIN user u2
-                        	ON mr.receiver_id = u2.id
-                        WHERE ms.in_trash = 0";
+                $selectQuery .= "SELECT receiverName, id, message_subject, message_content, message_date 
+                                    FROM message_sender_receiver_view 
+                                    WHERE sender_id = 1   AND in_sender_trash = 0";
             }
             else if($controlType === 3){//TRASH
-                $selectQuery .= "SELECT u1.username as senderName, m.id, m.message_subject, m.message_content, m.message_date
-                        FROM messages m
-                        JOIN message_senders ms
-                        	ON m.id = ms.message_id
-                        JOIN user u1 
-                            ON ms.sender_id = u1.id
-                        JOIN message_receivers mr
-                        	ON m.id = mr.message_id
-                        JOIN user u2
-                        	ON mr.receiver_id = u2.id AND u2.id = 2
-                        WHERE mr.in_trash = 1
-                    UNION
-                        SELECT u1.username as senderName, m.id, m.message_subject, m.message_content, m.message_date
-                        FROM messages m
-                        JOIN message_senders ms
-                        	ON m.id = ms.message_id
-                        JOIN user u1 
-                            ON ms.sender_id = u1.id  AND u1.id = 2
-                        JOIN message_receivers mr
-                        	ON m.id = mr.message_id
-                        JOIN user u2
-                        	ON mr.receiver_id = u2.id
-                        WHERE ms.in_trash = 1";
+                $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date 
+                                    FROM message_sender_receiver_view 
+                                    WHERE (sender_id = 2   AND in_sender_trash = 1  ) OR (receiver_id = 2 AND in_receiver_trash = 1)";
             }
             //return $finalQuery;
         //};
@@ -89,28 +53,9 @@ class Message{
     }
 
     public function getMessageById($id, $db){
-        $selectQuery = "SELECT u1.id as sender_id, u1.username as sender_username, u2.id as receiver_id, u2.username as receiver_name, m.id, m.message_subject, m.message_content, m.message_date
-                        FROM messages m
-                        JOIN message_senders ms
-                        	ON m.id = ms.message_id AND m.id = :id
-                        JOIN user u1 
-                            ON ms.sender_id = u1.id
-                        JOIN message_receivers mr
-                        	ON m.id = mr.message_id
-                        JOIN user u2
-                        	ON mr.receiver_id = u2.id AND u2.id = 2
-
-                    UNION
-                        SELECT u1.id as sender_id, u1.username as sender_username, u2.id as receiver_id, u2.username as receiver_name, m.id, m.message_subject, m.message_content, m.message_date
-                        FROM messages m
-                        JOIN message_senders ms
-                        	ON m.id = ms.message_id  AND m.id = :id
-                        JOIN user u1 
-                            ON ms.sender_id = u1.id  AND u1.id = 2
-                        JOIN message_receivers mr
-                        	ON m.id = mr.message_id
-                        JOIN user u2
-                        	ON mr.receiver_id = u2.id";
+        $selectQuery = "SELECT sender_id,senderName, receiver_id, receiverName, id, message_subject, message_content, message_date 
+                            FROM message_sender_receiver_view 
+                            WHERE (sender_id = 2 OR receiver_id = 2) AND id = :id";
         $pdostmt = $db->prepare($selectQuery);
         $pdostmt->bindParam(':id',$id);
         $pdostmt->execute();

@@ -6,7 +6,7 @@ function mergeMessagesToHTMLText($messages,$controlType): string
     {
         $bold = "";
 
-        if($controlType === 1 &&$msg->is_read === "0")
+        if($controlType === 1 &&$msg->is_read_receiver === "0")
         {
             $bold = "font-weight-bold";
         }

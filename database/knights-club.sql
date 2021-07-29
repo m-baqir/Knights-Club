@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2021 at 06:22 PM
+-- Generation Time: Jul 29, 2021 at 02:51 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -202,6 +202,26 @@ INSERT INTO `message_senders` (`id`, `sender_id`, `message_id`, `in_trash`) VALU
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `message_sender_receiver_view`
+-- (See below for the actual view)
+--
+CREATE TABLE `message_sender_receiver_view` (
+`sender_id` int(11)
+,`senderName` varchar(255)
+,`receiver_id` int(11)
+,`receiverName` varchar(255)
+,`id` int(11)
+,`message_subject` varchar(200)
+,`message_content` varchar(500)
+,`message_date` date
+,`is_read_receiver` tinyint(1)
+,`in_sender_trash` tinyint(1)
+,`in_receiver_trash` tinyint(1)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `newsletter`
 --
 
@@ -310,6 +330,15 @@ CREATE TABLE `userwall` (
 
 INSERT INTO `userwall` (`id`, `subject`, `content`, `date`, `user_id`) VALUES
 (1, 'New Post', 'Trying out this new website!', '2021-07-09 12:26:16', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `message_sender_receiver_view`
+--
+DROP TABLE IF EXISTS `message_sender_receiver_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `message_sender_receiver_view`  AS SELECT `u1`.`id` AS `sender_id`, `u1`.`username` AS `senderName`, `u2`.`id` AS `receiver_id`, `u2`.`username` AS `receiverName`, `m`.`id` AS `id`, `m`.`message_subject` AS `message_subject`, `m`.`message_content` AS `message_content`, `m`.`message_date` AS `message_date`, `mr`.`is_read` AS `is_read_receiver`, `ms`.`in_trash` AS `in_sender_trash`, `mr`.`in_trash` AS `in_receiver_trash` FROM ((((`messages` `m` join `message_senders` `ms` on(`m`.`id` = `ms`.`message_id`)) join `user` `u1` on(`ms`.`sender_id` = `u1`.`id`)) join `message_receivers` `mr` on(`m`.`id` = `mr`.`message_id`)) join `user` `u2` on(`mr`.`receiver_id` = `u2`.`id`)) ;
 
 --
 -- Indexes for dumped tables
