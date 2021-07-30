@@ -28,31 +28,19 @@ class Message{
             //$finalQuery = "";
             //For inbox
             if ($controlType === 1){//INBOX
-                $selectQuery .= "SELECT u2.username as senderName, i.message, i.subject, i.id , i.is_read, i.date
-                        FROM inbox i 
-                        JOIN user u1 
-                            ON i.receiver_id = u1.id AND u1.id = 2 
-                        JOIN user u2 
-                            ON i.sender_id = u2.id
-                        WHERE i.trash = 0";
+                $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date, is_read_receiver 
+                                    FROM message_sender_receiver_view 
+                                    WHERE receiver_id = 2 AND in_receiver_trash = 0";
             }
             else if ($controlType === 2){//SENT
-                $selectQuery .= "SELECT u2.username as senderName, i.message, i.subject, i.id , i.is_read, i.date
-                        FROM inbox i 
-                        JOIN user u1 
-                            ON i.sender_id = u1.id AND u1.id = 2 
-                        JOIN user u2 
-                            ON i.receiver_id = u2.id
-                        WHERE i.trash = 0";
+                $selectQuery .= "SELECT receiverName, id, message_subject, message_content, message_date 
+                                    FROM message_sender_receiver_view 
+                                    WHERE sender_id = 1   AND in_sender_trash = 0";
             }
             else if($controlType === 3){//TRASH
-                $selectQuery .= "SELECT u2.username as senderName, i.message, i.subject, i.id , i.is_read, i.date
-                        FROM inbox i 
-                        JOIN user u1 
-                            ON i.sender_id = u1.id 
-                        JOIN user u2 
-                            ON i.receiver_id = u2.id AND u2.id = 2 
-                        WHERE i.trash = 1";
+                $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date 
+                                    FROM message_sender_receiver_view 
+                                    WHERE (sender_id = 2   AND in_sender_trash = 1  ) OR (receiver_id = 2 AND in_receiver_trash = 1)";
             }
             //return $finalQuery;
         //};
@@ -65,13 +53,9 @@ class Message{
     }
 
     public function getMessageById($id, $db){
-        $selectQuery = "SELECT u2.username as senderName, i.message, i.subject, i.id, i.date
-                        FROM inbox i 
-                        JOIN user u1 
-                            ON i.receiver_id = u1.id AND u1.id = 2 
-                        JOIN user u2 
-                            ON i.sender_id = u2.id
-                        WHERE i.id = :id";
+        $selectQuery = "SELECT sender_id,senderName, receiver_id, receiverName, id, message_subject, message_content, message_date 
+                            FROM message_sender_receiver_view 
+                            WHERE (sender_id = 2 OR receiver_id = 2) AND id = :id";
         $pdostmt = $db->prepare($selectQuery);
         $pdostmt->bindParam(':id',$id);
         $pdostmt->execute();
@@ -81,26 +65,40 @@ class Message{
     }
 
     public function sendMessage($senderId, $receiverId, $subject, $message,$db){
-        $insertQuery = "INSERT INTO inbox(sender_id, receiver_id, subject, message) 
-                        VALUES(:senderId, :receiverId, :subject, :message)";
-        $pdostmt = $db->prepare($insertQuery);
-        $pdostmt->bindParam(":senderId",$senderId);
-        $pdostmt->bindParam(":receiverId", $receiverId);
-        $pdostmt->bindParam(":subject", $subject);
-        $pdostmt->bindParam(":message", $message);
+        $insertProcedureCall = "CALL send_message(?,?,?,?)";
+        $pdostmt = $db->prepare($insertProcedureCall);
+        $pdostmt->bindParam(1,$subject);
+        $pdostmt->bindParam(2, $message);
+        $pdostmt->bindParam(3, $senderId);
+        $pdostmt->bindParam(4, $receiverId);
 
         return $pdostmt->execute();
     }
 
     public function markMessageAsRead($msgId, $db){
-        $updateQuery = "UPDATE inbox SET is_read = 1 WHERE id=:id";
+        $updateQuery = "UPDATE message_receivers SET is_read = 1 WHERE message_id=:id";
         $pdostmt = $db->prepare($updateQuery);
         $pdostmt->bindParam(":id",$msgId);
         return $pdostmt->execute();
     }
 
-    public function moveMessagesToTrash($ids, $db){
-        $updateQuery = "UPDATE inbox SET trash = 1 WHERE id IN (".$ids.")";
+    public function moveMessagesToTrash($ids,$controlType, $db){
+        $updateTable = "";
+        if (1 === intval($controlType)){//Type casting to make sure comparison work
+            //update for receiver
+            $updateTable .= "message_receivers";
+        }
+        else if(2 === intval($controlType)){
+            //update for sender
+            $updateTable .= "message_senders";
+        }
+
+        $updateQuery = "UPDATE ".$updateTable." SET in_trash = 1 WHERE message_id IN (".$ids.")";
+        $file = fopen("get-message.txt","a+");
+
+fwrite($file,"message.php:154 updateQuery = ".$updateQuery."\n");
+         //fwrite($file,"move-messages-to-trash.php:17 POST = ".$_POST."\n");
+fclose($file);
         $pdostmt = $db->prepare($updateQuery);
         return $pdostmt->execute();
     }
