@@ -1,28 +1,79 @@
 <?php
 use Model\{Database, Newsletter};
+require_once('Model/EmailHandler.php');
 require_once 'vendor/autoload.php';
     // error message when trying to use isset
     // check with others and see what it could be.
+
+$firstnameError = '';
+$lastnameError = '';
+$emailError = '';
+$consentError = '';
+
     if(isset($_POST['addNewsletter'])){
 
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
+        //$firstname = $_POST['firstname'];
+        $firstname = filter_input(INPUT_POST, 'firstname');
+        //$lastname = $_POST['lastname'];
+        $lastname = filter_input(INPUT_POST, 'lastname');
         $email = $_POST['email'];
-        $consent = $_POST['consent'];
+        $consent = isset($_POST['consent']) ? $_POST['consent'] : "";
 
-        $db = Database::getDb();
-        $su = new Newsletter();
-        $su = $su->addNewsletter($firstname, $lastname, $email, $consent, $db);
 
-        if($su) {
-            echo "Thank you for signing up";
-        } else {
-            echo "Failed in signing up";
+        if($firstname == ""){
+            $firstnameError = "Please enter your first name";
         }
+
+        if($lastname == ""){
+            $lastnameError = "Please enter your last name";
+        }
+
+        if(empty($email)) {
+            $emailError = "Please enter a valid email";
+        } elseif (!filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL)){
+            $emailError = "Please enter a valid email";
+        }
+
+        if($consent == ""){
+            $consentError = "Please check the box before submitting your application";
+        }
+
+        // Problem here can't connect and insert into db when no error is found
+        if($firstnameError == '' && $lastnameError == '' && $emailError == '' && $consentError == ''){
+
+              $db = Database::getDb();
+              $su = new Newsletter();
+              $su = $su->addNewsletter($firstname, $lastname, $email, $consent, $db);
+
+              //$su = $su->getAllEmails($db);
+              // When no problems are found send the email along with inserting into the table
+            $firstname = trim(filter_input(INPUT_POST, 'firstname'));
+            $lastname = trim(filter_input(INPUT_POST, 'lastname'));
+            $email = trim(filter_input(INPUT_POST, 'email'));
+
+            $to_address = $email;
+            $to_name = $firstname . ' ' . $lastname;
+            $from_address = 'estevancord.1993@gmail.com';
+            $from_name = 'Knights Club';
+            $subject = 'Knights Club - Newsletter Registration Complete';
+            $body = '<p>Thanks for registering with our site.</p>' .
+                '<p>Sincerely,</p>' .
+                '<p>Knights Club</p>';
+            $is_body_html = true;
+
+            try {
+                send_email($to_address, $to_name,
+                    $from_address, $from_name,
+                    $subject, $body, $is_body_html);
+                echo 'Thank you for Signing Up';
+            } catch (Exception $ex) {
+                $error = $ex->getMessage();
+                echo 'Error when sending the email';
+            }
+        }
+
     }
 
-    // insert works add validation for consent, name, email
-    // make sure that each value is checked if used properly
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,25 +128,27 @@ require_once 'vendor/autoload.php';
 
 				<label class="label-input100" for="firstname">Tell us your name *</label>
 				<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Type first name">
-					<input id="first-name" class="input100" type="text" name="firstname" placeholder="First name">
-					<span class="focus-input100"></span>
+					<input id="first-name" class="input100" type="text" name="firstname" placeholder="First name" value="<?= isset($firstname) ? $firstname : ''; ?>">
+                     <span> <?= isset($firstnameError) ? $firstnameError : ''; ?></span>
 				</div>
+
+
 				<div class="wrap-input100 rs2-wrap-input100 validate-input" data-validate="Type last name">
-					<input class="input100" type="text" name="lastname" placeholder="Last name">
-					<span class="focus-input100"></span>
+					<input class="input100" type="text" name="lastname" placeholder="Last name" value="<?= isset($lastname) ? $lastname : ''; ?>">
+					<span><?= isset($lastnameError) ? $lastnameError : ''; ?></span>
 				</div>
 
 				<label class="label-input100" for="email">Enter your email *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-					<input id="email" class="input100" type="text" name="email" placeholder="Eg. example@email.com">
-					<span class="focus-input100"></span>
+					<input id="email" class="input100" type="text" name="email" placeholder="Eg. example@email.com" value="<?= isset($email) ? $email : ''; ?>">
+                    <span><?= isset($emailError) ? $emailError : ''; ?></span>
 				</div>
 
-				<label class="label-input100" for="consent">By clicking on the checkbox you have consensted in allow us to send email to you.</label>
+				<label class="label-input100" for="consent">By clicking on the checkbox you have consented in allow us to send email to you.</label>
 				<div class="wrap-input100">
 					<input id="checkbox" class="input100" type="checkbox" name="consent">
-					<span class="focus-input100"></span>
 				</div>
+                <span><?= isset($consentError) ? $consentError : ''; ?></span>
 
 				<!--<label class="label-input100" for="message">Message *</label>
 				<div class="wrap-input100 validate-input" data-validate = "Message is required">
