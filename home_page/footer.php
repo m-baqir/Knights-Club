@@ -8,7 +8,7 @@
 <footer>
     <div id="footer-menu">
       <div class="logo">
-        <img id="footer-logo" src="../images/php-knights-logo.png" alt="site logo made of a knights helmet" />
+        <a href="../KnightsClub.html"><img id="footer-logo" src="../images/php-knights-logo.png" alt="site logo made of a knights helmet" /></a>
       </div>
       <div class="footer-col">
           <h3><a href="#">Home</a></h3>

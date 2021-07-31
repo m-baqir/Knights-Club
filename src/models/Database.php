@@ -22,7 +22,7 @@ class Database
                 self::$dbconn = new \PDO(self::$dsn,self::$user,self::$password);
                 self::$dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 self::$dbconn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
-            }catch (PDOException $exception){
+            }catch (\PDOException $exception){
                 $msg = $exception->getMessage();
                 exit();
             }
