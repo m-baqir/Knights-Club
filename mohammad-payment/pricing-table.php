@@ -1,4 +1,24 @@
 <!--*bootstrap code borrowed from: https://codepen.io/chxlsonline/pen/KjRBaZ-->
+<?php
+session_start();
+use Webappdev\Knightsclub\models\Database;
+require_once 'vendor/autoload.php';
+//just as an example using fake session variable
+$username = $_SESSION["username"];
+//if user clicks the order button the appropriate funciton is called to update the user table>subscription_type column
+if (isset($_POST['order5'])){
+    $db = Database::getDb();
+    (new Webappdev\Knightsclub\models\User)->userorder5($username, $db);
+}
+elseif (isset($_POST['order10'])){
+    $db = Database::getDb();
+    (new Webappdev\Knightsclub\models\User)->userorder10($username, $db);
+}
+elseif (isset($_POST['order15'])){
+    $db = Database::getDb();
+    (new Webappdev\Knightsclub\models\User)->userorder15($username, $db);
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -39,8 +59,9 @@
                             <li class="list-group-item">10 Community Posts</li>
                             <li class="list-group-item">5 Personal Messages</li>
                         </ul>
-                        <button type="button" class="btn btn-success mt-4" style="margin-bottom: 0.5em;">Order
-                            Now</button>
+                        <form>
+                        <input type="submit" name="order5" class="btn btn-success mt-4" style="margin-bottom: 0.5em;"/>
+                        </form>
                         <!--*Paypal button-->
                         <script src="https://www.paypalobjects.com/api/button.js?" data-merchant="braintree"
                                 data-id="paypal-button" data-button="checkout" data-color="gold" data-size="medium"
@@ -68,8 +89,9 @@
                             <li class="list-group-item">20 Community Posts</li>
                             <li class="list-group-item">10 Personal Messages</li>
                         </ul>
-                        <button type="button" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;">Order
-                            Now</button>
+                        <form>
+                        <input type="Submit" name="order10" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;"/>
+                        </form>
                         <!--*Paypal button-->
                         <script src="https://www.paypalobjects.com/api/button.js?" data-merchant="braintree"
                                 data-id="paypal-button" data-button="checkout" data-color="gold" data-size="medium"
@@ -90,8 +112,9 @@
                             <li class="list-group-item">Unlimited Posts</li>
                             <li class="list-group-item">Unlimited Personal Messages</li>
                         </ul>
-                        <button type="button" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;">Order
-                            Now</button>
+                        <form>
+                         <input type="submit" name="order15" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;"/>
+                        </form>
                         <!--*Paypal button-->
                         <script src="https://www.paypalobjects.com/api/button.js?" data-merchant="braintree"
                                 data-id="paypal-button" data-button="checkout" data-color="gold" data-size="medium"
