@@ -7,9 +7,9 @@ Use PDO;
 
 class Database
 {
-    private static $user = 'root';
-    private static $password = '';
-    private static $dsn='mysql:host=localhost;dbname=knightclub';
+    private static $user = 'EOnWHD3cJq';
+    private static $password = 'MuYuJkNWiB';
+    private static $dsn='mysql:host=remotemysql.com;port=3306;dbname=EOnWHD3cJq';
     private static $dbconn;
 
     private function __construct()

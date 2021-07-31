@@ -2,9 +2,12 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+<<<<<<< HEAD
+=======
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="Webappdev\Knightsclub\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+>>>>>>> 1e2b003a259e238e05853ac8c337a67d111b9c97
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
     </content>
     <orderEntry type="inheritedJdk" />

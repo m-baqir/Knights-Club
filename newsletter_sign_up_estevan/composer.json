@@ -3,5 +3,8 @@
     "psr-4": {
       "Model\\" : "Model/"
     }
+  },
+  "require": {
+    "phpmailer/phpmailer": "^6.5"
   }
 }

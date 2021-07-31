@@ -15,4 +15,13 @@ class Newsletter
         $count = $pst->execute();
         return $count;
     }
+
+    public function getAllEmails($dbcon){
+        $sql = "SELECT email FROM newsletter";
+        $pdostm = $dbcon->prepare($sql);
+        $pdostm->execute();
+
+        $email = $pdostm->fetchAll(\PDO::FETCH_OBJ);
+        return $email;
+    }
 }
