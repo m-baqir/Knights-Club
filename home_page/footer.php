@@ -14,7 +14,7 @@
           <h3><a href="#">Home</a></h3>
       </div>
       <div class="footer-col">
-          <h3><a href="#">Search</a></h3>
+          <h3><a href="../ahmed-search/results.php">Search</a></h3>
       </div>
       <div class="footer-col">
           <h3><a href="#">Profile</a></h3>
