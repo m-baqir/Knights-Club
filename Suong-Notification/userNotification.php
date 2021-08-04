@@ -12,11 +12,12 @@ $id = 2; //ID will be hardcoded for now until login is implemented
 
 $count = 0;
 $rows = '';
-$userInbox = $user->getUserInbox($id, $db);
-foreach ($userInbox as $userInbox) {
-    if ($userInbox->is_read == "1") {
+$userInboxes = $user->getUserInbox($id, $db);
+foreach ($userInboxes as $userInbox) {
+     if ($userInbox->is_read == "0") {
         $count += 1;
-        $rows .= '<a class="dropdown-item" href="/.">' . $userInbox->username . "sent you a message" . ".</a>";
+        $rows .= '<a class="dropdown-item" href="#">' . $userInbox->username . ": " . $userInbox->subject . ".</a>";
+        //$count = $user->hasRead($userInbox->id,$db);
     }
 }
 ?>
