@@ -39,4 +39,13 @@ class User
 
         return $pdoStmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function getUserNameById($id, $db){
+        $selectedQuery = "SELECT username FROM user WHERE id=:id";
+        $pdoStmt = $db->prepare($selectedQuery);
+        $pdoStmt->bindParam(':id',$id);
+        $pdoStmt->execute();
+
+        return $pdoStmt->fetch(PDO::FETCH_OBJ);
+    }
 }
