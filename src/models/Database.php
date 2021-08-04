@@ -1,12 +1,12 @@
 <?php
 
-
 //namespace models;
 namespace Webappdev\Knightsclub\models;
 Use PDO;
 
 class Database
 {
+
     private static $user = 'EOnWHD3cJq';
     private static $password = 'MuYuJkNWiB';
     private static $dsn='mysql:host=remotemysql.com;port=3306;dbname=EOnWHD3cJq';
