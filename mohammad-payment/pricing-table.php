@@ -1,21 +1,25 @@
 <!--*bootstrap code borrowed from: https://codepen.io/chxlsonline/pen/KjRBaZ-->
 <?php
 session_start();
-use Webappdev\Knightsclub\models\Database;
-//require_once 'vendor/autoload.php';
+use Webappdev\Knightsclub\models\{Database,subscription};
+require_once '../vendor/autoload.php';
+
+$db = Database::getDb();
+$b = new subscription();
+$basic = $b->GetSubscriptionInfo(1,$db);
+$intermediate = $b->GetSubscriptionInfo(2,$db);
+$advance = $b->GetSubscriptionInfo(3,$db);
+//var_dump($basic);
 //just as an example using fake session variable
 $username = $_SESSION["username"];
 //if user clicks the order button the appropriate funciton is called to update the user table>subscription_type column
 if (isset($_POST['order5'])){
-    $db = Database::getDb();
     (new Webappdev\Knightsclub\models\User)->userorder5($username, $db);
 }
 elseif (isset($_POST['order10'])){
-    $db = Database::getDb();
     (new Webappdev\Knightsclub\models\User)->userorder10($username, $db);
 }
 elseif (isset($_POST['order15'])){
-    $db = Database::getDb();
     (new Webappdev\Knightsclub\models\User)->userorder15($username, $db);
 }
 ?>
@@ -49,15 +53,15 @@ elseif (isset($_POST['order15'])){
         <div class="row">
             <div class="col-md-4 col-sm-12 mb-4">
                 <div class="card border-success text-center">
-                    <h4 class="card-header text-white bg-success py-4">Basic</h4>
+                    <h4 class="card-header text-white bg-success py-4"><?=$basic->type;?></h4>
                     <div class="card-body">
-                        <h5 class="card-title display-4"><span class="currency">$</span>5<span class="period">/
+                        <h5 class="card-title display-4"><span class="currency">$</span><?=$basic->price;?><span class="period">/
                                     month </span></h5>
                         <ul class="list-group list-group-flush lead">
-                            <li class="list-group-item">Basic Search</li>
+                            <li class="list-group-item"><?=$basic->search_type;?> Search</li>
                             <li class="list-group-item">View Profiles</li>
-                            <li class="list-group-item">10 Community Posts</li>
-                            <li class="list-group-item">5 Personal Messages</li>
+                            <li class="list-group-item"><?=$basic->community_posts;?> Community Posts</li>
+                            <li class="list-group-item"><?=$basic->personal_messages;?> Personal Messages</li>
                         </ul>
                         <form>
                         <input type="submit" name="order5" class="btn btn-success mt-4" style="margin-bottom: 0.5em;"/>
@@ -79,15 +83,15 @@ elseif (isset($_POST['order15'])){
 
             <div class="col-md-4 col-sm-12 mb-4">
                 <div class="card text-center">
-                    <h4 class="card-header text-white bg-primary py-4">Intermediate</h4>
+                    <h4 class="card-header text-white bg-primary py-4"><?=$intermediate->type;?></h4>
                     <div class="card-body">
-                        <h5 class="card-title display-4"><span class="currency">$</span>10<span class="period">/
+                        <h5 class="card-title display-4"><span class="currency">$</span><?=$intermediate->price;?><span class="period">/
                                     month </span></h5>
                         <ul class="list-group list-group-flush lead">
-                            <li class="list-group-item">Intermediate Search</li>
+                            <li class="list-group-item"><?=$intermediate->search_type;?> Search</li>
                             <li class="list-group-item">View Profiles</li>
-                            <li class="list-group-item">20 Community Posts</li>
-                            <li class="list-group-item">10 Personal Messages</li>
+                            <li class="list-group-item"><?=$intermediate->community_posts;?> Community Posts</li>
+                            <li class="list-group-item"><?=$intermediate->personal_messages;?> Personal Messages</li>
                         </ul>
                         <form>
                         <input type="Submit" name="order10" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;"/>
@@ -102,15 +106,15 @@ elseif (isset($_POST['order15'])){
 
             <div class="col-md-4 col-sm-12 mb-4">
                 <div class="card text-center">
-                    <h4 class="card-header text-white bg-primary py-4">Advance</h4>
+                    <h4 class="card-header text-white bg-primary py-4"><?=$advance->type;?></h4>
                     <div class="card-body">
-                        <h5 class="card-title display-4"><span class="currency">$</span>15<span class="period">/
+                        <h5 class="card-title display-4"><span class="currency">$</span><?=$advance->price;?><span class="period">/
                                     month</span></h5>
                         <ul class="list-group list-group-flush lead">
-                            <li class="list-group-item">Advance Search</li>
+                            <li class="list-group-item"><?=$advance->search_type;?> Search</li>
                             <li class="list-group-item">View Profiles</li>
-                            <li class="list-group-item">Unlimited Posts</li>
-                            <li class="list-group-item">Unlimited Personal Messages</li>
+                            <li class="list-group-item"><?=$advance->community_posts;?> Posts</li>
+                            <li class="list-group-item"><?=$advance->personal_messages;?> Personal Messages</li>
                         </ul>
                         <form>
                          <input type="submit" name="order15" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;"/>

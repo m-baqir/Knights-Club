@@ -12,6 +12,11 @@ class Database
     private static $dsn='mysql:host=remotemysql.com;port=3306;dbname=EOnWHD3cJq';
     private static $dbconn;
 
+    /*private static $user = 'root';
+    private static $password = '';
+    private static $dsn = 'mysql:host=localhost;dbname=knightsclub';
+    private static $dbconn;*/
+
     private function __construct()
     {
     }
