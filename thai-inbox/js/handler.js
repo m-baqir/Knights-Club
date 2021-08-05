@@ -83,6 +83,19 @@ function initOnClickEvent(element, control = 1) {
     }
 }
 
+function confirmFriendRequest(senderId, receiverId) {
+    let xmlHttpRequest = new XMLHttpRequest()
+    xmlHttpRequest.onreadystatechange = function (){
+        if (this.status === 200 && this.readyState === 4){
+            console.log("Successfully confirmed friend request");
+        }
+    }
+    xmlHttpRequest.open("POST",'../thai-friend-request/friend-request-confirmation.php');
+    xmlHttpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    let data = {"senderId":senderId,"receiverId":receiverId};
+    xmlHttpRequest.send(JSON.stringify(data));
+}
+
 window.onload = function () {
     let btn = document.getElementById("btn-back-to-mobile-inbox-control-bar");
     let messages = document.getElementById("list_messages_tools");

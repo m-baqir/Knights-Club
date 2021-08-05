@@ -5,5 +5,8 @@
             "Webappdev\\Knightsclub\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
+  
 }

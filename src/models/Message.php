@@ -28,9 +28,10 @@ class Message{
             //$finalQuery = "";
             //For inbox
             if ($controlType === 1){//INBOX
+                //Set receiver_id to 3 for testing the confirmation of friend request in message-content.php
                 $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date, is_read_receiver 
                                     FROM message_sender_receiver_view 
-                                    WHERE receiver_id = 2 AND in_receiver_trash = 0";
+                                    WHERE receiver_id = 3 AND in_receiver_trash = 0";
             }
             else if ($controlType === 2){//SENT
                 $selectQuery .= "SELECT receiverName, id, message_subject, message_content, message_date 

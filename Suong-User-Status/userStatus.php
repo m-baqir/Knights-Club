@@ -43,7 +43,7 @@ if (isset($_GET['status'])) {
     $userStatus = $status->user_status;
     $buttonClass =  "";
     if ($userStatus == "online") {
-        $buttonClass = "btn-primary";
+        $buttonClass = "btn-info";
     } else if ($userStatus == "busy") {
         $buttonClass = "btn-danger";
     } else {
