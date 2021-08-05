@@ -2,7 +2,7 @@
 <?php
 session_start();
 use Webappdev\Knightsclub\models\Database;
-require_once 'vendor/autoload.php';
+//require_once 'vendor/autoload.php';
 //just as an example using fake session variable
 $username = $_SESSION["username"];
 //if user clicks the order button the appropriate funciton is called to update the user table>subscription_type column
