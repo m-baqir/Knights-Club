@@ -2,8 +2,6 @@
 use Model\{Database, Newsletter};
 require_once('Model/EmailHandler.php');
 require_once 'vendor/autoload.php';
-    // error message when trying to use isset
-    // check with others and see what it could be.
 
 $firstnameError = '';
 $lastnameError = '';
@@ -66,9 +64,13 @@ $consentError = '';
                     $from_address, $from_name,
                     $subject, $body, $is_body_html);
                 echo 'Thank you for Signing Up';
+				// if successful do i put 
+				// header('location:', confirmation.php)
+				// to redirect the user to a successful sign up.
             } catch (Exception $ex) {
                 $error = $ex->getMessage();
                 echo 'Error when sending the email';
+				// same for error message as well
             }
         }
 

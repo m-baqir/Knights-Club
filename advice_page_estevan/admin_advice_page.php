@@ -1,3 +1,8 @@
+<?php
+// here we can list through the advice store in the db
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,24 +22,7 @@
 </head>
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<!--
-<header>
-    <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
-    <nav id="menu">
-      <ul>
-        *Navigation elements
-        <li><a href="#">Profile | </a></li>
-        <li><a href="#">Search| </a></li>
-        <li><a href="#">Subscribe| </a></li>
-        <li><a href="#">Advice| </a></li>
-        <li><a href="#">Newsletter| </a></li>
-        <li><a href="#">Search| </a></li>
-        <li><a href="#">Sign In| </a></li>
-        <li><a href="#">User Wall </a></li>
-      </ul>
-    </nav>
-</header>
--->
+
 <?php require_once('../home_page/header.php'); ?>
 <div class="container">
     <div class="row">
@@ -49,11 +37,11 @@
                     <p class="body-text-3x">Check out the posts below!</p>
                     <div class="small-search-wrap">
                         <div class="search-form">
-                            <form action="#">
+                            <form action="./insert_advice_form.php" method="post">
                                 <div class="form-group">
                                     <input type="text" value="Search Bar" placeholder="Search something here" maxlength="100" class="form-control" name="name" id="name">
                                 </div>
-                                <input type="button" class="generalButton" value="Add A Post"/>
+                                <input type="submit" class="generalButton" value="Add A Post"/>
                             </form>
                         </div>
                     </div>
@@ -68,34 +56,37 @@
 
             <div class="clearfix mt-40">
                 <ul class="xsearch-items">
+
+                    <!--For the foreach loop it will contain  -->
+                    <!--JUST ONE FOREACH LOOP IS NEEDED FOR ONE LIST POST-->
+                    <!--sIMILAR TO WHAT WAS DONE IN THE LIST FOR CARS-->
                     <li class="search-item">
                         <div class="search-item-img">
+                            <!--Here is the image for the profile-->
                             <a href="#">
                                 <img src="images/estevan.jpg" width="70" height="70">
                             </a>
                         </div>
                         <div class="search-item-content">
+                            <!--Subject Line-->
                             <h3 class="search-item-caption">Hey My First Post</a></h3>
 
                             <div class="search-item-meta mb-15">
                                 <ul class="list-inline">
+                                    <!--Date Line -->
                                     <li class="time">November 10, 2017‎</li>
-                                    <!--<li><a href="#">0 Comments</a></li> Not Sure if you want a comment count-->
-                                    <li class="pl-0">Subject: my new post</a></li>
                                 </ul>
                             </div>
+                            <!--Content of the post -->
                             <div class="content"><!--Made a class if you want to edit the messages. *Note its not in use*-->
                                 Hey guys this is my first post. I'm not sure if we should change that only the admin can make a post, or should we allow login users to make a post as well.
                             </div>
                         </div>
                     </li>
+                    <!-- End of a post -->
 
+                    <!--Example of a post without the image on it-->
                     <li class="search-item">
-                        <div class="search-item-img">
-                            <a href="#">
-                                <img itemprop="image" src="images/estevan.jpg" width="70" height="70">
-                            </a>
-                        </div>
                         <div class="search-item-content">
                             <h3 class="search-item-caption"><a href="#">My Second Post</a></h3>
                             <div class="search-item-meta mb-15">

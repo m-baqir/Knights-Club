@@ -16,12 +16,12 @@ class Newsletter
         return $count;
     }
 
-    public function getAllEmails($dbcon){
+   /* public function getAllEmails($dbcon){
         $sql = "SELECT email FROM newsletter";
         $pdostm = $dbcon->prepare($sql);
         $pdostm->execute();
 
         $email = $pdostm->fetchAll(\PDO::FETCH_OBJ);
         return $email;
-    }
+    }*/
 }

@@ -1,0 +1,16 @@
+{
+    "name": "estev/advice_page_estevan",
+    "authors": [
+        {
+            "name": "Estevan Cordero",
+            "email": "estevancor@hotmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+          "psr-4": {
+            "Model\\" : "Model/"
+          }
+        }
+      }
+
