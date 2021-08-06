@@ -42,6 +42,7 @@ $consentError = '';
               $db = Database::getDb();
               $su = new Newsletter();
               $su = $su->addNewsletter($firstname, $lastname, $email, $consent, $db);
+              
 
               //$su = $su->getAllEmails($db);
               // When no problems are found send the email along with inserting into the table
@@ -151,13 +152,6 @@ $consentError = '';
 					<input id="checkbox" class="input100" type="checkbox" name="consent">
 				</div>
                 <span><?= isset($consentError) ? $consentError : ''; ?></span>
-
-				<!--<label class="label-input100" for="message">Message *</label>
-				<div class="wrap-input100 validate-input" data-validate = "Message is required">
-					<textarea id="message" class="input100" name="message" placeholder="Write us a message"></textarea>
-					<span class="focus-input100"></span>
-				</div>-->
-
 				<div class="container-contact100-form-btn">
 					<button type="submit" name="addNewsletter" class="contact100-form-btn">
 						CONFIRM SIGN UP
@@ -218,12 +212,6 @@ $consentError = '';
 		</div>
 	</div>
 	<?php require_once('../home_page/footer.php'); ?>
-    <!--<footer id="copyRight">
-        *need to figure out what we are going to include in the footer
-        <a href="#">Sitemap |</a>
-        <a href="#">Policy</a>
-        <p class="copyRightLogo"><i class="far fa-copyright"></i> this is the footer</p>
-    </footer>-->
 	
 	<div id="dropDownSelect1"></div>
 

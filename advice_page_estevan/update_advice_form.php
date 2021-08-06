@@ -2,39 +2,57 @@
 use Model\{Database, Advice};
 require_once 'vendor/autoload.php';
 
+$subject = "";
+$date = "";
+$content = "";
+
 $subjectError = '';
 $dateError = '';
 $contentError = '';
 
-    if(isset($_POST['submitAdvice'])){
-        $subject = filter_input(INPUT_POST, 'subject');
-        $date = filter_input(INPUT_POST, 'date');
-        $content = filter_input(INPUT_POST, 'content');
+if(isset($_POST['updateAdvice'])){
+    $id = $_POST['id'];
+    $db = Database::getDb();
+    
+    $a = new Advice();
+    $advice = $a->getAdviceById($id, $db);
 
-        if($subject == ""){
-            $subjectError = "Please enter your Subject.";
-        }
+    $subject = $advice->subject;
+    $date = $advice->date;
+    $content = $advice->content;
+}
 
-        if($date == ""){
-            $dateError = "Please enter a date.";
-        }
+if(isset($_POST['updAdvice'])){
+    $id = $_POST['id'];
+    $subject = $_POST['subject'];
+    $date = $_POST['date'];
+    $content = $_POST['content'];
 
-        // This does not appear with the other error messages
-        if($content == ""){
-            $contentError == "Empty Text";
-        }
-        if($subjectError == '' && $dateError == '' && $contentError == '') {
-            $db = Database::getDB();
-            $a = new Advice();
-            $a = $a->addAdvice($subject, $date, $content, $db);
-            if($a){
-                echo "Added Post Successfully";
-            } else {
-                echo "Failed in adding a Post";
-            }
-        }
-
+    if($subject == ""){
+        $subjectError = "Please enter your Subject.";
     }
+
+    if($date == ""){
+        $dateError = "Please enter a date.";
+    }
+
+    // This does not appear with the other error messages
+    if($content == ""){
+        $contentError == "Empty Text";
+    }
+
+    if($subjectError == '' && $dateError == '' && $contentError == '') {
+        $db = Database::getDb();
+        $a = new Advice();
+        $count = $a->updateAdvice($id, $subject, $date, $content, $db);
+
+        if ($count) {
+            header('Location: admin_advice_page.php');
+        } else {
+            echo "There was a problem with updating!";
+        }
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -43,7 +61,7 @@ $contentError = '';
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Create Advice Page</title>
+    <title>Update Advice Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -60,11 +78,11 @@ $contentError = '';
         <div class="container bootstrap snippets bootdey">
             <div class="row">
                 <form id="Highlighted-form" class="col-sm-6 col-sm-offset-3" action="#" method="post" novalidate="">
-
+                <input type="hidden" name="id" value="<?= $id ?>" />
                     <div class="form-group">
                         <label class="control-label" for="subject">Subject</label>
                         <div class="controls">
-                            <input id="contact-name" name="subject" placeholder="Subject" class="form-control requiredField Highlighted-label" type="text"value="<?= isset($subject) ? $subject : ''; ?>">
+                            <input id="contact-name" name="subject" placeholder="Subject" class="form-control requiredField Highlighted-label" type="text"value="<?= $subject; ?>">
                             <span><?= isset($subjectError) ? $subjectError : ''; ?></span>
                             <!--<i class="fa fa-user"></i>-->
                         </div>
@@ -73,7 +91,7 @@ $contentError = '';
                     <div class="form-group">
                         <label class="control-label" for="date">Date</label>
                         <div class=" controls">
-                            <input id="contact-mail" name="date" max="<?= date('Y-m-d'); ?>" class="form-control requiredField Highlighted-label" type="date" value="<?= isset($date) ? $date : ''; ?>">
+                            <input id="contact-mail" name="date" max="<?= date('Y-m-d'); ?>" class="form-control requiredField Highlighted-label" type="date" value="<?= $date ?>">
                             <span><?= isset($dateError) ? $dateError : ''; ?></span>
                             <!--<i class="fa fa-envelope"></i>-->
                         </div>
@@ -81,12 +99,12 @@ $contentError = '';
                     <div class="form-group">
                         <label class="control-label" for="content">Content</label>
                         <div class="controls">
-                            <textarea id="contact-message" name="content" placeholder="Enter your advice" class="form-control requiredField Highlighted-label" rows="6"><?= isset($content) ? $content : ''; ?></textarea>
+                            <textarea id="contact-message" name="content" placeholder="Enter your advice" class="form-control requiredField Highlighted-label" rows="6"><?= $content ?></textarea>
                             <span><?= isset($contentError) ? $contentError : ''; ?></span>
                             <!--<i class="fa fa-comment"></i>-->
                         </div>
                     </div><!-- End textarea -->
-                    <p><button name="submitAdvice" type="submit" class="btn btn-info btn-block" data-error-message="Error!" data-sending-message="Submitting..." data-ok-message="Submitted Sent"><i class="fa fa-location-arrow"></i>Submit Advice</button></p>
+                    <p><button name="updAdvice" type="submit" class="btn btn-info btn-block" data-error-message="Error!" data-sending-message="Submitting..." data-ok-message="Submitted Sent"><i class="fa fa-location-arrow"></i>Update Advice</button></p>
                     <!--<input type="hidden" name="submitted" id="submitted" value="true">-->
                 </form><!-- End Highlighted-form -->
                 <form id="Highlighted-form" class="col-sm-6 col-sm-offset-3" action="admin_advice_page.php" method="post" novalidate="">
@@ -99,3 +117,4 @@ $contentError = '';
 <?php require_once('../home_page/footer.php'); ?>
 </body>
 </html>
+

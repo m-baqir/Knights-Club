@@ -6,11 +6,5 @@
             "email": "estevancor@hotmail.com"
         }
     ],
-    "require": {},
-    "autoload": {
-          "psr-4": {
-            "Model\\" : "Model/"
-          }
-        }
-      }
-
+    "require": {}
+}

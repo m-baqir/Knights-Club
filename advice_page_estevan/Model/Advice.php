@@ -1,22 +1,61 @@
 <?php
 namespace Model;
-class Advice {
-    // The plan is to make it so that only the admin can insert advices that can be viewed on the advice page
-    // should there be a detailed page that when an advice is selected it will redirect to an another page contain the details of the topic
-    // or should the page just have simple advices to list through.
+class Advice
+{
+    public function getAdviceById($id, $db){
+        $sql = "SELECT * FROM advice WHERE id = :id";
+        $pst = $db->prepare($sql);
+        $pst->bindParam(':id', $id);
+        $pst->execute();
+        return $pst->fetch(\PDO::FETCH_OBJ);
+    }
 
-    // what should the advice table have
-    // subject, date, content
-    // what about images since it is linked to a user profile, should I just get rid of the images
-
-    // make a search query to look for subjects
-    public function addAdvice($subject, $date, $content){
+    public function addAdvice($subject, $date, $content, $db){
         $sql = "INSERT INTO advice (subject, date, content)
                 VALUES (:subject, :date, :content)";
         $pst = $db->prepare($sql);
+
+        $pst->bindParam(':subject', $subject);
+        $pst->bindParam(':date', $date);
+        $pst->bindParam(':content', $content);
+
+        $count = $pst->execute();
+        return $count;
     }
 
     public function getAllAdvice($dbcon){
-        // list all advice content that only users and non users can view
+        $sql = "SELECT * FROM advice";
+        $pdostm = $dbcon->prepare($sql);
+        $pdostm->execute();
+
+        $advices = $pdostm->fetchAll(\PDO::FETCH_OBJ);
+        return $advices;
+    }
+
+    public function deleteAdvice($id, $db){
+        $sql = "DELETE FROM advice WHERE id = :id";
+
+        $pst = $db->prepare($sql);
+        $pst->bindParam(':id', $id);
+        $count = $pst->execute();
+        return $count;
+    }
+
+    public function updateAdvice($id, $subject, $date, $content, $db){
+        $sql = "UPDATE advice
+                SET subject = :subject,
+                date = :date,
+                content = :content
+                WHERE id = :id
+                ";
+        $pst = $db->prepare($sql);
+
+        $pst->bindParam(':subject', $subject);
+        $pst->bindParam(':date', $date);
+        $pst->bindParam(':content', $content);
+        $pst->bindParam(':id', $id);
+
+        $count = $pst->execute();
+        return $count;
     }
 }

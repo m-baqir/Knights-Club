@@ -16,12 +16,12 @@ $advice = $a->getAllAdvice(Database::getDb());
     <!--  All snippets are MIT license http://bootdey.com/license -->
     <title>Knights Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/42ed6d485e.js" crossorigin="anonymous"></script>
     <!--Style Sheet that it links too-->
-    <link rel="stylesheet" href="./css/advice_page.css" /> 
+    <link rel="stylesheet" href="./css/advice_page.css" />
     <!--Additional CSS for header and footer-->
     <link rel="stylesheet" href="../css/style_template.css" />
 </head>
@@ -33,7 +33,7 @@ $advice = $a->getAllAdvice(Database::getDb());
     <div class="row">
         <div class="col-md-8 left-side-sidebar">
             <div id="loginLocation">
-                <p class="loginNotice">Signed in as: Admin</p>
+                <p class="loginNotice">Signed in as: Estevan Cordero</p>
                 <button class="generalButton">LOG OUT</button>
             </div>
             <div class="row text-center">
@@ -46,7 +46,6 @@ $advice = $a->getAllAdvice(Database::getDb());
                                 <div class="form-group">
                                     <input type="text" value="Search Bar" placeholder="Search something here" maxlength="100" class="form-control" name="name" id="name">
                                 </div>
-                                <input type="submit" class="generalButton" value="Add A Post"/>
                             </form>
                         </div>
                     </div>
@@ -83,17 +82,7 @@ $advice = $a->getAllAdvice(Database::getDb());
                             <div class="content"><!--Made a class if you want to edit the messages. *Note its not in use*-->
                                 <?= $advice->content; ?>
                             </div>
-                            <br />
-                            <form action="./update_advice_form.php" method="post">
-                                <input type="hidden" name="id" value="<?= $advice->id; ?>" />
-                                <input type="submit" class="generalButton" name="updateAdvice" value="Update Post" />
-                            </form>
-                            <br />
-                            <form action="./delete_advice.php" method="post">
-                                <input type="hidden" name="id" value="<?= $advice->id; ?>" />
-                                <input type="submit" class="generalButton" name="deleteAdvice" value="Delete Post" />
-                            </form>
-                        <?php } ?>
+                            <?php } ?>
                         </div>
                     </li>
                     <!--This is where it ends-->
