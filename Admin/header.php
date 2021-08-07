@@ -64,7 +64,10 @@
             <a href="AdminContactUs.php">
               <i class="far fa-check-square"></i>Feedback Forms</a>
           </li>
-
+          <li>
+            <a href="ListFAQ.php">
+              <i class="far fa-check-square"></i>FAQ</a>
+          </li>
           <li>
             <a href="login.php">
               <i class=""></i>Login</a>
@@ -91,6 +94,10 @@
           <li>
             <a href="AdminContactUs.php">
               <i class="far fa-check-square"></i>Feedback/ContactUs Forms</a>
+          </li>
+          <li>
+            <a href="ListFAQ.php">
+              <i class="far fa-check-square"></i>FAQ</a>
           </li>
 
           <li>
