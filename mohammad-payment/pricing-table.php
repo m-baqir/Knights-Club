@@ -12,6 +12,7 @@ $advance = $b->GetSubscriptionInfo(3,$db);
 //var_dump($basic);
 //just as an example using fake session variable
 $username = $_SESSION["username"];
+
 //if user clicks the order button the appropriate funciton is called to update the user table>subscription_type column
 if (isset($_POST['order5'])){
     (new Webappdev\Knightsclub\models\User)->userorder5($username, $db);
@@ -63,7 +64,8 @@ elseif (isset($_POST['order15'])){
                             <li class="list-group-item"><?=$basic->community_posts;?> Community Posts</li>
                             <li class="list-group-item"><?=$basic->personal_messages;?> Personal Messages</li>
                         </ul>
-                        <form>
+                        <form action="paypal.php" method="post">
+                            <input type="hidden" name="price" value="<?=$basic->price;?>"/>
                         <input type="submit" name="order5" class="btn btn-success mt-4" style="margin-bottom: 0.5em;"/>
                         </form>
                         <!--*Paypal button-->
@@ -93,7 +95,8 @@ elseif (isset($_POST['order15'])){
                             <li class="list-group-item"><?=$intermediate->community_posts;?> Community Posts</li>
                             <li class="list-group-item"><?=$intermediate->personal_messages;?> Personal Messages</li>
                         </ul>
-                        <form>
+                        <form action="paypal.php" method="post">
+                            <input type="hidden" name="price" value="<?=$intermediate->price;?>"/>
                         <input type="Submit" name="order10" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;"/>
                         </form>
                         <!--*Paypal button-->
@@ -116,7 +119,8 @@ elseif (isset($_POST['order15'])){
                             <li class="list-group-item"><?=$advance->community_posts;?> Posts</li>
                             <li class="list-group-item"><?=$advance->personal_messages;?> Personal Messages</li>
                         </ul>
-                        <form>
+                        <form action="paypal.php" method="post">
+                            <input type="hidden" name="price" value="<?=$advance->price;?>"/>
                          <input type="submit" name="order15" class="btn btn-primary mt-4" style="margin-bottom: 0.5em;"/>
                         </form>
                         <!--*Paypal button-->
