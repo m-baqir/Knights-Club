@@ -18,9 +18,9 @@ if(isset($_GET['nav-search'])){
 <header>
     <a href="../KnightsClub.html"><img id="header-logo" src="../images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" /></a>
     
-    <span id="navBtn" onclick="openNav()">&#9776; MENU</span>
+    <span id="navBtn">&#9776; MENU</span>
     <div id="sideNav" class="sidenav">
-      <a id="closeBtn" onclick="closeNav()">&times;</a>
+      <a id="closeBtn">&times;</a>
       <a>
         <form method="GET" action="">
           <div>
