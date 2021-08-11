@@ -6,7 +6,7 @@ use PDO;
 class Images{
     //Getting a list of images of a particular user using their id
     public function getImagesById($id,$db){
-        $selectQuery = "SELECT u.username, g.image_name, g.main_image
+        $selectQuery = "SELECT u.username, g.image_name, g.main_image, g.id AS image_id
                         FROM gallery g
                         JOIN user u
                             ON g.user_id =  u.id
@@ -57,6 +57,7 @@ class Images{
         $pdostmt->bindParam(':status',$status);
 
         $count = $pdostmt->execute();
+        return $count;
     }
 
 }

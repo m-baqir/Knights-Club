@@ -18,6 +18,11 @@ $userImgs = $gallery->getImagesById($id, $db); //for now user ID will be hardcod
 
 $userName = $gallery->getUserNameById($id,$db);
 
+if(count($userImgs) == 1 && $userImgs[0]->main_image == 0){
+  $gallery->changeImageStatus($userImgs[0]->image_id,1,$db);
+  header("Location: ./image_gallery.php");
+}
+
 $max_file_size = 20000000;
 if(isset($_FILES['upload'])){
   $file_temp = $_FILES['upload']['tmp_name'];
@@ -64,8 +69,7 @@ if(isset($_FILES['upload'])){
       $count = $gallery->uploadImage($id,$_FILES['upload']['name'],$db);
       
       if($count){
-        //alert_message("Picture has been successfully uploaded.");
-         header("Location: ./image_gallery.php");
+          header("Location: ./image_gallery.php");
       } else {
         alert_message("There was an error uploading the file, please try again!");
         header("Location: ./image_gallery.php");
