@@ -18,6 +18,71 @@ $userImgs = $gallery->getImagesById($id, $db); //for now user ID will be hardcod
 
 $userName = $gallery->getUserNameById($id,$db);
 
+$max_file_size = 20000000;
+if(isset($_FILES['upload'])){
+  $file_temp = $_FILES['upload']['tmp_name'];
+  $file_name = $_FILES['upload']['name'];
+  $file_size = $_FILES['upload']['size'];
+  $file_type = $_FILES['upload']['type'];
+  $file_error = $_FILES['upload']['error'];
+
+  
+  if ($file_error > 0)
+  { 
+    switch ($file_error)
+    {
+        case 1:
+            alert_message("File exceeded upload_max_filesize.");
+            header("Location: ./image_gallery.php");
+            break;
+        case 2:
+            alert_message("File exceeded " . $max_file_size . " .");
+            header("Location: ./image_gallery.php");
+            break;
+        case 3:
+            alert_message("File only partially uploaded.");
+            header("Location: ./image_gallery.php");
+            break;
+        case 4:
+            alert_message("No file uploaded.");
+            header("Location: ./image_gallery.php");
+            break;
+    }
+    exit;
+  }
+
+  if($file_size > $max_file_size)
+  {
+    alert_message("File size too big");
+
+  } else {
+    $target_path = "images/";
+    $target_path = $target_path .  $_FILES['upload']['name'];
+
+    if(move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)) {
+      
+      $count = $gallery->uploadImage($id,$_FILES['upload']['name'],$db);
+      
+      if($count){
+        //alert_message("Picture has been successfully uploaded.");
+         header("Location: ./image_gallery.php");
+      } else {
+        alert_message("There was an error uploading the file, please try again!");
+        header("Location: ./image_gallery.php");
+      }
+    } else{
+      alert_message("There was an error uploading the file, please try again!");
+    }
+  }
+
+  
+}
+
+function alert_message($msg) {
+  echo "<script type='text/javascript'>
+          confirm('$msg');
+        </script>";
+}
 ?>
 
 
@@ -76,7 +141,7 @@ $userName = $gallery->getUserNameById($id,$db);
             $active = "active";
           } ?>
           <div class="carousel-item <?= $active ?>">
-            <img class="d-block w-100" src="./images/<?= $user->image_name ?>.<?= $user->picextension ?>" alt="Image of user <?= $user->username; ?>">
+            <img class="d-block w-100" src="./images/<?= $user->image_name ?>" alt="Image of user <?= $user->username; ?>">
           </div>
         <?php } ?>
       </div>
@@ -91,7 +156,13 @@ $userName = $gallery->getUserNameById($id,$db);
     </div>
     <div class="container pb-3">
       <button type="button" class="btn btn-outline-primary">Update your picture</button>
-      <button type="button" class="btn btn-outline-primary float-right">Add new picture</button>
+      <form action="image_gallery.php" enctype="multipart/form-data" method="POST">
+
+        <input type="hidden" name="MAX_FILE_SIZE" value=<?= $max_file_size ?> >
+        <input type="file" name="upload" id="upload">
+        <input type="submit" value="Upload" class="btn btn-outline-primary">
+
+      </form>
     </div>
   </main>
   <?php require_once('../home_page/footer.php'); ?>
