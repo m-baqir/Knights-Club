@@ -1,5 +1,6 @@
 <?php
-namespace Model;
+//namespace
+namespace Webappdev\Knightsclub\models;
 class Advice
 {
     public function getAdviceById($id, $db){
@@ -57,5 +58,18 @@ class Advice
 
         $count = $pst->execute();
         return $count;
+    }
+
+    public function FindSubject($param, $db)
+    {
+        $sql = "SELECT * FROM advice WHERE subject LIKE CONCAT('%', :s, '%')";
+        $pdostm = $db->prepare($sql);
+
+        $pdostm->bindParam(":s", $param);
+        $pdostm->execute();
+
+        $results = $pdostmt->fetchAll(PDO::FETCH_OBJ);
+        return $results;
+
     }
 }

@@ -1,6 +1,8 @@
 <?php
-use Model\{Database, Advice};
-require_once 'vendor/autoload.php';
+//use Model\{Database, Advice};
+//require_once 'vendor/autoload.php';
+use Webappdev\Knightsclub\models\{Database, Advice};
+require_once '../vendor/autoload.php';
 
 if(isset($_POST['id'])){
     $id = $_POST['id'];

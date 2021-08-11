@@ -1,6 +1,8 @@
 <?php
-use Model\{Database, Advice};
-require_once 'vendor/autoload.php';
+//use Model\{Database, Advice};
+//require_once 'vendor/autoload.php';
+use Webappdev\Knightsclub\models\{Database, Advice};
+require_once '../vendor/autoload.php';
 
 $subject = "";
 $date = "";
