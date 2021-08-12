@@ -1,3 +1,32 @@
+<?php
+session_start();
+
+use Webappdev\Knightsclub\models\{Database, Login};
+
+require "../vendor/autoload.php";
+
+if(isset($_POST['login'])){
+    $user = $_POST['user'];
+    $pass = $_POST['password'];
+
+    $u = new Login();
+    $db = Database::getDb();
+
+    $login = $u->LogUser($user, $pass, $db);
+
+    if($login){
+        $_SESSION["id"] = $login->id;
+        $_SESSION["firstname"] = $login->first_name;
+        $_SESSION["lastname"] = $login->last_name;
+        $_SESSION["username"] = $login->username;
+
+        header('Location: ../knightsclub.html');
+    } else{
+        echo "error logging in.";
+    }
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

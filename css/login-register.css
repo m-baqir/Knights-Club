@@ -2,15 +2,19 @@ h1, p{
     color: rgb(248, 239, 223);
 }
 
+main{
+    margin: auto;
+}
+
 .form {
     display: flex;
     flex-direction: column;
-    margin: 3em 0 5em;
+    margin: 3em auto;
     border: none;
     padding: 20px 50px;
     border-radius: 10px;
-    background-color: #364e46e3;
-    width: 400px;
+    background-color: #003049;
+    width: 450px;
 }
 
 .input-group {
@@ -27,6 +31,18 @@ h1, p{
     height: 30px;
     width: 80%;
     border-bottom: 1px solid #f5deb3;
+    margin: 10px 20px 10px 0px;
+}
+
+.form #form-title{
+    font-size: 30px;
+    margin: 20px 0px 10px;
+}
+
+.form #error-msg{
+    font-size: 15px;
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
 
 .form input::placeholder{
