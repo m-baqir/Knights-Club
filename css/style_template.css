@@ -16,15 +16,15 @@ header{
     background-color: #003049;
     color: white;
     font-family: 'Mate SC', serif;
-    height: 150px;
-    padding-bottom: 20px;
+    height: 80px;
+    padding-bottom: 40px;
 }
 #header-logo{
-    margin: 2% 0% 0% 5%;
-    width: 15%;
+    margin: 1.5% 0% 0% 10%;
+    width: 190px;
 }
 #navBtn{
-    margin: 4% 5% 0% 0%;
+    margin: 3% 10% 0% 0%;
     float: right;
     font-size:30px;
     cursor:pointer;
@@ -37,7 +37,6 @@ header{
     margin: 8px 0px 0px 0px;
     font-size: 17px;
     box-sizing: border-box;
-    border-radius: 10px 0px 0px 10px;
   }
 
   .sidenav button {
@@ -57,6 +56,7 @@ header{
   }
 
 .sidenav {
+    border-radius: 20px 0% 0% 20px;
     height: 100%;
     width: 0;
     position: fixed;
@@ -66,7 +66,6 @@ header{
     background-color: #001724;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
   }
   
   .sidenav a {
@@ -83,12 +82,9 @@ header{
     color: #bd2f2f;
   }
   
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+  .sidenav #closeBtn {
+
+    padding-top: 60px;
   }
 
 main{
@@ -181,13 +177,13 @@ footer{
     background-color: #003049;
     text-align: left;
     margin: auto;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     box-sizing: border-box;
     font-size: 15px;
 }
 #footer-logo{
-    margin: 2% 0% 0% 5%;
-    width: 20%;
+    margin: 2% 10%;
+    width: 250px;
     height: auto;
     display: block;
     float: left;
@@ -196,8 +192,11 @@ footer{
     display: inline-grid;
     padding-left: 40px;
     padding-top: 25px;
-    padding-right: 90px;
+    padding-right: 30px;
     padding-bottom: 5px;
+}
+.footer-col:last-child{
+    padding-right: 10%;
 }
 .footer-col h3{
     text-align: left;
@@ -245,6 +244,9 @@ a:hover{
         margin: 4% 0% 0% 5%;
         width: 25%;
     }
+    #footer-logo{
+        margin: 2% 0% 5% 5%;
+    }
     #navBtn{
         margin: 7% 5% 0% 0%;
     }
@@ -260,7 +262,8 @@ a:hover{
     #footer-logo{
         margin: auto;
         display: block;
-        width: 80%;
+        width: 250px;
+        padding-right: 100px;
     }
     #footer-col{
         display: block;
@@ -314,17 +317,16 @@ a:hover{
     }
 
     #footer-col{
-        display: block;
-        padding-right: 5px;
-        padding-bottom: 10px;
+        display: inline-grid;
+        margin: 8% 0% 0% 5%;
         font-size: 30px;
         text-align: center;
         width: 100%;
     }
     #footer-logo{
         position: relative;
-        width: 80%;
-        padding: 20px 0px 20px 0px;
+        width: 250px;
+        padding: 20px 100px 20px 50%;
     }
     #footer-menu #footer-logo{
         display: block;
