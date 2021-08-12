@@ -1,6 +1,15 @@
+<?php
+// link to the user table and read off all information
+// it reads off one user profile
+// once a user logins use a session vars and catch session id and compare that to the user table 
+// using session_start();
+// session_start();
+//session_start();
+//$user_id= $_SESSION[user_id];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
@@ -16,26 +25,7 @@
   <link rel="stylesheet" href="../css/style_template.css" />
   <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="./rss.xml" />
 </head>
-
 <body>
- <!--
-  <header>
-    <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
-    <nav id="menu">
-      <ul>
-        *Navigation elements
-        <li><a href="#">Profile | </a></li>
-        <li><a href="#">Search| </a></li>
-        <li><a href="#">Subscribe| </a></li>
-        <li><a href="#">Advice| </a></li>
-        <li><a href="#">Newsletter| </a></li>
-        <li><a href="#">Search| </a></li>
-        <li><a href="#">Sign In| </a></li>
-        <li><a href="#">User Wall </a></li>
-      </ul>
-    </nav>
-  </header>
-  -->
   <?php require_once('../home_page/header.php'); ?>
   <div class="container">
     <div class="row">

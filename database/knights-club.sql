@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2021 at 02:51 AM
+-- Generation Time: Aug 12, 2021 at 04:59 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -34,6 +34,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `send_message` (IN `message_subject_
 END$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aboutus`
+--
+
+CREATE TABLE `aboutus` (
+  `id` int(11) NOT NULL,
+  `aboutus_content` mediumtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `aboutus`
+--
+
+INSERT INTO `aboutus` (`id`, `aboutus_content`) VALUES
+(1, 'We are all very different. We were born in different cities, at different times, we love different music, food, movies. But we have something that unites us all. It is our company. We are its heart. We are not just a team, we are a family.                                            ');
 
 -- --------------------------------------------------------
 
@@ -74,7 +92,11 @@ CREATE TABLE `friends` (
 
 INSERT INTO `friends` (`id`, `user_id`, `friend_id`) VALUES
 (1, 1, 2),
-(2, 2, 1);
+(2, 2, 1),
+(3, 2, 3),
+(4, 3, 2),
+(5, 2, 4),
+(6, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -142,7 +164,9 @@ INSERT INTO `messages` (`id`, `message_subject`, `message_content`, `message_dat
 (6, 'subject 5', 'content 5', '2021-07-26'),
 (7, 'subject 6', 'content 6', '2021-07-26'),
 (8, 'store_procedure_subject', 'stored procedure is created successfully', '2021-07-27'),
-(9, 'subject 100', 'content 100', '2021-07-27');
+(9, 'subject 100', 'content 100', '2021-07-27'),
+(10, 'Friend request from EstevanC', 'Hi username1,\nPlease accept my friend request. Thanks and have a nice day!<input type=\"submit\" class=\"btn btn-primary\" onclick=\"confirmFriendRequest(2,3)\" value=\"Confirm request\">', '2021-08-03'),
+(11, 'Friend request from EstevanC', 'Hi username2,\nPlease accept my friend request. Thanks and have a nice day!<input type=\"submit\" class=\"btn btn-primary\" onclick=\"confirmFriendRequest(2,4)\" value=\"Confirm request\">', '2021-08-04');
 
 -- --------------------------------------------------------
 
@@ -170,7 +194,9 @@ INSERT INTO `message_receivers` (`id`, `receiver_id`, `message_id`, `is_read`, `
 (5, 2, 6, 1, 1),
 (6, 1, 7, 0, 0),
 (7, 2, 8, 1, 0),
-(8, 2, 9, 1, 1);
+(8, 2, 9, 1, 1),
+(9, 3, 10, 1, 0),
+(10, 4, 11, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -197,7 +223,9 @@ INSERT INTO `message_senders` (`id`, `sender_id`, `message_id`, `in_trash`) VALU
 (5, 1, 6, 0),
 (6, 2, 7, 1),
 (7, 1, 8, 0),
-(8, 1, 9, 0);
+(8, 1, 9, 0),
+(9, 2, 10, 0),
+(10, 2, 11, 0);
 
 -- --------------------------------------------------------
 
@@ -289,7 +317,14 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `link_to_facebook`, `link_to_twitter`, `phone_number`, `age`, `date_of_signup`, `education`, `workplace`, `user_status`, `subscription_type`, `hobbies_interest_id`) VALUES
 (1, 'AhmedH', '12345', 'ahmed@mail.ca', NULL, NULL, NULL, 26, '2021-07-09', NULL, NULL, NULL, NULL, NULL),
-(2, 'EstevanC', 'testpassword', 'estevan@mail.ca', NULL, NULL, NULL, 40, '2021-07-09', NULL, NULL, 'hidden', NULL, NULL);
+(2, 'EstevanC', 'testpassword', 'estevan@mail.ca', NULL, NULL, NULL, 40, '2021-07-09', NULL, NULL, NULL, NULL, NULL),
+(3, 'username1', 'username1', 'username1@gmail.com', '', '', '9051234567', 26, '2021-07-04', '', '', 'available', 0, 0),
+(4, 'username2', 'username2', 'username2@gmail.com', '', '', '9051234001', 26, '2021-07-04', '', '', 'available', 0, 0),
+(5, 'username3', 'username3', 'username3@gmail.com', '', '', '9051234002', 26, '2021-07-04', '', '', 'available', 0, 0),
+(6, 'username4', 'username4', 'username4@gmail.com', '', '', '9051234003', 26, '2021-07-04', '', '', 'available', 0, 0),
+(7, 'username5', 'username5', 'username5@gmail.com', '', '', '9051234004', 26, '2021-07-04', '', '', 'available', 0, 0),
+(8, 'username6', 'username6', 'username6@gmail.com', '', '', '9051234005', 26, '2021-07-04', '', '', 'available', 0, 0),
+(9, 'username7', 'username7', 'username7@gmail.com', '', '', '9051234006', 26, '2021-07-04', '', '', 'available', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -343,6 +378,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `aboutus`
+--
+ALTER TABLE `aboutus`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `feedback`
@@ -433,6 +474,12 @@ ALTER TABLE `userwall`
 --
 
 --
+-- AUTO_INCREMENT for table `aboutus`
+--
+ALTER TABLE `aboutus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
@@ -442,7 +489,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `gallery`
@@ -460,19 +507,19 @@ ALTER TABLE `hobbies`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `message_receivers`
 --
 ALTER TABLE `message_receivers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `message_senders`
 --
 ALTER TABLE `message_senders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `newsletter`
@@ -490,7 +537,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `usersxhobbies`

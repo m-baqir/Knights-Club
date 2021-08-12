@@ -7,34 +7,15 @@
     <title>Knight's Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/42ed6d485e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css">
   <!--Style Sheet that it links too-->
   <link rel="stylesheet" href="./css/user_profile.css" /> 
   <link rel="stylesheet" href="../css/style_template.css" />
 </head>
 <body>
-<link rel="stylesheet" href="//cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css">
-
-<!--
-<header>
-  <img src="./images/php-knights-logo.png" alt="site logo made of a knights helmet" width="200" />
-  <nav id="menu">
-    <ul>
-      *Navigation elements
-      <li><a href="#">Profile | </a></li>
-      <li><a href="#">Search| </a></li>
-      <li><a href="#">Subscribe| </a></li>
-      <li><a href="#">Advice| </a></li>
-      <li><a href="#">Newsletter| </a></li>
-      <li><a href="#">Search| </a></li>
-      <li><a href="#">Sign In| </a></li>
-      <li><a href="#">User Wall </a></li>
-    </ul>
-  </nav>
-</header>
--->
 <?php require_once('../home_page/header.php'); ?>
 <div class="container">
       <div class="row">

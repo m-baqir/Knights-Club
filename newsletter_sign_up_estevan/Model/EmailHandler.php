@@ -4,7 +4,8 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Model\{Newsletter};
 
-require '../vendor/autoload.php';
+//require '../vendor/autoload.php';
+require './vendor/autoload.php';
 
 function send_email($to_address, $to_name, $from_address, $from_name,
                     $subject, $body, $is_body_html = false) {
@@ -28,7 +29,7 @@ function send_email($to_address, $to_name, $from_address, $from_name,
         )
     );
 
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
     $mail->isSMTP();                             // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';              // Set SMTP server
     $mail->SMTPSecure = 'tls';                   // Set encryption type
