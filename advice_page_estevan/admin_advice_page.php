@@ -1,6 +1,7 @@
 <?php
-use Model\{Database, Advice};
-require_once 'vendor/autoload.php';
+//use Model\{Database, Advice};
+use Webappdev\Knightsclub\models\{Database, Advice};
+require_once '../vendor/autoload.php';
 // here we can list through the advice store in the db
 $dbcon = Database::getDb();
 $a = new Advice();
@@ -42,10 +43,14 @@ $advice = $a->getAllAdvice(Database::getDb());
                     <p class="body-text-3x">Check out the posts below!</p>
                     <div class="small-search-wrap">
                         <div class="search-form">
-                            <form action="./insert_advice_form.php" method="post">
+                            <form action="" method="get">
                                 <div class="form-group">
-                                    <input type="text" value="Search Bar" placeholder="Search something here" maxlength="100" class="form-control" name="name" id="name">
+                                    <input type="text" value="<?php if (isset($_GET['param'])) echo $_GET['param']; ?>" placeholder="Search for a Subject" maxlength="100" class="form-control" name="param" id="name">   
                                 </div>
+                                <button type="submit" class="generalButton" name="search">Search</button>
+                            </form>
+                            <br />
+                            <form action="./insert_advice_form.php" method="post">
                                 <input type="submit" class="generalButton" value="Add A Post"/>
                             </form>
                         </div>
@@ -61,6 +66,21 @@ $advice = $a->getAllAdvice(Database::getDb());
 
             <div class="clearfix mt-40">
                 <ul class="xsearch-items">
+                    <?php if(isset($_GET['search'])) {
+                        
+                        $s = new Advice();
+                        $db = Database::getDb();
+                  
+                        $param = $_GET['param'];
+                  
+                        if($param == ""){
+                        header("Location: ../advice_page_estevan/admin_advice_page.php");
+                  
+                        } else{
+                        $results = $u->FindSubject($param, $db);
+                        }
+                    } 
+                    ?>
                     <?php foreach ($advice as $advice) { ?>
                     <li class="search-item">
                         <!--<div class="search-item-img">

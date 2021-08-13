@@ -1,4 +1,5 @@
 <?php
+//namespace Webappdev\Knightsclub\models;
 namespace Model;
 class Newsletter
 {
