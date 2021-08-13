@@ -21,7 +21,7 @@ if (isset($_POST['deleteconfirm'])) {
   $f = new Form();
   $count = $f->deleteForm($id, $db);
   if ($count) {
-    header("Location: AdminContactUs.php");
+    header("Location: ContactUsAdmin.php");
   } else {
     echo " Error in deleting!!";
   }
@@ -29,7 +29,7 @@ if (isset($_POST['deleteconfirm'])) {
 
 }
 if (isset($_POST['close'])) {
-  header("Location: AdminContactUs.php");
+  header("Location: ContactUsAdmin.php");
 }
 require_once 'header.php';
 ?>

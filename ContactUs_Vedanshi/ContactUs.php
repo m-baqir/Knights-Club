@@ -1,34 +1,37 @@
 <?php
+
 //session_start();
 //$user_id= $_SESSION[user_id];
 $user_id=1;
 require_once 'database.php';
 
 if(isset($_POST['submit'])){
-    if(isset($_POST['message']) && isset($_POST['subject'])) {
-        $message = $_POST['message'];
-        $subject = $_POST['subject'];
-        $date = date("Y-m-d");
-        //$yearRel = $_POST['yearRel'];
-        $db = Database::getDb();
-        //$c = new Car();
-        //$con = $c->addCar($make, $model, $yearRel, $db);
-        $sql = "INSERT INTO feedback (user_id, subject, content, date) 
+  if(isset($_POST['message']) && isset($_POST['subject'])) {
+    $message = $_POST['message'];
+    $subject = $_POST['subject'];
+    $date = date("Y-m-d");
+    //$yearRel = $_POST['yearRel'];
+    $db = Database::getDb();
+    //$c = new Car();
+    //$con = $c->addCar($make, $model, $yearRel, $db);
+    $sql = "INSERT INTO feedback (user_id, subject, content, date) 
               VALUES ( :user_id, :subject, :message, :date) ";
-        $pst = $db->prepare($sql);
-        $pst->bindParam(':user_id', $user_id);
-        $pst->bindParam(':subject', $subject);
-        $pst->bindParam(':message', $message);
-        $pst->bindParam(':date', $date);
-        $pst->execute();
-        echo"<script>alert('Submitted');</script>";
-    }
-    else {
-        echo "Error!!";
-    }
+    $pst = $db->prepare($sql);
+    $pst->bindParam(':user_id', $user_id);
+    $pst->bindParam(':subject', $subject);
+    $pst->bindParam(':message', $message);
+    $pst->bindParam(':date', $date);
+    $pst->execute();
+    echo"<script>alert('Submitted');</script>";
+  }
+  else {
+    echo "Error!!";
+  }
 }
 
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

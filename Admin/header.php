@@ -1,3 +1,17 @@
+<?php
+session_start();
+//$uid= $_SESSION['user_id'];
+
+require_once '../ContactUs_Vedanshi/database.php';
+require_once 'models/Form.php';
+$uid=1;
+$d = Database::getDb();
+$fr = new Form();
+$fo = $fr->getUserById($uid, $d);
+$uname=$fo->username;
+$email=$fo->email;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +75,7 @@
               <i class="fas fa-tachometer-alt"></i>Dashboard</a>
           </li>
           <li>
-            <a href="AdminContactUs.php">
+            <a href="ContactUsAdmin.php">
               <i class="far fa-check-square"></i>Feedback Forms</a>
           </li>
           <li>
@@ -92,7 +106,7 @@
               <i class="fas fa-tachometer-alt"></i>Dashboard</a>
 
           <li>
-            <a href="AdminContactUs.php">
+            <a href="ContactUsAdmin.php">
               <i class="far fa-check-square"></i>Feedback/ContactUs Forms</a>
           </li>
           <li>
@@ -118,26 +132,22 @@
         <div class="container-fluid">
           <div class="header-wrap">
             <form class="form-header" action="" method="POST">
-              <input class="au-input au-input--xl" type="text" name="search"
-                     placeholder="Search for datas &amp; reports..."/>
-              <button class="au-btn--submit" type="submit">
-                <i class="zmdi zmdi-search"></i>
-              </button>
+
             </form>
             <div class="header-button">
               <div class="account-wrap">
                 <div class="account-item clearfix js-item-menu">
 
                   <div class="content">
-                    <a class="js-acc-btn" href="#">john doe</a>
+                    <a class="js-acc-btn" href="#"><?php echo $uname; ?></a>
                   </div>
                   <div class="account-dropdown js-dropdown">
                     <div class="info clearfix">
                       <div class="content">
                         <h5 class="name">
-                          <a href="#">john doe</a>
+                          <a href="#"><?php echo $uname; ?></a>
                         </h5>
-                        <span class="email">johndoe@example.com</span>
+                        <span class="email"><?php echo $email; ?></span>
                       </div>
                     </div>
                     <div class="account-dropdown__body">
@@ -151,7 +161,7 @@
                       </div>
                     </div>
                     <div class="account-dropdown__footer">
-                      <a href="#">
+                      <a href="logout.php">
                         <i class="zmdi zmdi-power"></i>Logout</a>
                     </div>
                   </div>

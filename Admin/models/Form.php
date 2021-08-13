@@ -11,6 +11,15 @@ class Form
     return $pst->fetch(PDO::FETCH_OBJ);
   }
 
+  public function getUserById($uid, $db)
+  {
+    $sql = "SELECT f.*, u.username, u.email FROM feedback as f join user as u on f.user_id = u.id where u.id = $uid";
+    $pst = $db->prepare($sql);
+    $pst->bindParam(':id', $uid);
+    $pst->execute();
+    return $pst->fetch(PDO::FETCH_OBJ);
+  }
+
   public function getAllForms($dbcon)
   {
     $sql = "SELECT * FROM feedback";
@@ -19,10 +28,18 @@ class Form
     $feedbacks = $pdostm->fetchAll(PDO::FETCH_OBJ);
     return $feedbacks;
   }
+  public function getAllUsers($dbcon)
+  {
+    $sql = "SELECT * FROM user";
+    $pdostm = $dbcon->prepare($sql);
+    $pdostm->execute();
+    $users = $pdostm->fetchAll(PDO::FETCH_OBJ);
+    return $users;
+  }
 
   public function getAllFormsforIndex($dbcon)
   {
-    $sql = "SELECT *, u.username FROM feedback as f join user as u on f.user_id = u.id";
+    $sql = "SELECT f.*, u.username, u.email FROM feedback as f join user as u on f.user_id = u.id";
     $pdostm = $dbcon->prepare($sql);
     $pdostm->execute();
     $feedbacks = $pdostm->fetchAll(PDO::FETCH_OBJ);
@@ -32,11 +49,11 @@ class Form
   public function addForm($user_id, $subject, $content, $date, $db)
   {
     $sql = "INSERT INTO feedback (user_id, subject, content, date) 
-              VALUES ( :user_id, :subject, :message, :date) ";
+              VALUES ( :user_id, :subject, :content, :date) ";
     $pst = $db->prepare($sql);
     $pst->bindParam(':user_id', $user_id);
     $pst->bindParam(':subject', $subject);
-    $pst->bindParam(':message', $content);
+    $pst->bindParam(':content', $content);
     $pst->bindParam(':date', $date);
     $count = $pst->execute();
     return $count;
@@ -75,3 +92,5 @@ class Form
     return $count;
   }
 }
+
+
