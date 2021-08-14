@@ -19,6 +19,8 @@ $allrss = $r->getallrss($userid,$db);
 $title= $allrss->title;
 
 // as of now the user id is set to 2 which is estevans user information
+// change below if you want to view a different user table
+// NOTE HOBBIES AND INTEREST ARE NOT INCLUDED 
 $id = 2;
 
 $db = Database::getDb();
