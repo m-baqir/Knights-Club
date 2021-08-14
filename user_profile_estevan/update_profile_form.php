@@ -108,6 +108,7 @@ if(isset($_POST['updProfile'])){
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -218,7 +219,7 @@ if(isset($_POST['updProfile'])){
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
               <button type="submit" name="updProfile" class="btn btn-primary">Update Profile</button>
-              <button type="reset" class="btn btn-default">Cancel</button>
+              <button type="submit" class="btn btn-default">Cancel</button>
             </div>
           </div>
         </div>

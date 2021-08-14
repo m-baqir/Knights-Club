@@ -6,11 +6,17 @@
 // session_start();
 //session_start();
 //$user_id= $_SESSION[user_id];
+//session_start();
 session_start();
-
-use Webappdev\Knightsclub\models\{Database, User};
-
-require "../vendor/autoload.php";
+use Webappdev\Knightsclub\models\{Database,rss, User};
+require_once '../vendor/autoload.php';
+//as an example using userid 1
+$userid = $_SESSION["userid"] = 13;
+//rss code below
+$db = Database::getDb();
+$r = new rss();
+$allrss = $r->getallrss($userid,$db);
+$title= $allrss->title;
 // as of now the user id is set to 2 which is estevans user information
 $id = 2;
 
@@ -129,10 +135,34 @@ if($user->id == 2){
                     <span class="float-left">
                       <!--!unable to find.a service to host rss feed for it to go live as it seems rss have become outdated and not many websites are supporting it-->
                       <!--TODO: find a service to host rss.xml, I am leaving the rss button link as is for now Signed:MB-->
-                      <a href="./rss.xml"><img border="0" alt="Subscribe to What's New"
-                          src="https://i.imgur.com/fZIDSoj.png" width="50" height="50"></a>
+                      <button id="rssimg"> <img alt="Subscribe to What's New"
+                          src="https://i.imgur.com/fZIDSoj.png" width="50" height="50"></button>
+                    <div id="xmldisplay">
+                        <form>
+                            <select name="subs" onchange="rssoutput(this.value)">
+                                <option value=""></option>
+                                <option value="1"><?=$title?></option>
+                            </select>
+                        </form>
+                    </div>
                     </span>
                   </p>
+                    <!--<script>
+                        document.getElementById("rssimg").onclick = function(){rssoutput()};
+                        function rssoutput(){
+                            var xml =new XMLHttpRequest();
+                            xml.onload = function () {
+                                console.log(xml.responseXML.documentElement.nodeName);
+                            }
+                            xml.onerror = function (){
+                                console.log('error while getting xml');
+                            }
+                            xml.open("GET","rss.xml");
+                            xml.responseType="document";
+                            xml.send();
+
+                        }
+                    </script>-->
                 </div>
               </div>
               <div class="col-lg-8">
