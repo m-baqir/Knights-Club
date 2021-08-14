@@ -17,6 +17,7 @@ $db = Database::getDb();
 $r = new rss();
 $allrss = $r->getallrss($userid,$db);
 $title= $allrss->title;
+
 // as of now the user id is set to 2 which is estevans user information
 $id = 2;
 

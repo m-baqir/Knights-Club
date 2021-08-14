@@ -76,13 +76,14 @@ if(isset($_POST['updProfile'])){
         $emailError = "Please enter an email.";
     }
 
-    if($facebook == ""){
+    // SINCE FACEBOOK AND TWITTER CAN BE NULL THERE IS NO ERROR MESSAGES
+  /*  if($facebook == ""){
         $faceError = "If you an account please enter your facebook name. If not please enter 'NONE' ";
     }
 
     if($twitter == ""){
         $twitError = "If you an account please enter your twitter name. If not please enter 'NONE' ";
-    }
+    } */
 
     if($phone_number == ""){
         $phoneError = "Please a contact number";
@@ -96,7 +97,7 @@ if(isset($_POST['updProfile'])){
         $workError = "Please enter your current workplace level.";
     }
 
-    if($firstError == '' && $lastError == '' && $countryError == '' && $bioError == '' && $emailError == '' && $faceError == '' && $twitError == '' && $phoneError == '' && $educError == '' && $workError == ''){
+    if($firstError == '' && $lastError == '' && $countryError == '' && $bioError == '' && $emailError == '' && $phoneError == '' && $educError == '' && $workError == ''){
         $db = Database::getDb();
         $u = new User();
         $count = $u->updateUserContent($id, $firstname, $lastname, $country, $bio, $email, $facebook, $twitter, $phone_number, $education, $workplace, $db);
@@ -185,14 +186,12 @@ if(isset($_POST['updProfile'])){
             <label class="col-sm-2 control-label">Facebook Link</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="Facebook Link" name="facebook" value="<?= $facebook ?>">
-              <span><?= isset($faceError) ? $faceError : ''; ?></span>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Twitter Link</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="Twitter Link" name="twitter" value="<?= $twitter ?>">
-              <span><?= isset($twitError) ? $twitError : ''; ?></span>
             </div>
           </div>
           <div class="form-group">
