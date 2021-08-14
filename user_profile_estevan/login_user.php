@@ -6,7 +6,21 @@
 // session_start();
 //session_start();
 //$user_id= $_SESSION[user_id];
+session_start();
 
+use Webappdev\Knightsclub\models\{Database, User};
+
+require "../vendor/autoload.php";
+// as of now the user id is set to 2 which is estevans user information
+$id = 2;
+
+$db = Database::getDb();
+$u = new User();
+$user = $u->getUserById($id, $db);
+
+// checks if the session id matches to a user id in the user table
+//if($_SESSION["id"] == $user->id ){
+if($user->id == 2){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +42,7 @@
 <body>
   <?php require_once('../home_page/header.php'); ?>
   <div class="container">
+    <input type="hidden" name="id" value="<?= $id ?>" />
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -37,26 +52,12 @@
                 <div class="border-bottom text-center pb-4">
                   <img src="images/estevan.jpg" alt="profile" class="img-lg rounded-circle mb-3">
                   <div class="mb-3">
-                    <h3>Estevan Cordero</h3>
+                    <h3><?= $user->first_name; ?> <?=$user->last_name; ?></h3>
                     <div class="d-flex align-items-center justify-content-center">
-                      <h5 class="mb-0 mr-2 text-muted">Canada</h5>
-                      <div class="br-wrapper br-theme-css-stars"><select id="profile-rating" name="rating"
-                          autocomplete="off" style="display: none;">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                        <div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"
-                            class="br-selected br-current"></a><a href="#" data-rating-value="2"
-                            data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a
-                            href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5"
-                            data-rating-text="5"></a></div>
-                      </div>
+                      <h5 class="mb-0 mr-2 text-muted"><?= $user->country; ?></h5>
                     </div>
                   </div>
-                  <p class="w-75 mx-auto mb-3">Single, and sad owner of more then hundreds of videos games </p>
+                  <p class="w-75 mx-auto mb-3"><?= $user->bio; ?></p>
                 </div>
                 <div class="border-bottom py-4">
                   <p>Hobbies and Interest</p>
@@ -66,13 +67,20 @@
                     <label class="badge badge-outline-dark">Working on this f**king profile</label>
                   </div>
                 </div>
+                <div class="border-bottom py-4">
+                  <p><h6>Member Since:</h6>  <?= $user->date_of_signup; ?></p>
+                  <p><h6>Age:</h6>  <?= $user->age; ?></p>
+                  <p><h6>Education:</h6>  <?= $user->education; ?></p>
+                  <p><h6>Workplace:</h6>  <?= $user->workplace; ?></p>
+                  <p><h6>Subscription:</h6>  <?php if($user->subscription_type == null) { print 'None'; } else { $user->subscription_type; } ?></p>
+                </div>
                 <div class="py-4">
                   <p class="clearfix">
                     <span class="float-left">
                       Status
                     </span>
                     <span class="float-right text-muted">
-                      Active
+                      <?= $user->user_status; ?>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -80,7 +88,7 @@
                       Phone
                     </span>
                     <span class="float-right text-muted">
-                      006 3435 22
+                      <?= $user->phone_number; ?>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -88,7 +96,7 @@
                       Mail
                     </span>
                     <span class="float-right text-muted">
-                      estevan@testmail.com
+                      <?= $user->email; ?>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -96,7 +104,13 @@
                       Facebook
                     </span>
                     <span class="float-right text-muted">
-                      <a href="#" class="facebook-link">Estevan Cordero</a>
+                      <a href="#" class="facebook-link">
+                        <?php if($user->link_to_facebook == null) {
+                            print '<p>'. 'No Account' . '</p>';
+                          } else {
+                          $user->link_to_facebook; 
+                        }?>
+                      </a>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -104,7 +118,13 @@
                       Twitter
                     </span>
                     <span class="float-right text-muted">
-                      <a href="#" class="twitter-link">@estevancordero</a>
+                      <a href="#" class="twitter-link">
+                        <?php if($user->link_to_twitter == null) {
+                          print '<p>'. 'No Account' . '</p>';
+                        } else {
+                        $user->link_to_twitter;
+                        }?>
+                      </a>
                     </span>
                     <span class="float-left">
                       <!--!unable to find.a service to host rss feed for it to go live as it seems rss have become outdated and not many websites are supporting it-->
@@ -116,7 +136,7 @@
                 </div>
               </div>
               <div class="col-lg-8">
-                <p class="loginNotice">Signed in as: Estevan Cordero</p>
+                <p class="loginNotice">Signed in as: <?= $user->first_name; ?> <?= $user->last_name ?></p>
                 <button class="buttonLook">LOG OUT</button>
                 <div class="mt-4 py-2 border-top border-bottom">
                   <ul class="nav profile-navbar">
@@ -136,6 +156,16 @@
                       <a class="nav-link" href="#">
                         <i class="mdi mdi-calendar"></i>
                         Gallery
+                      </a>
+                    </li>
+                    <!--Form to redirect to update profile -->
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">
+                        <i class="mdi mdi-calendar"></i>
+                        <form action="./update_profile_form.php" method="post">
+                                <input type="hidden" name="id" value="<?= $user->id; ?>" />
+                                <input type="submit" name="updateProfile" value="Update Profile" />
+                        </form>
                       </a>
                     </li>
                   </ul>
@@ -231,6 +261,7 @@
         </div>
       </div>
     </div>
+  <?php } ?>
   </div>
   <?php require_once('../home_page/footer.php'); ?>
   <!--<footer id="copyRight">
