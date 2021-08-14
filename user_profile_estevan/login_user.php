@@ -1,14 +1,4 @@
 <?php
-session_start();
-use Webappdev\Knightsclub\models\{Database,rss};
-require_once '../vendor/autoload.php';
-//as an example using userid 1
-$userid = $_SESSION["userid"] = 13;
-//rss code below
-$db = Database::getDb();
-$r = new rss();
-$allrss = $r->getallrss($userid,$db);
-$title= $allrss->title;
 
 ?>
 <!DOCTYPE html>
@@ -116,9 +106,9 @@ $title= $allrss->title;
                           src="https://i.imgur.com/fZIDSoj.png" width="50" height="50"></button>
                     <div id="xmldisplay">
                         <form>
-                            <select name="subs" onchange="rssoutput(this.value)">
+                            <select>
                                 <option value=""></option>
-                                <option value="1"><?=$title?></option>
+
                             </select>
                         </form>
                     </div>
