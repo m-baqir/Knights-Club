@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 
-    <channel>
-        <title>W3Schools Home Page</title>
+    <channel name="W3schools">
+        <title>W3schools Home Page</title>
         <link>https://www.w3schools.com</link>
         <description>Free web building tutorials</description>
-        <item>
-            <title>RSS Tutorial</title>
-            <link>https://www.w3schools.com/xml/xml_rss.asp</link>
-            <description>New RSS tutorial on W3Schools</description>
-        </item>
-        <item>
-            <title>XML Tutorial</title>
-            <link>https://www.w3schools.com/xml</link>
-            <description>New XML tutorial on W3Schools</description>
-        </item>
+    </channel>
+    <channel name="Google">
+        <title>Google</title>
+        <link>google.com</link>
+        <description>best search engine</description>
+    </channel>
+    <channel name="Csstricks">
+        <title>Csstricks</title>
+        <link>css-tricks.com</link>
+        <description>teaches you new tricks on working with css</description>
+    </channel>
+    <channel name="Humber">
+        <title>Humber</title>
+        <link>humber.ca</link>
+        <description>Best college in ontario. they have the best programs and admission process.</description>
+    </channel>
+    <channel name="Facebook">
+        <title>Facebook</title>
+        <link>facebook.com</link>
+        <description>Best Social Media website</description>
     </channel>
 
 </rss>

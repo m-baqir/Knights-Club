@@ -1,5 +1,19 @@
 <?php
-
+session_start();
+use Webappdev\Knightsclub\models\{Database,rss};
+$simpleresult = '';
+require_once '../vendor/autoload.php';
+//include './getsub.php';
+$options='';
+$db = Database::getDb();
+$b = new rss();
+//using example id for now
+$allrss = $b->getallrss(1,$db);
+//var_dump($allrss);
+foreach ($allrss as $r){
+    $options .= '<option value="'.$r->title.'">'.$r->title.'</option>';
+}
+var_dump($simpleresult);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,34 +116,38 @@
                     <span class="float-left">
                       <!--!unable to find.a service to host rss feed for it to go live as it seems rss have become outdated and not many websites are supporting it-->
                       <!--TODO: find a service to host rss.xml, I am leaving the rss button link as is for now Signed:MB-->
-                      <button id="rssimg"> <img alt="Subscribe to What's New"
-                          src="https://i.imgur.com/fZIDSoj.png" width="50" height="50"></button>
-                    <div id="xmldisplay">
+                        <script>
+                        //document.getElementById("rssimg").onclick = function(){showsubs()};
+                        function showsubs(str){
+                            console.log('this is working');
+                            if (str=="") {
+                                document.getElementById("displaybox").innerHTML="";
+                                return;
+                            }
+                            var xmlhttp=new XMLHttpRequest();
+                            xmlhttp.onreadystatechange=function() {
+                                if (this.readyState===4 && this.status===200) {
+                                    document.getElementById("displaybox").innerHTML=this.responseText;
+                                }
+                            }
+                            xmlhttp.open("GET","getsub.php?q="+str,true);
+                            xmlhttp.send();
+                        }
+                    </script>
+                    <div id="rssbox">
+                        <img id="rssimg" alt="Subscribe to What's New" src="https://i.imgur.com/fZIDSoj.png" width="50" height="50">
                         <form>
-                            <select>
-                                <option value=""></option>
-
+                            <select name="subs" onchange="showsubs(this.value)">
+                                <option value="">Select your subscription</option>
+                                <?php print $options; ?>
                             </select>
                         </form>
+                        <div id="displaybox">
+
+                        </div>
                     </div>
                     </span>
                   </p>
-                    <!--<script>
-                        document.getElementById("rssimg").onclick = function(){rssoutput()};
-                        function rssoutput(){
-                            var xml =new XMLHttpRequest();
-                            xml.onload = function () {
-                                console.log(xml.responseXML.documentElement.nodeName);
-                            }
-                            xml.onerror = function (){
-                                console.log('error while getting xml');
-                            }
-                            xml.open("GET","rss.xml");
-                            xml.responseType="document";
-                            xml.send();
-
-                        }
-                    </script>-->
                 </div>
               </div>
               <div class="col-lg-8">
