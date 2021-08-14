@@ -3,10 +3,10 @@
 use Webappdev\Knightsclub\models\{Database, Advice};
 require_once '../vendor/autoload.php';
 // here we can list through the advice store in the db
-$dbcon = Database::getDb();
-$a = new Advice();
-$advice = $a->getAllAdvice(Database::getDb());
-
+//$dbcon = Database::getDb();
+//$a = new Advice();
+//$advice = $a->getAllAdvice(Database::getDb());
+// Unused
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +40,7 @@ $advice = $a->getAllAdvice(Database::getDb());
             <div class="row text-center">
                 <div class="col-md-8 offset-md-2">
                     <h3>Having Some Problems? Need Some Advice?</h3>
-                    <p class="body-text-3x">Check out the posts below!</p>
+                    <p class="body-text-3x">Enter A Subject Of Your Choice!</p>
                     <div class="small-search-wrap">
                         <div class="search-form">
                             <form action="" method="get">
@@ -77,11 +77,12 @@ $advice = $a->getAllAdvice(Database::getDb());
                         header("Location: ../advice_page_estevan/admin_advice_page.php");
                   
                         } else{
-                        $results = $u->FindSubject($param, $db);
+                        $results = $s->FindSubject($param, $db);
+                        printResults($results);
                         }
                     } 
-                    ?>
-                    <?php foreach ($advice as $advice) { ?>
+                    function printResults($results){
+                        foreach ($results as $r) { ?>
                     <li class="search-item">
                         <!--<div class="search-item-img">
                             Here is the image for the profile
@@ -91,29 +92,30 @@ $advice = $a->getAllAdvice(Database::getDb());
                         </div>-->
                         <div class="search-item-content">
                             <!--Subject Line-->
-                            <h3 class="search-item-caption"><?= $advice->subject; ?></a></h3>
+                            <h3 class="search-item-caption"><?= $r->subject; ?></a></h3>
 
                             <div class="search-item-meta mb-15">
                                 <ul class="list-inline">
                                     <!--Date Line -->
-                                    <li class="time"><?= $advice->date; ?></li>
+                                    <li class="time"><?= $r->date; ?></li>
                                 </ul>
                             </div>
                             <!--Content of the post -->
                             <div class="content"><!--Made a class if you want to edit the messages. *Note its not in use*-->
-                                <?= $advice->content; ?>
+                                <?= $r->content; ?>
                             </div>
                             <br />
                             <form action="./update_advice_form.php" method="post">
-                                <input type="hidden" name="id" value="<?= $advice->id; ?>" />
+                                <input type="hidden" name="id" value="<?= $r->id; ?>" />
                                 <input type="submit" class="generalButton" name="updateAdvice" value="Update Post" />
                             </form>
                             <br />
                             <form action="./delete_advice.php" method="post">
-                                <input type="hidden" name="id" value="<?= $advice->id; ?>" />
+                                <input type="hidden" name="id" value="<?= $r->id; ?>" />
                                 <input type="submit" class="generalButton" name="deleteAdvice" value="Delete Post" />
                             </form>
-                        <?php } ?>
+                        <?php }
+                        } ?>
                         </div>
                     </li>
                     <!--This is where it ends-->

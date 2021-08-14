@@ -1,8 +1,12 @@
 <?php
 //namespace
 namespace Webappdev\Knightsclub\models;
+
+use PDO;
+
 class Advice
 {
+    // Not Used
     public function getAdviceById($id, $db){
         $sql = "SELECT * FROM advice WHERE id = :id";
         $pst = $db->prepare($sql);
@@ -68,7 +72,7 @@ class Advice
         $pdostm->bindParam(":s", $param);
         $pdostm->execute();
 
-        $results = $pdostmt->fetchAll(PDO::FETCH_OBJ);
+        $results = $pdostm->fetchAll(PDO::FETCH_OBJ);
         return $results;
 
     }

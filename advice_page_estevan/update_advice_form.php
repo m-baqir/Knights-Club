@@ -106,7 +106,7 @@ if(isset($_POST['updAdvice'])){
                             <!--<i class="fa fa-comment"></i>-->
                         </div>
                     </div><!-- End textarea -->
-                    <p><button name="updAdvice" type="submit" class="btn btn-info btn-block" data-error-message="Error!" data-sending-message="Submitting..." data-ok-message="Submitted Sent"><i class="fa fa-location-arrow"></i>Update Advice</button></p>
+                    <p><button name="updAdvice" type="submit" class="btn btn-info btn-block"><i class="fa fa-location-arrow"></i>Update Advice</button></p>
                     <!--<input type="hidden" name="submitted" id="submitted" value="true">-->
                 </form><!-- End Highlighted-form -->
                 <form id="Highlighted-form" class="col-sm-6 col-sm-offset-3" action="admin_advice_page.php" method="post" novalidate="">
