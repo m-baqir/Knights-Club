@@ -1,5 +1,6 @@
 <?php
-
+namespace Webappdev\Knightsclub\models;
+use PDO;
 class FAQ
 {
   public function getFAQById($id, $db)

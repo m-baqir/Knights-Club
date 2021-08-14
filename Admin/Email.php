@@ -4,8 +4,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/Form.php';
+use Webappdev\Knightsclub\models\{Database,Form};
+require_once '../vendor/autoload.php';
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 $date = "";

@@ -1,6 +1,7 @@
 <?php
-
-class PostData
+namespace Webappdev\Knightsclub\models;
+use PDO;
+class UserWall
 {
   public function getPostDataById($id, $db)
   {

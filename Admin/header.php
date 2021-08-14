@@ -2,8 +2,8 @@
 session_start();
 //$uid= $_SESSION['user_id'];
 
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/Form.php';
+use Webappdev\Knightsclub\models\{Database,Form};
+require_once '../vendor/autoload.php';
 $uid=1;
 $d = Database::getDb();
 $fr = new Form();

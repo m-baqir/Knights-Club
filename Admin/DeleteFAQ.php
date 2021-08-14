@@ -1,7 +1,7 @@
 <?php
 
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/FAQ.php';
+use Webappdev\Knightsclub\models\{Database,FAQ};
+require_once '../vendor/autoload.php';
 if (isset($_POST['deleteFAQ'])) {
   $id = $_POST['id'];
   $db = Database::getDb();

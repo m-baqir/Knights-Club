@@ -1,5 +1,7 @@
 <?php
+namespace Webappdev\Knightsclub\models;
 
+use PDO;
 class Form
 {
   public function getFormById($id, $db)

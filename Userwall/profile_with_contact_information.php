@@ -1,6 +1,6 @@
 <?php
-require_once '../ContactUs_Vedanshi/database.php';
-require_once '../Admin/models/UserWall.php';
+use Webappdev\Knightsclub\models\{Database,UserWall};
+require_once '../vendor/autoload.php';
 
 if (isset($_POST['postdata'])) {
   var_dump($_POST);
@@ -12,7 +12,7 @@ if (isset($_POST['postdata'])) {
   $user_id = 1;
 
     $db = Database::getDb();
-    $p = new PostData();
+    $p = new UserWall();
     $con = $p->addPostData($user_id, $subject, $content, $date, $db);
     if ($con) {
       header('Location:  profile_with_contact_information.php');
@@ -21,7 +21,7 @@ if (isset($_POST['postdata'])) {
     }
 }
 $dbcon = Database::getDb();
-$p = new PostData();
+$p = new UserWall();
 //$uid= $_SESSION['user_id'];
 $uid=1;
 $data = $p->getAllPostDataforProfile( $uid, $dbcon);

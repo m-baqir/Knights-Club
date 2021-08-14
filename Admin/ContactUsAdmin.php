@@ -1,6 +1,6 @@
 <?php
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/Form.php';
+use Webappdev\Knightsclub\models\{Database,Form};
+require_once '../vendor/autoload.php';
 
 $dbcon = Database::getDb();
 $f = new Form();

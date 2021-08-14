@@ -3,7 +3,8 @@
 //session_start();
 //$user_id= $_SESSION[user_id];
 $user_id=1;
-require_once 'database.php';
+use Webappdev\Knightsclub\models\{Database,Form};
+require_once '../vendor/autoload.php';
 
 if(isset($_POST['submit'])){
   if(isset($_POST['message']) && isset($_POST['subject'])) {

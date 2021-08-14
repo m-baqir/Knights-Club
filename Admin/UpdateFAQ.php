@@ -1,6 +1,6 @@
 <?php
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/FAQ.php';
+use Webappdev\Knightsclub\models\{Database,FAQ};
+require_once '../vendor/autoload.php';
 $question = $answer = $category = "";
 
 if (isset($_POST['updateFAQ'])) {
