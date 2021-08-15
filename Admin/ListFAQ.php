@@ -1,11 +1,16 @@
 <?php
 use Webappdev\Knightsclub\models\{Database,FAQ};
 require_once '../vendor/autoload.php';
-
+//Just manually set values for session variables till login nd registration pages get ready
+$_SESSION['user_id'] = 1;
+$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['user_id']) && $_SESSION["is_Admin"] == true ){
 $dbcon = Database::getDb();
 $f = new FAQ();
 $FAQs = $f->getAllFAQs(Database::getDb());
-
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 require_once 'header.php';
 ?>
 
@@ -20,25 +25,7 @@ require_once 'header.php';
       <h3 class="title-5 m-b-35">FAQ</h3>
       <div class="table-data__tool">
         <div class="table-data__tool-left">
-          <div class="rs-select2--light rs-select2--md">
-            <select class="js-select2" name="property">
-              <option selected="selected">All Properties</option>
-              <option value="">Option 1</option>
-              <option value="">Option 2</option>
-            </select>
-            <div class="dropDownSelect2"></div>
-          </div>
-          <div class="rs-select2--light rs-select2--sm">
-            <select class="js-select2" name="time">
-              <option selected="selected">Today</option>
-              <option value="">3 Days</option>
-              <option value="">1 Week</option>
-            </select>
-            <div class="dropDownSelect2"></div>
-          </div>
-          <button class="au-btn-filter">
-            <i class="zmdi zmdi-filter-list"></i>filters
-          </button>
+
         </div>
         <div class="table-data__tool-right">
           <a href="AddFAQ.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
@@ -91,9 +78,6 @@ require_once 'header.php';
                       <i class="zmdi zmdi-delete"></i>
                     </button>
                   </form>
-                  <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                    <i class="zmdi zmdi-more"></i>
-                  </button>
                 </div>
               </td>
             </tr>

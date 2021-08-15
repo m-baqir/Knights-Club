@@ -2,7 +2,10 @@
 use Webappdev\Knightsclub\models\{Database,FAQ};
 require_once '../vendor/autoload.php';
 $question = $answer = $category = "";
-
+//Just manually set values for session variables till login nd registration pages get ready
+$_SESSION['user_id'] = 1;
+$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['user_id']) && $_SESSION["is_Admin"] == true ){
 if (isset($_POST['updateFAQ'])) {
   $id = $_POST['id'];
   $db = Database::getDb();
@@ -33,7 +36,9 @@ if (isset($_POST['submit'])) {
     echo "Error in updating!!";
   }
 }
-
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 require_once 'header.php'
 ?>
   <!-- MAIN CONTENT-->

@@ -12,6 +12,10 @@ $date = "";
 $content = "";
 $uname = "";
 $email = "";
+//Just manually set values for session variables till login nd registration pages get ready
+$_SESSION['user_id'] = 1;
+$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['user_id']) && $_SESSION["is_Admin"] == true ){
 $dbcon = Database::getDb();
 $f = new Form();
 $forms = $f->getAllFormsforIndex(Database::getDb());
@@ -77,7 +81,9 @@ if (isset($_POST['send'])) {
 //    );
 
 }
-
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 require_once 'header.php';
 ?>
 
@@ -128,14 +134,7 @@ require_once 'header.php';
                     </div>
                   </div>
                 </div>
-                <div class="send-mess-wrap">
-                  <span class="mess-time">30 Sec ago</span>
-                  <div class="send-mess__inner">
-                    <div class="send-mess-list">
-                      <div class="send-mess">Lorem ipsum dolor sit amet, consectetur adipiscing elit non iaculis</div>
-                    </div>
-                  </div>
-                </div>
+
               </div>
               <div class="au-chat-textfield">
                 <form class="au-form-icon" method="POST">

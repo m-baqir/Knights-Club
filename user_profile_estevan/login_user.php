@@ -1,8 +1,32 @@
 <?php
 session_start();
-use Webappdev\Knightsclub\models\{Database,rss};
+use Webappdev\Knightsclub\models\{Database,rss,UserWall};
 $simpleresult = '';
 require_once '../vendor/autoload.php';
+//Just manually set values for session variables till login nd registration pages get ready
+$user_id = $_SESSION['user_id'] = 1;
+if(isset($_SESSION['user_id']) ){
+  if (isset($_POST['postdata'])) {
+    var_dump($_POST);
+    $date = date("Y-m-d h:i:s");
+    $content = $_POST['userwall'];
+    $subject = 'Knight_club Post';
+
+    $db = Database::getDb();
+    $p = new UserWall();
+    $con = $p->addPostData($user_id, $subject, $content, $date, $db);
+    if ($con) {
+      header('Location:  login_user.php');
+    } else {
+      echo "Error!!";
+    }
+  }
+  $dbcon = Database::getDb();
+  $p = new UserWall();
+  $data = $p->getAllPostDataforProfile( $user_id, $dbcon);
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 //include './getsub.php';
 $options='';
 $db = Database::getDb();
@@ -13,7 +37,7 @@ $allrss = $b->getallrss(1,$db);
 foreach ($allrss as $r){
     $options .= '<option value="'.$r->title.'">'.$r->title.'</option>';
 }
-var_dump($simpleresult);
+//var_dump($simpleresult);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +51,118 @@ var_dump($simpleresult);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/42ed6d485e.js" crossorigin="anonymous"></script>
+
   <!--Style Sheet that it links too-->
   <link rel="stylesheet" href="./css/user_profile.css" />
   <link rel="stylesheet" href="../css/style_template.css" />
   <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="./rss.xml" />
+  <script src="https://cdn.tiny.cloud/1/phk6ief1j9wyyt254p32j41op0z1tstak9t3iimk5uqtee9l/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+  <script>
+      tinymce.init({
+          selector: '#userwall',
+          plugins: 'image media',
+          toolbar: 'undo redo | image media',
+          menubar: false,
+          file_picker_types: 'file image media',
+          image_dimensions: false,
+          automatic_uploads: true,
+          media_live_embeds: true,
+          width: "600",
+          height: "200",
+          editor_selector: "test",
+          // without images_upload_url set, Upload tab won't show up
+          images_upload_url: 'upload.php',
+
+          file_picker_callback: function (cb, value, meta) {
+              var input = document.createElement('input');
+              input.setAttribute('type', 'file');
+              input.setAttribute('name', 'usrfile');
+              input.setAttribute('id', 'usrfile');
+              input.setAttribute('accept', 'image/* audio/* video/*');
+              console.log(input);
+              /*
+                Note: In modern browsers input[type="file"] is functional without
+                even adding it to the DOM, but that might not be the case in some older
+                or quirky browsers like IE, so you might want to add it to the DOM
+                just in case, and visually hide it. And do not forget do remove it
+                once you do not need it anymore.
+              */
+
+              input.onchange = function () {
+
+                  var file = this.files[0];
+                  //this.file["size"] = 30;
+                  console.log(file);
+                  console.log(file["name"]);
+                  console.log(file["size"]);
+                  var reader = new FileReader();
+                  console.log(reader);
+                  reader.onload = function () {
+                      /*
+                        Note: Now we need to register the blob in TinyMCEs image blob
+                        registry. In the next release this part hopefully won't be
+                        necessary, as we are looking to handle it internally.
+                      */
+                      var id = 'blobid' + (new Date()).getTime();
+                      var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                      console.log(blobCache);
+                      var base64 = reader.result.split(',')[1];
+                      //console.log(base64);
+                      var blobInfo = blobCache.create(id, file, base64);
+                      console.log(blobInfo);
+                      blobCache.add(blobInfo);
+
+                      /* call the callback and populate the Title field with the file name */
+                      cb(blobInfo.blobUri(), { title: file.name });
+                  };
+                  reader.readAsDataURL(file);
+              };
+
+              input.click();
+          },
+
+          // override default upload handler to simulate successful upload
+          images_upload_handler: function (blobInfo, success, failure) {
+              var xhr, formData;
+
+              xhr = new XMLHttpRequest();
+              xhr.withCredentials = false;
+              xhr.open('POST', 'upload.php');
+
+              xhr.onload = function() {
+                  var json;
+
+                  if (xhr.status != 200) {
+                      failure('HTTP Error: ' + xhr.status);
+                      return;
+                  }
+
+                  json = JSON.parse(xhr.responseText);
+
+                  if (!json || typeof json.location != 'string') {
+                      failure('Invalid JSON: ' + xhr.responseText);
+                      return;
+                  }
+
+                  success(json.location);
+              };
+
+              formData = new FormData();
+              formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+              xhr.send(formData);
+          },
+
+          content_style: 'img {max-width: 50%;}'
+      });
+  </script>
+  <style>
+      p img{
+          width: 100% !important;
+          height: 50% !important;
+      }
+  </style>
 </head>
 <body>
   <?php require_once('../home_page/header.php'); ?>
@@ -182,83 +314,37 @@ var_dump($simpleresult);
                         <label for="profile-message">What's on your mind?</label>
                       </h6>
                       <p>
-                        <textarea class="profile-input" name="profile-input">
-                          </textarea>
+                      <form enctype="multipart/form-data" method="POST">
+
+
+                        <textarea id="userwall" name="userwall" class="test" cols="40" rows="20" placeholder="Post" rows="4" style="width: 100%;"></textarea>
+                        <div class="post-options">
+
+                          <button type="submit" name="postdata" class="btn btn-outline-primary float-right" style="margin-top: 20px;">Post</button>
+                        </div>
+
+
+                      </form>
                       </p>
-                      <button class="buttonLook">Upload an Image</button>
+
+
                     </div>
                   </div>
+                  <?php foreach ($data as $postdata) { ?>
                   <div class="d-flex align-items-start profile-feed-item">
                     <img src="images/estevan.jpg" alt="profile" class="img-sm rounded-circle">
                     <div class="ml-4">
                       <h6>
-                        Estevan Cordero
-                        <small class="ml-4 text-muted"><i class="mdi mdi-clock mr-1"></i>10 hours</small>
+                        <?php echo $postdata->username; ?>
+                        <small class="ml-4 text-muted"><i class="mdi mdi-clock mr-1"></i><?php echo $postdata->date; ?></small>
                       </h6>
                       <p>
-                        Why was I given this job. Oh boy, I hope my team like this.
-                        Btw should we inlcuded images with text post, or would that be to much work.
+                        <?php echo $postdata->content; ?>
                       </p>
-                      <p class="small text-muted mt-2 mb-0">
-                        <span>
-                          <i class="mdi mdi-star mr-1"></i>4
-                        </span>
-                        <span class="ml-2">
-                          <i class="mdi mdi-comment mr-1"></i>11
-                        </span>
-                        <span class="ml-2">
-                          <i class="mdi mdi-reply"></i>
-                        </span>
-                      </p>
+
                     </div>
                   </div>
-                  <div class="d-flex align-items-start profile-feed-item">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="profile"
-                      class="img-sm rounded-circle">
-                    <div class="ml-4">
-                      <h6>
-                        Willie Stanley
-                        <small class="ml-4 text-muted"><i class="mdi mdi-clock mr-1"></i>10 hours</small>
-                      </h6>
-                      <img src="images/estevan.jpg" alt="sample" class="rounded mw-100">
-                      <p class="small text-muted mt-2 mb-0">
-                        <span>
-                          <i class="mdi mdi-star mr-1"></i>4
-                        </span>
-                        <span class="ml-2">
-                          <i class="mdi mdi-comment mr-1"></i>11
-                        </span>
-                        <span class="ml-2">
-                          <i class="mdi mdi-reply"></i>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-start profile-feed-item">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="profile"
-                      class="img-sm rounded-circle">
-                    <div class="ml-4">
-                      <h6>
-                        Dylan Silva
-                        <small class="ml-4 text-muted"><i class="mdi mdi-clock mr-1"></i>10 hours</small>
-                      </h6>
-                      <p>
-                        This guy is the best of the field, and works great with any one hire him now.
-                      </p>
-                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="sample" class="rounded mw-100">
-                      <p class="small text-muted mt-2 mb-0">
-                        <span>
-                          <i class="mdi mdi-star mr-1"></i>4
-                        </span>
-                        <span class="ml-2">
-                          <i class="mdi mdi-comment mr-1"></i>11
-                        </span>
-                        <span class="ml-2">
-                          <i class="mdi mdi-reply"></i>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
+                  <?php } ?>
                 </div>
               </div>
             </div>

@@ -1,12 +1,16 @@
 <?php
 use Webappdev\Knightsclub\models\{Database,Form};
 require_once '../vendor/autoload.php';
-
+//Just manually set values for session variables till login nd registration pages get ready
+$_SESSION['user_id'] = 1;
+$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['user_id']) && $_SESSION["is_Admin"] == true ){
 $dbcon = Database::getDb();
 $f = new Form();
 $forms = $f->getAllFormsforIndex(Database::getDb());
-
-
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 require_once 'header.php';
 ?>
 
@@ -21,9 +25,6 @@ require_once 'header.php';
             <div class="bg-overlay bg-overlay--blue"></div>
             <h3>
               <i class="zmdi zmdi-comment-text"></i>New Messages</h3>
-            <button class="au-btn-plus">
-              <i class="zmdi zmdi-plus"></i>
-            </button>
           </div>
 
           <div class="au-message-list">

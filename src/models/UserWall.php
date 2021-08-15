@@ -23,7 +23,7 @@ class UserWall
 
   public function getAllPostDataforProfile( $user_id, $dbcon)
   {
-    $sql = "SELECT * FROM userwall where user_id = :user_id";
+    $sql = "SELECT * FROM userwall uw join user u on uw.user_id = u.id where user_id = :user_id";
     $pdostm = $dbcon->prepare($sql);
     $pdostm->bindParam(':user_id', $user_id);
     $pdostm->execute();

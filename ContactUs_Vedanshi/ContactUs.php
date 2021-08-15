@@ -1,16 +1,14 @@
 <?php
-
-//session_start();
-//$user_id= $_SESSION[user_id];
-$user_id=1;
 use Webappdev\Knightsclub\models\{Database,Form};
 require_once '../vendor/autoload.php';
-
+//Just manually set values for session variables till login nd registration pages get ready
+$user_id=$_SESSION['user_id'] = 1;
+if(isset($_SESSION['user_id']) ){
 if(isset($_POST['submit'])){
   if(isset($_POST['message']) && isset($_POST['subject'])) {
     $message = $_POST['message'];
     $subject = $_POST['subject'];
-    $date = date("Y-m-d");
+    $date = date("Y-m-d h:i:s");
     //$yearRel = $_POST['yearRel'];
     $db = Database::getDb();
     //$c = new Car();
@@ -29,7 +27,9 @@ if(isset($_POST['submit'])){
     echo "Error!!";
   }
 }
-
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 
 ?>
 
