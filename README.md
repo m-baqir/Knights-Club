@@ -17,3 +17,5 @@ A social media platform that is currently a work in progress.
   - Users or non login users can use the search bar on the page, and enter a subject of there choice to find certain advice store in the database. 
 - User Profile Page
   - Home page of users login into the website. Non login user can only view the page, while login users can update their own page. 
+- Bugs
+  - There is a error when updating the user profile.
