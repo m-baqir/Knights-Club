@@ -6,7 +6,13 @@ use PDO;
 
 class User
 {
-    public function getUserIdByUserName($userName,$db){
+    /**
+     * Get user id by user name
+     * @param string $userName a particular user name
+     * @param Database $db database connection
+     * @return mixed false if user name does not exist in database. Otherwise, it will return user id.
+     */
+    public function getUserIdByUserName($userName, $db){
         $selectedQuery = "SELECT id FROM user WHERE username=:username";
         $pdoStmt = $db->prepare($selectedQuery);
         $pdoStmt->bindParam(':username',$userName);
@@ -40,6 +46,12 @@ class User
         return $pdoStmt->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Get user name by user id
+     * @param string $id user id
+     * @param Database $db database connection
+     * @return mixed false if user id does not exist in database. Otherwise, user name is returned successfully.
+     */
     public function getUserNameById($id, $db){
         $selectedQuery = "SELECT username FROM user WHERE id=:id";
         $pdoStmt = $db->prepare($selectedQuery);
