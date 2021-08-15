@@ -4,10 +4,10 @@ require_once '../vendor/autoload.php';
 //use Model\{Database, Advice};
 //require_once 'vendor/autoload.php';
 // here we can list through the advice store in the db
-$dbcon = Database::getDb();
-$a = new Advice();
-$advice = $a->getAllAdvice(Database::getDb());
-
+//$dbcon = Database::getDb();
+//$a = new Advice();
+//$advice = $a->getAllAdvice(Database::getDb());
+// Unused
 ?>
 
 <!DOCTYPE html>
@@ -41,13 +41,14 @@ $advice = $a->getAllAdvice(Database::getDb());
             <div class="row text-center">
                 <div class="col-md-8 offset-md-2">
                     <h3>Having Some Problems? Need Some Advice?</h3>
-                    <p class="body-text-3x">Check out the posts below!</p>
+                    <p class="body-text-3x">Enter A Subject Of Your Choice!</p>
                     <div class="small-search-wrap">
                         <div class="search-form">
-                            <form action="./insert_advice_form.php" method="post">
+                            <form action="" method="get">
                                 <div class="form-group">
-                                    <input type="text" value="Search Bar" placeholder="Search something here" maxlength="100" class="form-control" name="name" id="name">
+                                    <input type="text" value="<?php if (isset($_GET['param'])) echo $_GET['param']; ?>" placeholder="Search for a Subject" maxlength="100" class="form-control" name="param" id="name">   
                                 </div>
+                                <button type="submit" class="generalButton" name="search">Search</button>
                             </form>
                         </div>
                     </div>
@@ -62,7 +63,23 @@ $advice = $a->getAllAdvice(Database::getDb());
 
             <div class="clearfix mt-40">
                 <ul class="xsearch-items">
-                    <?php foreach ($advice as $advice) { ?>
+                <?php if(isset($_GET['search'])) {
+                        
+                        $s = new Advice();
+                        $db = Database::getDb();
+                  
+                        $param = $_GET['param'];
+                  
+                        if($param == ""){
+                        header("Location: ../advice_page_estevan/admin_advice_page.php");
+                  
+                        } else{
+                        $results = $s->FindSubject($param, $db);
+                        printResults($results);
+                        }
+                    } 
+                    function printResults($results){
+                        foreach ($results as $r) { ?>
                     <li class="search-item">
                         <!--<div class="search-item-img">
                             Here is the image for the profile
@@ -72,19 +89,20 @@ $advice = $a->getAllAdvice(Database::getDb());
                         </div>-->
                         <div class="search-item-content">
                             <!--Subject Line-->
-                            <h3 class="search-item-caption"><?= $advice->subject; ?></a></h3>
+                            <h3 class="search-item-caption"><?= $r->subject; ?></a></h3>
 
                             <div class="search-item-meta mb-15">
                                 <ul class="list-inline">
                                     <!--Date Line -->
-                                    <li class="time"><?= $advice->date; ?></li>
+                                    <li class="time"><?= $r->date; ?></li>
                                 </ul>
                             </div>
                             <!--Content of the post -->
                             <div class="content"><!--Made a class if you want to edit the messages. *Note its not in use*-->
-                                <?= $advice->content; ?>
+                                <?= $r->content; ?>
                             </div>
-                            <?php } ?>
+                        <?php }
+                        } ?>
                         </div>
                     </li>
                     <!--This is where it ends-->
