@@ -19,7 +19,7 @@ A social media platform that is currently a work in progress.
   - Home page of users login into the website. Non login user can only view the page, while login users can update their own page. 
 - Bugs
   - There is a error when updating the user profile.
-**Mohammad Baqir**
+### **Mohammad Baqir**
 - Subscription Page
   - This is the subscription page where the user is able to subscribe to a particular type of service. The information that fills the chart is pulled from the database. So far this is READY-ONLY code and the information in the chart can only be updated by updating the database.
 - PayPal
