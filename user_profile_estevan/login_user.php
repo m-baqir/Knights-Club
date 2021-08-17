@@ -187,7 +187,7 @@ foreach ($allrss as $r){
             <div class="row">
               <div class="col-lg-4">
                 <div class="border-bottom text-center pb-4">
-                  <img src="images/estevan.jpg" alt="profile" class="img-lg rounded-circle mb-3">
+                <a href="../Suong-Image-Gallery/image_gallery.php"><img src="images/estevan.jpg" alt="profile" class="img-lg rounded-circle mb-3"></a>
                   <div class="mb-3">
                     <h3>Estevan Cordero</h3>
                     <div class="d-flex align-items-center justify-content-center">

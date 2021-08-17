@@ -1,14 +1,11 @@
 <?php
-//What next:
-//Need to implement a default img so that when user havent upload any img yet
-//it wont bug
-
+session_start();
 use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Images;
 
 require_once '../vendor/autoload.php';
 
-$id = "2"; //ID will be hardcoded for now
+$id = $_SESSION['id'];
 
 $gallery = new Images();
 
@@ -23,7 +20,7 @@ if(count($userImgs) == 1 && $userImgs[0]->main_image == 0){
   header("Location: ./image_gallery.php");
 }
 
-$max_file_size = 20000000;
+$max_file_size = 2000000;
 if(isset($_FILES['upload'])){
   $file_temp = $_FILES['upload']['tmp_name'];
   $file_name = $_FILES['upload']['name'];

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-use Webappdev\Knightsclub\models\{Database, Login};
+use Webappdev\Knightsclub\models\{Database, Login,Status};
 
 require "../vendor/autoload.php";
 
@@ -11,6 +11,7 @@ if(isset($_POST['login'])){
 
     $u = new Login();
     $db = Database::getDb();
+    $status =  new Status();
 
     $login = $u->LogUser($user, $pass, $db);
 
@@ -20,6 +21,9 @@ if(isset($_POST['login'])){
         $_SESSION["lastname"] = $login->last_name;
         $_SESSION["username"] = $login->username;
         $_SESSION["isadmin"] = $login->isadmin;
+        //Suong's comment
+        //Add the ability to change user status to online whenever the user login
+        $status->updateStatus($login->id,"oline",$db);
         header('Location: ../knightsclub.html');
     } else{
         echo "error logging in.";
