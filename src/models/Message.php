@@ -14,10 +14,11 @@ class Message{
     /**
      * Get messages based on controlType
      * @param Database $db Database connection
+     * @param int $userId User id
      * @param int $controlType 1 for INBOX, 2 for SENT, and 3 for TRASH
      * @return mixed Return false if there is not any message that satisfies the query condition in the database. Otherwise, the list of messages are returned.
      */
-    public function getMessages($db,$controlType = 1){
+    public function getMessages($db, $userId, $controlType = 1){
         /*$selectQuery = "SELECT *,u2.username as senderName FROM inbox
                         JOIN user u1  ON inbox.receiver_id  = u1.id AND u1.id = 2
                         JOIN user u2  ON inbox.sender_id  = u2.id";*/
@@ -37,17 +38,17 @@ class Message{
                 //Set receiver_id to 3 for testing the confirmation of friend request in message-content.php
                 $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date, is_read_receiver 
                                     FROM message_sender_receiver_view 
-                                    WHERE receiver_id = 3 AND in_receiver_trash = 0";
+                                    WHERE receiver_id = $userId AND in_receiver_trash = 0";
             }
             else if ($controlType === 2){//SENT
                 $selectQuery .= "SELECT receiverName, id, message_subject, message_content, message_date 
                                     FROM message_sender_receiver_view 
-                                    WHERE sender_id = 1   AND in_sender_trash = 0";
+                                    WHERE sender_id = $userId   AND in_sender_trash = 0";
             }
             else if($controlType === 3){//TRASH
                 $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date 
                                     FROM message_sender_receiver_view 
-                                    WHERE (sender_id = 2   AND in_sender_trash = 1  ) OR (receiver_id = 2 AND in_receiver_trash = 1)";
+                                    WHERE (sender_id = $userId   AND in_sender_trash = 1  ) OR (receiver_id = $userId AND in_receiver_trash = 1)";
             }
             //return $finalQuery;
         //};
@@ -62,13 +63,14 @@ class Message{
     /**
      * Load a particular message based on its id.
      * @param int $id Message id
+     * @param int $userId User id
      * @param Database $db Database connection.
      * @return mixed
      */
-    public function getMessageById($id, $db){
+    public function getMessageById($id, $userId, $db){
         $selectQuery = "SELECT sender_id,senderName, receiver_id, receiverName, id, message_subject, message_content, message_date 
                             FROM message_sender_receiver_view 
-                            WHERE (sender_id = 2 OR receiver_id = 2) AND id = :id";
+                            WHERE (sender_id = $userId OR receiver_id = $userId) AND id = :id";
         $pdostmt = $db->prepare($selectQuery);
         $pdostmt->bindParam(':id',$id);
         $pdostmt->execute();
