@@ -3,9 +3,9 @@ use Webappdev\Knightsclub\models\{Database,FAQ};
 require_once '../vendor/autoload.php';
 $question = $answer = $category = "";
 //Just manually set values for session variables till login nd registration pages get ready
-$_SESSION['user_id'] = 1;
-$_SESSION['is_Admin'] = true;
-if(isset($_SESSION['user_id']) && $_SESSION["is_Admin"] == true ){
+//$_SESSION['user_id'] = 1;
+//$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ){
 if (isset($_POST['updateFAQ'])) {
   $id = $_POST['id'];
   $db = Database::getDb();

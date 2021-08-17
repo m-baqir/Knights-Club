@@ -26,3 +26,13 @@ A social media platform that is currently a work in progress.
   - Once the user selects a particular service, the website then connects to the PayPal API and allows for the payment to be sent to the merchat.
 - RSS Feed
   - The RSS feed resides on the user profile page. It is a beautiful combination of AJAX, PHP and XML working together in unison. OnClick and selecting a subscription from the dropdown, PHP grabs the value of the dropdown and loads the rss.xml file to then find that particular subscription information and then returns it back to HTML to be presented in a DIV element. So far this is READ-ONLY but I would like to give the user the ability to add or delete more subscriptions.
+### **Vedanshi Patel**
+- Contact Us Page
+  - Registered user can send messages through contact us page and data will store in database.
+  - Admin can see all messages send by public user and reply them through their email address.
+- FAQ
+  - Admin can add FAQ questions and answers to the system.
+  - Public can see list of FAQs.
+- User Wall
+  - Registered user can add post through this feature like any text, images or videos.
+  

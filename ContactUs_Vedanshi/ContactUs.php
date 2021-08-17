@@ -2,8 +2,8 @@
 use Webappdev\Knightsclub\models\{Database,Form};
 require_once '../vendor/autoload.php';
 //Just manually set values for session variables till login nd registration pages get ready
-$user_id=$_SESSION['user_id'] = 1;
-if(isset($_SESSION['user_id']) ){
+//$user_id=$_SESSION['user_id'] = 1;
+if(isset($_SESSION['id']) ){
 if(isset($_POST['submit'])){
   if(isset($_POST['message']) && isset($_POST['subject'])) {
     $message = $_POST['message'];

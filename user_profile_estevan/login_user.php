@@ -4,10 +4,12 @@ use Webappdev\Knightsclub\models\{Database,rss,UserWall};
 $simpleresult = '';
 require_once '../vendor/autoload.php';
 //Just manually set values for session variables till login nd registration pages get ready
-$user_id = $_SESSION['user_id'] = 1;
-if(isset($_SESSION['user_id']) ){
+$user_id = $_SESSION['id'];
+if(isset($_SESSION['id']) ){
+  $dbcon = Database::getDb();
+  $p = new UserWall();
+  $data = $p->getAllPostDataforProfile( $user_id, $dbcon);
   if (isset($_POST['postdata'])) {
-    var_dump($_POST);
     $date = date("Y-m-d h:i:s");
     $content = $_POST['userwall'];
     $subject = 'Knight_club Post';
@@ -18,12 +20,21 @@ if(isset($_SESSION['user_id']) ){
     if ($con) {
       header('Location:  login_user.php');
     } else {
-      echo "Error!!";
+      echo "<script>alert('Something went wrong!!');</script>";
     }
   }
-  $dbcon = Database::getDb();
-  $p = new UserWall();
-  $data = $p->getAllPostDataforProfile( $user_id, $dbcon);
+  if (isset($_POST['delPost'])) {
+    $pid= $_POST['id'];
+    //var_dump($_POST);
+    $db = Database::getDb();
+    $pd = new UserWall();
+    $cn = $pd->deletePostData($pid, $db);
+    if ($cn) {
+      echo "<script>alert('Post Deleted!!');</script>";
+    } else {
+      echo "<script>alert('Something went wrong!!');</script>";
+    }
+  }
 }else{
   header('Location:  ../ahmed-login/login.php');
 }
@@ -319,11 +330,8 @@ foreach ($allrss as $r){
 
                         <textarea id="userwall" name="userwall" class="test" cols="40" rows="20" placeholder="Post" rows="4" style="width: 100%;"></textarea>
                         <div class="post-options">
-
-                          <button type="submit" name="postdata" class="btn btn-outline-primary float-right" style="margin-top: 20px;">Post</button>
+                          <button type="submit" name="postdata" class="btn btn-outline-secondary float-right" style="margin-top: 20px;">Post</button>
                         </div>
-
-
                       </form>
                       </p>
 
@@ -337,6 +345,15 @@ foreach ($allrss as $r){
                       <h6>
                         <?php echo $postdata->username; ?>
                         <small class="ml-4 text-muted"><i class="mdi mdi-clock mr-1"></i><?php echo $postdata->date; ?></small>
+                        <span class="float-right">
+                             <form method="POST">
+                                <input type="hidden" name="id" value="<?= $postdata->id; ?>"/>
+                                <button type="submit" class="item" name="delPost" style="border: none; background: none;"
+                                        title="Delete">
+                                  <i class="fa fa-trash-o"></i>
+                                </button>
+                             </form>
+                        </span>
                       </h6>
                       <p>
                         <?php echo $postdata->content; ?>

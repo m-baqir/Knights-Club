@@ -4,12 +4,16 @@ session_start();
 
 use Webappdev\Knightsclub\models\{Database,Form};
 require_once '../vendor/autoload.php';
-$uid=1;
-$d = Database::getDb();
-$fr = new Form();
-$fo = $fr->getUserById($uid, $d);
-$uname=$fo->username;
-$email=$fo->email;
+//$uid=1;
+if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ) {
+	$d = Database::getDb();
+	$fr = new Form();
+	$fo = $fr->getUserById($_SESSION['id'], $d);
+	$uname = $fo->username;
+	$email = $fo->email;
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 
 ?>
 <!DOCTYPE html>

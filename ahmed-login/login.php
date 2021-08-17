@@ -19,7 +19,7 @@ if(isset($_POST['login'])){
         $_SESSION["firstname"] = $login->first_name;
         $_SESSION["lastname"] = $login->last_name;
         $_SESSION["username"] = $login->username;
-
+        $_SESSION["isadmin"] = $login->isadmin;
         header('Location: ../knightsclub.html');
     } else{
         echo "error logging in.";
