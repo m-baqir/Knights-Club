@@ -1,16 +1,26 @@
 <?php
 use Webappdev\Knightsclub\models\Database;
 require_once '../vendor/autoload.php';
+session_start();
 $searchingText = '';
 if (isset($_GET['peopleSearch'])){
     $searchingText = $_GET['peopleSearch'];
 }
 $dbConnection = Database::getDb();
-$currentUserId = 2;//hard coding
-$searchQuery = "SELECT u.username, u.id, f.friend_id FROM user u 
+$currentUserId = 0;//hard coding
+
+if (isset($_SESSION['id'])){
+    $currentUserId = $_SESSION['id'];
+}
+else{
+    header('Location:  ../ahmed-login/login.php');
+}
+//var_dump($_SESSION);
+$searchQuery = "SELECT DISTINCT u.username, u.id, f.friend_id, u.age FROM user u 
 LEFT JOIN friends f
 ON u.id = f.friend_id
 WHERE u.username LIKE '%$searchingText%' AND u.id != $currentUserId";
+//var_dump($searchQuery);
 //SELECT * FROM user WHERE username LIKE '%$searchingText%' AND id != $currentUserId";
 $pdostmt = $dbConnection->prepare($searchQuery);
 $pdostmt->execute();
@@ -18,6 +28,7 @@ $users = $pdostmt->fetchAll(PDO::FETCH_OBJ);
 $i = 0;
 $usersInHTML = '';
 for ($i = 0; $i < count($users); $i++){
+    //echo "i = ".$i;
     if ($i % 3 === 0)$usersInHTML .= '<div class="row g-4">';
     $usersInHTML .= '<div class="col-sm-4"><div class="card">
                 <img src="PaulScholes.jpg" class="card-img-top img-thumbnail img-size" alt="...">
@@ -25,7 +36,7 @@ for ($i = 0; $i < count($users); $i++){
     $usersInHTML.= '<h5 class="card-title">';
     $usersInHTML.= $users[$i]->username;
     $usersInHTML.= '</h5>';
-    $usersInHTML .= '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card content.</p>';
+    $usersInHTML .= '<p class="card-text">age: '.$users[$i]->age.'</p>';
     if ($users[$i]->friend_id === null){
         $usersInHTML .= '<input type="submit" id="'.$users[$i]->id.'" value="Add friend" class="btn btn-primary" onclick="sendFriendRequest('.$currentUserId.','.$users[$i]->id.')">';
     }
@@ -34,6 +45,10 @@ for ($i = 0; $i < count($users); $i++){
     }
 
     $usersInHTML .='</div></div></div>';
+    if (($i + 1) % 3 === 0 || $i + 1 === count($users)){
+        //closing div tag for <div class="row g-4">
+        $usersInHTML.='</div>';
+    }
 
 
 }
@@ -56,6 +71,10 @@ for ($i = 0; $i < count($users); $i++){
 <body>
 <?php require_once('..\home_page\header.php') ?>
 <main class="d-flex flex-column">
+    <div class="d-none d-sm-block">
+        <a href="../user_profile_estevan/login_user.php" style="color: #007bff !important;">Profile</a> > <a href="#" style="color: #007bff !important;">Friends</a>
+    </div>
+    <h1 class="text-center">Search page</h1>
     <form action="" method="get" class="form-group d-flex flex-row justify-content-center">
         <label for="search" class="text-hide">
             search
