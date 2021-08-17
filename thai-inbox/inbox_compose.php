@@ -3,14 +3,18 @@ use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Message;
 use Webappdev\Knightsclub\models\User;
 require_once '../vendor/autoload.php';
-
+session_start();
 if(isset($_POST['sendMessage'])){
     $dbConnection = Database::getDb();
     $user = new User();
     $receiverId = $user->getUserIdByUserName($_POST['receiver'],$dbConnection);
     $message = new Message();
     //hard code senderId to test. It should be current logged-in user's id
-    if($message->sendMessage(1, $receiverId->id,$_POST['subject'], $_POST['content'],$dbConnection))
+    $userId = 0;
+    if(isset($_SESSION['id'])){
+        $userId = $_SESSION['id'];
+    }
+    if($message->sendMessage($userId, $receiverId->id,$_POST['subject'], $_POST['content'],$dbConnection))
     {
         echo 'sent message successfully to '.$receiverId->id;
     }

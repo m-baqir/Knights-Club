@@ -1,13 +1,18 @@
 <?php
+session_start();
 require_once 'load-messages-from-db.php';
 require_once 'merge_messages_to_html_text.php';
 $controlType = 1;
+$userId = 0;
 if(isset($_GET['controlType'])){
     //REMEMBER: type of $_GET['controlType'] is string, not number. Hence, using intval converts from string to int.
     $controlType = intval($_GET['controlType']);
 }
 
-$messages = loadMessagesFromDb($controlType);
+if (isset($_SESSION['id'])){
+    $userId = $_SESSION['id'];
+}
+$messages = loadMessagesFromDb($userId,$controlType);
 //var_dump($messages);//for Debug
 $appearText = mergeMessagesToHTMLText($messages,$controlType);
 
