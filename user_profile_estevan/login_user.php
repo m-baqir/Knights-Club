@@ -4,8 +4,11 @@ use Webappdev\Knightsclub\models\{Database,rss,UserWall};
 $simpleresult = '';
 require_once '../vendor/autoload.php';
 //Just manually set values for session variables till login nd registration pages get ready
-$user_id = $_SESSION['id'];
+var_dump($_SESSION);
+$user_id = 0;
 if(isset($_SESSION['id']) ){
+    //Only set $user_id if $_SESSION['id'] exists that means a particular user logged in.
+    $user_id = $_SESSION['id'];
   $dbcon = Database::getDb();
   $p = new UserWall();
   $data = $p->getAllPostDataforProfile( $user_id, $dbcon);
@@ -43,7 +46,7 @@ $options='';
 $db = Database::getDb();
 $b = new rss();
 //using example id for now
-$allrss = $b->getallrss(1,$db);
+$allrss = $b->getallrss($user_id,$db);
 //var_dump($allrss);
 foreach ($allrss as $r){
     $options .= '<option value="'.$r->title.'">'.$r->title.'</option>';

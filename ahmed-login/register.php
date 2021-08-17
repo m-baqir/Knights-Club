@@ -16,13 +16,17 @@ if(isset($_POST['register'])){
     $db = Database::getDb();
 
     $validate = $u->VerifyUser($user, $db);
+    //$validate is an object not username
+    if(strcmp($user ,$validate->username) !== 0){
+        $register = $u->RegisterUser($firstname, $lastname, $user, $pass,  $email, $age, $db);
+        //check the return of calling RegisterUser successfully
+        if ($register === true){
+            session_start();
 
-    if(!$user == $validate){
-        $register = $u->RegisterUser($user, $pass, $firstname, $lastname, $email, $age, $db);
-        session_start();
-
-        header("Location: ../user_profile_estevan/login_user.php/".$_SESSION['username']."'");
-
+            $_SESSION['id'] = $u->VerifyUser($user,$db)->id;
+            //header("Location: ../user_profile_estevan/login_user.php/".$_SESSION['username']);
+            header("Location: ../user_profile_estevan/login_user.php");
+        }
     } else if ($user == $validate){
         echo "You already have an account, please use login with your existing account";
 
