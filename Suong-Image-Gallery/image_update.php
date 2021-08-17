@@ -19,19 +19,24 @@ $userImgs = $gallery->getImagesById($id, $db);
 $userName = $gallery->getUserNameById($id, $db);
 
 if (isset($_POST['delete_img'])) {
-  if ($gallery->getImageStatus($_POST['id'], $db) == $main_img_status) {
-    $main_status = $main_img_status;
-    foreach ($userImgs as $img) {     
+  if ($gallery->getImageStatus($_POST['id'], $db) === $main_img_status) {
+    $status = $main_img_status;
+    //Loop thru the array to search for and change the status of the first image that is not the main image
+    foreach ($userImgs as $img) {
       if ($img->main_image != $main_img_status) {
-        $count = $gallery->changeImageStatus($img->image_id, $main_status, $db);
-        $main_status = $not_main_status;
-        if ($count) {
-          $delete = $gallery->deleteImage($_POST['id'], $db);
-          header("Location: ./image_update.php");
-        } else {
-          echo "Error";
-        }
+        $count = $gallery->changeImageStatus($img->image_id, $status, $db);
+        $status = $not_main_status; 
       }
+    }
+    if ($count) {
+      $delete = $gallery->deleteImage($_POST['id'], $db);
+      if ($delete) {
+        header("Location: ./image_update.php");
+      } else {
+        echo "Error";
+      }
+    } else {
+      echo "Error";
     }
   } else {
     $delete = $gallery->deleteImage($_POST['id'], $db);
@@ -42,6 +47,7 @@ if (isset($_POST['delete_img'])) {
     }
   }
 }
+
 if (isset($_POST['make_main'])) {
 
   foreach ($userImgs as $img) {
@@ -75,7 +81,7 @@ if (isset($_POST['make_main'])) {
 <body>
   <?php require_once('../home_page/header.php'); ?>
   <main>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end pt-2">
       <?php require_once '../Suong-Notification/userNotification.php' ?>
       <span class="px-1"></span>
       <?php require_once '../Suong-User-Status/userStatus.php' ?>
@@ -83,8 +89,9 @@ if (isset($_POST['make_main'])) {
 
     <h1><a href="image_gallery.php" class="text-muted text-decoration-none">Back to Gallery</a></h1>
 
-    <div class="d-flex">
+    <div class="d-flex pb-2">
       <?php
+      $counting = 0;
       if (count($userImgs) == 0) {
       ?>
         <div class="d-flex justify-content-center">
@@ -92,34 +99,65 @@ if (isset($_POST['make_main'])) {
         </div>
         <?php } else {
         foreach ($userImgs as $img) {
-          $mark = "";
-          if ($img->main_image == "1") {
-            $mark = "Main Image";
-          }
-        ?>
-          <div class="col-md-6">
-            <img src="./images/<?= $img->image_name ?>" alt="Image of user <?= $img->username; ?>" class="img-thumbnail rounded img-responsive">
-            <div class='d-flex justify-content-around'>
-              <form action="image_update.php" method="POST">
-                <input type="hidden" name="id" value=<?= $img->image_id ?>>
-                <input type="submit" value="Main image" class="btn btn-outline-primary" name="make_main">
-              </form>
-              <p><span class="badge badge-pill badge-info"><?= $mark ?></span></p>
-              <form action="image_update.php" method="POST">
-                <input type="hidden" name="id" value=<?= $img->image_id ?>>
-                <input type="submit" value="Delete" class="btn btn-outline-warning" name="delete_img">
-
-              </form>
+          //$mark = "";
+          if ($img->main_image == $main_img_status) {
+            $counting++; ?>
+            <div class="col-md-6">
+              <img src="./images/<?= $img->image_name ?>" alt="Image of user <?= $img->username; ?>" class="img-thumbnail rounded img-responsive">
+              <div class='d-flex justify-content-around'>
+                <form action="image_update.php" method="POST">
+                  <input type="hidden" name="id" value=<?= $img->image_id ?>>
+                  <input type="submit" value="Main image" class="btn btn-outline-primary" name="make_main">
+                </form>
+                <p><span class="badge badge-pill badge-info">Main image</span></p>
+                <form action="image_update.php" method="POST">
+                  <input type="hidden" name="id" value=<?= $img->image_id ?>>
+                  <input type="submit" value="Delete" class="btn btn-outline-warning" name="delete_img">
+                </form>
+              </div>
             </div>
-
-          </div>
+          <?php }
+        }
+        foreach ($userImgs as $img) {
+          //$mark = "";
+          if ($img->main_image == $not_main_status) {
+            //$mark = "Main Image";
+            //}
+          ?>
+            <div class="col-md-6">
+              <img src="./images/<?= $img->image_name ?>" alt="Image of user <?= $img->username; ?>" class="img-thumbnail rounded img-responsive">
+              <div class='d-flex justify-content-around'>
+                <form action="image_update.php" method="POST" onsubmit="return confirm('Make this your profile picture?');">
+                  <input type="hidden" name="id" value=<?= $img->image_id ?>>
+                  <input type="submit" value="Main image" class="btn btn-outline-primary" name="make_main">
+                </form>
+                <!-- <p><span class="badge badge-pill badge-info">< $mark ?></span></p> -->
+                <form action="image_update.php" method="POST" onsubmit="return confirm('Do you really want to delete this picture?');">
+                  <input type="hidden" name="id" value=<?= $img->image_id ?>>
+                  <input type="submit" value="Delete" class="btn btn-outline-warning" name="delete_img">
+                </form>
+              </div>
+            </div>
       <?php
+            if ($counting == 1) {
+              echo "</div>";
+              echo '<div class="d-flex pb-2">';
+              $counting = 0;
+            } else {
+              $counting++;
+            }
+          }
         }
       }
       ?>
-    </div>
+      <!-- </div> -->
   </main>
   <?php require_once('../home_page/footer.php'); ?>
+  <script>
+    function alertMessage(message) {
+      confirm(message);
+    }
+  </script>
 </body>
 
 </html>

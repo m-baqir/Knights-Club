@@ -103,7 +103,7 @@ function alert_message($msg)
 <body>
   <?php require_once('../home_page/header.php'); ?>
   <main>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end pt-2">
       <?php require_once '../Suong-Notification/userNotification.php' ?>
       <span class="px-1"></span>
       <?php require_once '../Suong-User-Status/userStatus.php' ?>
@@ -153,9 +153,9 @@ function alert_message($msg)
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <div class="d-flex justify-content-around ">
+    <div class="d-flex justify-content-around pb-2">
       <a class="btn btn-outline-primary" href="image_update.php" role="button">Update Gallery</a>
-      <form action="image_gallery.php" enctype="multipart/form-data" method="POST">
+      <form action="image_gallery.php" enctype="multipart/form-data" method="POST" onsubmit="return confirm('Upload this picture?');">
 
         <input type="hidden" name="MAX_FILE_SIZE" value=<?= $max_file_size ?>>
         <input type="file" name="upload" id="upload">
@@ -165,6 +165,11 @@ function alert_message($msg)
     </div>
   </main>
   <?php require_once('../home_page/footer.php'); ?>
+  <script>
+    function alertMessage(message) {
+      confirm(message);
+    }
+  </script>
 </body>
 
 </html>
