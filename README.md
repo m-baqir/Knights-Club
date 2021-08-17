@@ -45,3 +45,12 @@ A social media platform that is currently a work in progress.
 - About us page.
   - Admin can create or update the content of about us page.
   - The other users can only see about us page.
+
+### **Suong Tran**
+- Image Gallery
+  - User and others will be able to see their image in a gallery like environment. The user can also alter their gallery as much as they want.
+  - 
+- Notification
+  - This will get all the unread message from the inbox feature and turn it into a popup dropdown list so that user can click on it to see the subject of the message as well as the name of the person who has sent it.
+- Status.
+  - User will be able to freely change the online status of themselve. Moreover, it will automatically change the user status to online whenever they login.
