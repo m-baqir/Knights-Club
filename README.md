@@ -36,3 +36,12 @@ A social media platform that is currently a work in progress.
 - User Wall
   - Registered user can add post through this feature like any text, images or videos.
   
+### **Thai Vo**
+- Inbox page
+  - Registered users can send/receive messages to/from the other user, and move list of messages to the trash. Additionally, messages are loaded asynchronously and periodically without refreshing inbox page.
+- Friend request
+  - Utilizing inbox feature to send a message for every friend request, and then receiver can accept that request by clicking accept button.
+  - There is also a friend list page in the user profile.
+- About us page.
+  - Admin can create or update the content of about us page.
+  - The other users can only see about us page.
