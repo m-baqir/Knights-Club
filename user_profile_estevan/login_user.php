@@ -320,6 +320,24 @@ foreach ($allrss as $r){
                         Gallery
                       </a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="../thai-inbox/inbox.php">
+                        <i class="mdi mdi-calendar"></i>
+                          Inbox
+                      </a>
+                    </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="../thai-friend-request/friends-list.php">
+                              <i class="mdi mdi-calendar"></i>
+                              Friends
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="../thai-friend-request/friend-search.php">
+                              <i class="mdi mdi-calendar"></i>
+                              Search
+                          </a>
+                      </li>
                   </ul>
                 </div>
                 <div class="profile-feed">
