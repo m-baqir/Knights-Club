@@ -4,7 +4,7 @@ use Webappdev\Knightsclub\models\{Database,rss,UserWall};
 $simpleresult = '';
 require_once '../vendor/autoload.php';
 //Just manually set values for session variables till login nd registration pages get ready
-var_dump($_SESSION);
+//var_dump($_SESSION);
 $user_id = 0;
 if(isset($_SESSION['id']) ){
     //Only set $user_id if $_SESSION['id'] exists that means a particular user logged in.
@@ -41,17 +41,16 @@ if(isset($_SESSION['id']) ){
 }else{
   header('Location:  ../ahmed-login/login.php');
 }
-//include './getsub.php';
+//getting info from database for rss
 $options='';
 $db = Database::getDb();
 $b = new rss();
-//using example id for now
-$allrss = $b->getallrss($user_id,$db);
+$allrss = $b->getallrss($_SESSION['id'],$db);
 //var_dump($allrss);
 foreach ($allrss as $r){
     $options .= '<option value="'.$r->title.'">'.$r->title.'</option>';
 }
-//var_dump($simpleresult);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -260,8 +259,7 @@ foreach ($allrss as $r){
                       <a href="#" class="twitter-link">@estevancordero</a>
                     </span>
                     <span class="float-left">
-                      <!--!unable to find.a service to host rss feed for it to go live as it seems rss have become outdated and not many websites are supporting it-->
-                      <!--TODO: find a service to host rss.xml, I am leaving the rss button link as is for now Signed:MB-->
+                        <!--RSS Ajax call below-->
                         <script>
                         //document.getElementById("rssimg").onclick = function(){showsubs()};
                         function showsubs(str){
@@ -280,14 +278,17 @@ foreach ($allrss as $r){
                             xmlhttp.send();
                         }
                     </script>
+                        <!--RSS functionality below-->
                     <div id="rssbox">
                         <img id="rssimg" alt="Subscribe to What's New" src="https://i.imgur.com/fZIDSoj.png" width="50" height="50">
+                        <!--RSS dropdown menu-->
                         <form>
                             <select name="subs" onchange="showsubs(this.value)">
                                 <option value="">Select your subscription</option>
                                 <?php print $options; ?>
                             </select>
                         </form>
+                        <!--DIV where XML information gets displayed-->
                         <div id="displaybox">
 
                         </div>
