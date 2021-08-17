@@ -60,4 +60,26 @@ class Images{
         return $count;
     }
 
+    public function deleteImage($id,$db){
+        $selectQuery = "DELETE FROM gallery
+                        WHERE id = :id";
+        $pdostmt = $db->prepare($selectQuery);
+
+        $pdostmt->bindParam(':id',$id);
+
+        $count = $pdostmt->execute();
+        return $count;
+    }
+
+    public function getImageStatus($id,$db){
+        $selectQuery = "SELECT main_image FROM gallery
+                        WHERE id = :id";
+        $pdostmt = $db->prepare($selectQuery);
+
+        $pdostmt->bindParam(':id',$id);
+
+        $count = $pdostmt->execute();
+        return $count;
+    }
+
 }

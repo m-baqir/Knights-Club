@@ -23,7 +23,7 @@ if(isset($_POST['login'])){
         $_SESSION["isadmin"] = $login->isadmin;
         //Suong's comment
         //Add the ability to change user status to online whenever the user login
-        $status->updateStatus($login->id,"oline",$db);
+        $status->updateStatus($login->id,"online",$db);
         header('Location: ../knightsclub.html');
     } else{
         echo "error logging in.";

@@ -1,5 +1,7 @@
 <?php
-
+if(session_id() == '') {
+    session_start();
+}
 
 use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Status;

@@ -43,6 +43,9 @@ a:hover{
 .mid{
     text-align: center;
 }
+.updateImg {
+    width:30%;
+}
 /*a:visited{
     need to decide on a link visited color
 }*/
