@@ -11,7 +11,7 @@ class Sitemap{
 
         $pdostmt->execute();
 
-        $sitemap = $pdostmt->fetch(PDO::FETCH_OBJ);
+        $sitemap = $pdostmt->fetchAll(PDO::FETCH_OBJ);
         return $sitemap;
     }
     public function LogInSiteMap($db)
@@ -21,7 +21,7 @@ class Sitemap{
 
         $pdostmt->execute();
 
-        $sitemap = $pdostmt->fetch(PDO::FETCH_OBJ);
+        $sitemap = $pdostmt->fetchAll(PDO::FETCH_OBJ);
         return $sitemap;
     }
 }

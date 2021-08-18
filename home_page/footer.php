@@ -26,11 +26,11 @@
         <div class="footer-col">
             <h3><a href="#">About Us</a></h3>
             <ul>
-                <li><a href="FAQ_Vedanshi/FAQ.php">FAQ</a></li>
-                <li><a href="/newsletter_sign_up_estevan/newsletter_sign_up.php">Newsletter</a></li>
-                <li><a href="advice_page_estevan/advice_page.php">Advice</a></li>
-                <li><a href="ContactUs_Vedanshi/ContactUs.php">Contact Us</a></li>
-                <li><a href="/sitemap/sitemap.php">Site Map</a></li>
+                <li><a href="../FAQ_Vedanshi/FAQ.php">FAQ</a></li>
+                <li><a href="../newsletter_sign_up_estevan/newsletter_sign_up.php">Newsletter</a></li>
+                <li><a href="../advice_page_estevan/">Advice</a></li>
+                <li><a href="../ContactUs_Vedanshi/ContactUs.php">Contact Us</a></li>
+                <li><a href="../sitemap/sitemap.php">Site Map</a></li>
             </ul>
         </div>
       </div>
