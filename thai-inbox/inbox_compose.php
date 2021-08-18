@@ -3,14 +3,20 @@ use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Message;
 use Webappdev\Knightsclub\models\User;
 require_once '../vendor/autoload.php';
-
+session_start();
+$userId = 0;
+if(isset($_SESSION['id'])){
+    $userId = $_SESSION['id'];
+}
+else{
+    header('Location:  ../ahmed-login/login.php');
+}
 if(isset($_POST['sendMessage'])){
     $dbConnection = Database::getDb();
     $user = new User();
     $receiverId = $user->getUserIdByUserName($_POST['receiver'],$dbConnection);
     $message = new Message();
-    //hard code senderId to test. It should be current logged-in user's id
-    if($message->sendMessage(1, $receiverId->id,$_POST['subject'], $_POST['content'],$dbConnection))
+    if($message->sendMessage($userId, $receiverId->id,$_POST['subject'], $_POST['content'],$dbConnection))
     {
         echo 'sent message successfully to '.$receiverId->id;
     }
@@ -30,20 +36,25 @@ if(isset($_POST['sendMessage'])){
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="../css/style_template.css"/>
-        <link rel="stylesheet" href="css/style_compose.css"/>
+        <!--<link rel="stylesheet" href="css/style_compose.css"/>-->
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <?php require_once('../home_page/header.php'); ?>
     <main>
+        <div class="d-none d-md-block">
+            <a href="../user_profile_estevan/login_user.php" style="color: #007bff !important;">Profile</a> > <a href="inbox.php" style="color: #007bff !important;">Mail</a>
+        </div>
+        <h1 class="text-center">Mail</h1>
         <div class="container">
             <div class="row border-top border-bottom">
                 <div class="col-4" id="inbox_control_bar">
                     <div class="card">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Compose</li>
-                            <li class="list-group-item position-relative"><a href="inbox.php" class="stretched-link"></a>Inbox</li>
-                            <li class="list-group-item position-relative"><a href="inbox.php?controlType=2" class="stretched-link"></a>Sent</li>
-                            <li class="list-group-item position-relative"><a href="inbox.php?controlType=3" class="stretched-link"></a>Trash</li>
+                            <li class="list-group-item position-relative control-bar-style"><a href="inbox.php" class="stretched-link"></a>Inbox</li>
+                            <li class="list-group-item position-relative control-bar-style"><a href="inbox.php?controlType=2" class="stretched-link"></a>Sent</li>
+                            <li class="list-group-item position-relative control-bar-style"><a href="inbox.php?controlType=3" class="stretched-link"></a>Trash</li>
                         </ul>
                     </div>
                     

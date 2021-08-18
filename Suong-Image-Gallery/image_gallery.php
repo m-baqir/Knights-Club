@@ -1,88 +1,83 @@
 <?php
-//What next:
-//Need to implement a default img so that when user havent upload any img yet
-//it wont bug
+session_start();
 
 use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Images;
 
 require_once '../vendor/autoload.php';
 
-$id = "2"; //ID will be hardcoded for now
+$id = $_SESSION['id'];
+$main_img_status = "1";
+$not_main_status = "0";
 
 $gallery = new Images();
 
 $db = Database::getDb();
 
-$userImgs = $gallery->getImagesById($id, $db); //for now user ID will be hardcoded
+$userImgs = $gallery->getImagesById($id, $db);
 
-$userName = $gallery->getUserNameById($id,$db);
+$userName = $gallery->getUserNameById($id, $db);
 
-if(count($userImgs) == 1 && $userImgs[0]->main_image == 0){
-  $gallery->changeImageStatus($userImgs[0]->image_id,1,$db);
+if (count($userImgs) == 1 && $userImgs[0]->main_image == $not_main_status) {
+  $gallery->changeImageStatus($userImgs[0]->image_id, $main_img_status, $db);
   header("Location: ./image_gallery.php");
 }
 
-$max_file_size = 20000000;
-if(isset($_FILES['upload'])){
+$max_file_size = 10000000;
+if (isset($_FILES['upload'])) {
   $file_temp = $_FILES['upload']['tmp_name'];
   $file_name = $_FILES['upload']['name'];
   $file_size = $_FILES['upload']['size'];
   $file_type = $_FILES['upload']['type'];
   $file_error = $_FILES['upload']['error'];
 
-  
-  if ($file_error > 0)
-  { 
-    switch ($file_error)
-    {
-        case 1:
-            alert_message("File exceeded upload_max_filesize.");
-            header("Location: ./image_gallery.php");
-            break;
-        case 2:
-            alert_message("File exceeded " . $max_file_size . " .");
-            header("Location: ./image_gallery.php");
-            break;
-        case 3:
-            alert_message("File only partially uploaded.");
-            header("Location: ./image_gallery.php");
-            break;
-        case 4:
-            alert_message("No file uploaded.");
-            header("Location: ./image_gallery.php");
-            break;
+
+  if ($file_error > 0) {
+    switch ($file_error) {
+      case 1:
+        alert_message("File exceeded upload_max_filesize.");
+        header("Location: ./image_gallery.php");
+        break;
+      case 2:
+        alert_message("File exceeded " . $max_file_size . " .");
+        header("Location: ./image_gallery.php");
+        break;
+      case 3:
+        alert_message("File only partially uploaded.");
+        header("Location: ./image_gallery.php");
+        break;
+      case 4:
+        alert_message("No file uploaded.");
+        header("Location: ./image_gallery.php");
+        break;
     }
     exit;
   }
 
-  if($file_size > $max_file_size)
-  {
+  if ($file_size > $max_file_size) {
     alert_message("File size too big");
-
   } else {
     $target_path = "images/";
     $target_path = $target_path .  $_FILES['upload']['name'];
 
-    if(move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)) {
-      
-      $count = $gallery->uploadImage($id,$_FILES['upload']['name'],$db);
-      
-      if($count){
-          header("Location: ./image_gallery.php");
+    if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_path)) {
+
+      $count = $gallery->uploadImage($id, $_FILES['upload']['name'], $db);
+
+      if ($count) {
+        header("Location: ./image_gallery.php");
       } else {
         alert_message("There was an error uploading the file, please try again!");
         header("Location: ./image_gallery.php");
       }
-    } else{
+    } else {
       alert_message("There was an error uploading the file, please try again!");
     }
   }
-
-  
 }
 
-function alert_message($msg) {
+function alert_message($msg)
+{
   echo "<script type='text/javascript'>
           confirm('$msg');
         </script>";
@@ -108,7 +103,7 @@ function alert_message($msg) {
 <body>
   <?php require_once('../home_page/header.php'); ?>
   <main>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end pt-2">
       <?php require_once '../Suong-Notification/userNotification.php' ?>
       <span class="px-1"></span>
       <?php require_once '../Suong-User-Status/userStatus.php' ?>
@@ -122,7 +117,7 @@ function alert_message($msg) {
         $count = 0;
         foreach ($userImgs as $user) {
           $isActive = "";
-          if ($user->main_image == "1") {
+          if ($user->main_image == $main_img_status) {
             $isActive = "class='active'";
           } ?>
           <li data-target="#carouselExampleIndicators" data-slide-to="<?= $count ?>" <?= $isActive ?>></li>
@@ -134,14 +129,14 @@ function alert_message($msg) {
       </ol>
       <div class="carousel-inner">
         <?php
-        if(count($userImgs) == 0){ ?>
+        if (count($userImgs) == 0) { ?>
           <div class="carousel-item active">
-            <img class="d-block w-100" src="./images/default.jpg" alt="First slide">
+            <img class="d-block w-100" src="./images/default.png" alt="No image">
           </div>
         <?php };
         foreach ($userImgs as $user) {
           $active = "";
-          if ($user->main_image == "1") {
+          if ($user->main_image == $main_img_status) {
             $active = "active";
           } ?>
           <div class="carousel-item <?= $active ?>">
@@ -158,11 +153,11 @@ function alert_message($msg) {
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <div class="container pb-3">
-      <button type="button" class="btn btn-outline-primary">Update your picture</button>
-      <form action="image_gallery.php" enctype="multipart/form-data" method="POST">
+    <div class="d-flex justify-content-around pb-2">
+      <a class="btn btn-outline-primary" href="image_update.php" role="button">Update Gallery</a>
+      <form action="image_gallery.php" enctype="multipart/form-data" method="POST" onsubmit="return confirm('Upload this picture?');">
 
-        <input type="hidden" name="MAX_FILE_SIZE" value=<?= $max_file_size ?> >
+        <input type="hidden" name="MAX_FILE_SIZE" value=<?= $max_file_size ?>>
         <input type="file" name="upload" id="upload">
         <input type="submit" value="Upload" class="btn btn-outline-primary">
 
@@ -170,6 +165,11 @@ function alert_message($msg) {
     </div>
   </main>
   <?php require_once('../home_page/footer.php'); ?>
+  <script>
+    function alertMessage(message) {
+      confirm(message);
+    }
+  </script>
 </body>
 
 </html>

@@ -1,11 +1,17 @@
 <?php
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/Form.php';
-
+use Webappdev\Knightsclub\models\{Database,Form};
+require_once '../vendor/autoload.php';
+//Just manually set values for session variables till login nd registration pages get ready
+//$_SESSION['user_id'] = 1;
+//$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ){
 $dbcon = Database::getDb();
 $f = new Form();
 $forms = $f->getAllFormsforIndex(Database::getDb());
-
+$users = $f->getAllUsers(Database::getDb());
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 require_once 'header.php';
 ?>
 
@@ -29,7 +35,7 @@ require_once 'header.php';
                   <i class="zmdi zmdi-account-o"></i>
                 </div>
                 <div class="text">
-                  <h2>10368</h2>
+                  <h2>1</h2>
                   <span>Members</span>
                 </div>
               </div>
@@ -48,8 +54,8 @@ require_once 'header.php';
                   <i class="zmdi zmdi-calendar-note"></i>
                 </div>
                 <div class="text">
-                  <h2>1,086</h2>
-                  <span>This week joined</span>
+                  <h2>4</h2>
+                  <span>Joined</span>
                 </div>
               </div>
               <div class="overview-chart">
@@ -63,7 +69,7 @@ require_once 'header.php';
             <div class="overview__inner">
               <div class="overview-box clearfix">
                 <div class="text">
-                  <h2>1,060,386</h2>
+                  <h2><?php echo count($users); ?></h2>
                   <span>Total Users</span>
                 </div>
               </div>

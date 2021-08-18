@@ -13,7 +13,7 @@ class Login{
 
         $pdostmt->bindParam(":user",  $user);
         $pdostmt->bindParam(":pass",  $pass);
-        
+
         $pdostmt->execute();
 
         $login = $pdostmt->fetch(PDO::FETCH_OBJ);
@@ -29,7 +29,7 @@ class Login{
         
         $pdostmt->execute();
 
-        $login = $pdostmt->fetchAll(PDO::FETCH_OBJ);
+        $login = $pdostmt->fetch(PDO::FETCH_OBJ);
         return $login;
     }
 
@@ -45,7 +45,7 @@ class Login{
         $pdostmt->bindParam(":email",  $email);
         $pdostmt->bindParam(":age",  $age);
 
-        $pdostmt->execute();
+        return $pdostmt->execute();
 
     }
 

@@ -1,11 +1,16 @@
 <?php
-require_once '../ContactUs_Vedanshi/database.php';
-require_once '../Admin/models/FAQ.php';
-
+use Webappdev\Knightsclub\models\{Database,FAQ};
+require_once '../vendor/autoload.php';
+//Just manually set values for session variables till login nd registration pages get ready
+//$_SESSION['user_id'] = 1;
+//$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['id'])){
 $dbcon = Database::getDb();
 $f = new FAQ();
 $FAQs = $f->getAllFAQs(Database::getDb());
-
+}else{
+  header('Location:  ../ahmed-login/login.php');
+}
 ?>
 <!doctype html>
 <html lang="en">

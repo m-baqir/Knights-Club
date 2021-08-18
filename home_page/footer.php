@@ -29,7 +29,7 @@
                 <li><a href="../FAQ_Vedanshi/FAQ.php">FAQ</a></li>
                 <li><a href="#">Newsletter</a></li>
                 <li><a href="">Advice</a></li>
-                <li><a href="">Contact Us</a></li>
+                <li><a href="../ContactUs_Vedanshi/ContactUs.php">Contact Us</a></li>
                 <li><a href="">Site Map</a></li>
             </ul>
       </div>

@@ -9,7 +9,7 @@ class rss{
             $pdoStmt->bindParam(':id',$id);
             $pdoStmt->execute();
 
-            return $pdoStmt->fetch(PDO::FETCH_OBJ);
+            return $pdoStmt->fetchAll(PDO::FETCH_OBJ);
 
     }
 }

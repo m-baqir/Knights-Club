@@ -1,4 +1,7 @@
 <?php
+if(session_id() == '') {
+    session_start();
+}
 
 use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Notification;
@@ -8,7 +11,7 @@ require_once '../vendor/autoload.php';
 $user = new Notification();
 $db = Database::getDb();
 
-$id = 2; //ID will be hardcoded for now until login is implemented
+$id = $_SESSION['id'];
 
 $count = 0;
 $rows = '';

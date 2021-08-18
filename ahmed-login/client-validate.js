@@ -38,7 +38,7 @@ submit.onclick = function validateForm(){
         error.innerHTML = "Please enter a valid password";
         return false;
 
-    } else if (password.length >= 8){
+    } else if (password.length < 8){
         error.innerHTML = "Please password with at least 8 characters";
         return false;
 

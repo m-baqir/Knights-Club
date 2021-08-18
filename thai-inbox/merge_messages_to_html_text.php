@@ -1,4 +1,10 @@
 <?php
+/**
+ * Convert a list of messages to a string with HTML format
+ * @param $messages 1 list of objects to be converted to HTML text
+ * @param $controlType 1 for INBOX, 2 for SENT, and 3 for TRASH
+ * @return string
+ */
 function mergeMessagesToHTMLText($messages,$controlType): string
 {
     $appearText = '';

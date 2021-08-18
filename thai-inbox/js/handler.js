@@ -13,16 +13,15 @@ function showMessages(control = 1) {
         //console.log('this.status =' + this.status);
         if (this.readyState === 4 && this.status === 200) {
             document.getElementById("list_messages").innerHTML = this.responseText;
+
         }
     };
-
+    clearInterval(inboxLoadingIntervalId);
     if (control === controlType.SENT){
-        clearInterval(inboxLoadingIntervalId);
         url= url.concat("?controlType=2");
     }
     else if (control === controlType.TRASH)
     {
-        clearInterval(inboxLoadingIntervalId);
         url= url.concat("?controlType=3");
     }
     else {
@@ -102,9 +101,9 @@ window.onload = function () {
     let inbox_control_bar = document.getElementById("inbox_control_bar");
     let sent = document.getElementById("sent");
     let trash = document.getElementById("trash");
-
-    //loading the latest messages every 10 seconds.
-    inboxLoadingIntervalId= setInterval(showMessages, 10000);
+    let compose = document.getElementById("compose");
+    //load
+    inboxLoadingIntervalId = setInterval(showMessages,10000);
     btn.onclick = function () {
         /*messages.classList.toggle("visible",false);
         messages.classList.toggle("invisible",true);
@@ -144,5 +143,9 @@ window.onload = function () {
     //     $('inbox_control_bar').show();
     // });
 
+    compose.onclick = function () {
+        clearInterval(inboxLoadingIntervalId);
+        console.log("clear inboxLoadingIntervalId");
+    }
 
 }

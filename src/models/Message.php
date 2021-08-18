@@ -6,12 +6,19 @@ use PDO;
 class Message{
     //Another problems: receivers and sender have the same record in inbox table.
     // if one of them move the message to trash, another users relating to that message can only see it in trash.
-    //TODO: Fix it later.
+    //FIXED.
     //Current solution in my mind: when sending a message, multiple records would be inserted into inbox table based on how many number of receivers there are.
     //Get all messages from a logged-in user
     //But sign-up feature is not implemented yet, so I will do the hard-code to test my feature.
     //In this case I will let current user's id be 2.
-    public function getMessages($db,$controlType = 1){
+    /**
+     * Get messages based on controlType
+     * @param Database $db Database connection
+     * @param int $userId User id
+     * @param int $controlType 1 for INBOX, 2 for SENT, and 3 for TRASH
+     * @return mixed Return false if there is not any message that satisfies the query condition in the database. Otherwise, the list of messages are returned.
+     */
+    public function getMessages($db, $userId, $controlType = 1){
         /*$selectQuery = "SELECT *,u2.username as senderName FROM inbox
                         JOIN user u1  ON inbox.receiver_id  = u1.id AND u1.id = 2
                         JOIN user u2  ON inbox.sender_id  = u2.id";*/
@@ -31,17 +38,17 @@ class Message{
                 //Set receiver_id to 3 for testing the confirmation of friend request in message-content.php
                 $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date, is_read_receiver 
                                     FROM message_sender_receiver_view 
-                                    WHERE receiver_id = 3 AND in_receiver_trash = 0";
+                                    WHERE receiver_id = $userId AND in_receiver_trash = 0";
             }
             else if ($controlType === 2){//SENT
                 $selectQuery .= "SELECT receiverName, id, message_subject, message_content, message_date 
                                     FROM message_sender_receiver_view 
-                                    WHERE sender_id = 1   AND in_sender_trash = 0";
+                                    WHERE sender_id = $userId   AND in_sender_trash = 0";
             }
             else if($controlType === 3){//TRASH
                 $selectQuery .= "SELECT senderName, id, message_subject, message_content, message_date 
                                     FROM message_sender_receiver_view 
-                                    WHERE (sender_id = 2   AND in_sender_trash = 1  ) OR (receiver_id = 2 AND in_receiver_trash = 1)";
+                                    WHERE (sender_id = $userId   AND in_sender_trash = 1  ) OR (receiver_id = $userId AND in_receiver_trash = 1)";
             }
             //return $finalQuery;
         //};
@@ -53,10 +60,17 @@ class Message{
         return $messages;
     }
 
-    public function getMessageById($id, $db){
+    /**
+     * Load a particular message based on its id.
+     * @param int $id Message id
+     * @param int $userId User id
+     * @param Database $db Database connection.
+     * @return mixed
+     */
+    public function getMessageById($id, $userId, $db){
         $selectQuery = "SELECT sender_id,senderName, receiver_id, receiverName, id, message_subject, message_content, message_date 
                             FROM message_sender_receiver_view 
-                            WHERE (sender_id = 2 OR receiver_id = 2) AND id = :id";
+                            WHERE (sender_id = $userId OR receiver_id = $userId) AND id = :id";
         $pdostmt = $db->prepare($selectQuery);
         $pdostmt->bindParam(':id',$id);
         $pdostmt->execute();
@@ -65,6 +79,15 @@ class Message{
         return $selectedMessage;
     }
 
+    /**
+     * Send a message from a user to the other user.
+     * @param string $senderId User id of a particular sender.
+     * @param string $receiverId User id of a particular receiver.
+     * @param string $subject Subject of a particular message.
+     * @param string $message Content of a particular message.
+     * @param Database $db Database connection
+     * @return mixed Returns false if execution is failed. Otherwise, returns true.
+     */
     public function sendMessage($senderId, $receiverId, $subject, $message,$db){
         $insertProcedureCall = "CALL send_message(?,?,?,?)";
         $pdostmt = $db->prepare($insertProcedureCall);
@@ -76,6 +99,12 @@ class Message{
         return $pdostmt->execute();
     }
 
+    /**
+     * Mark a particular message as read
+     * @param string|int $msgId message id of a particular message
+     * @param Database $db Database connection
+     * @return mixed
+     */
     public function markMessageAsRead($msgId, $db){
         $updateQuery = "UPDATE message_receivers SET is_read = 1 WHERE message_id=:id";
         $pdostmt = $db->prepare($updateQuery);
@@ -83,6 +112,13 @@ class Message{
         return $pdostmt->execute();
     }
 
+    /**
+     * Move a particular message to the trash
+     * @param array $ids A list ids of particular messages
+     * @param int $controlType 1 for INBOX, 2 for SENT, and 3 for TRASH
+     * @param Database $db Database connection
+     * @return mixed false if it fails. Otherwise, true if it succeeds.
+     */
     public function moveMessagesToTrash($ids,$controlType, $db){
         $updateTable = "";
         if (1 === intval($controlType)){//Type casting to make sure comparison work

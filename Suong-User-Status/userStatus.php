@@ -1,4 +1,7 @@
 <?php
+if(session_id() == '') {
+    session_start();
+}
 
 use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\Status;
@@ -9,7 +12,7 @@ $user = new Status();
 
 $db = Database::getDb();
 
-$id = 2; //ID will be hardcoded for now
+$id = $_SESSION['id'];
 $status = $user->getUserStatus($id, $db);
 if (isset($_GET['status'])) {
     $uStatus = $_GET['status'];

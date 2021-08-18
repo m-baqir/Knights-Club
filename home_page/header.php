@@ -32,7 +32,7 @@ if(isset($_GET['nav-search'])){
       <a href="#">Profile</a>
       <a href="#">Subscribe</a>
       <a href="#">Newsletter</a>
-      <a href="#">About Us</a>
+      <a href="../Thai-aboutus/aboutus.php">About Us</a>
       <a href="../ContactUs_Vedanshi/ContactUs.php">Contact</a>
     </div>
   </header>

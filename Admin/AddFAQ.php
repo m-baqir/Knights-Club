@@ -1,7 +1,10 @@
 <?php
-require_once '../ContactUs_Vedanshi/database.php';
-require_once 'models/FAQ.php';
-
+use Webappdev\Knightsclub\models\{Database,FAQ};
+require_once '../vendor/autoload.php';
+//Just manually set values for session variables till login nd registration pages get ready
+//$_SESSION['user_id'] = 1;
+//$_SESSION['is_Admin'] = true;
+if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ){
 if (isset($_POST['submit'])) {
   $answer = $_POST['answer'];
   $question = $_POST['question'];
@@ -34,6 +37,9 @@ if (isset($_POST['submit'])) {
 
   }
 
+}
+}else{
+  header('Location:  ../ahmed-login/login.php');
 }
 require_once 'header.php';
 ?>
