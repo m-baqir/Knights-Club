@@ -4,7 +4,6 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Model\{Newsletter};
 
-//require '../vendor/autoload.php';
 require './vendor/autoload.php';
 
 function send_email($to_address, $to_name, $from_address, $from_name,

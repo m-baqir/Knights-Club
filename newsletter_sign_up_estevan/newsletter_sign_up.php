@@ -3,6 +3,10 @@ use Model\{Database, Newsletter};
 require_once('Model/EmailHandler.php');
 require_once 'vendor/autoload.php';
 session_start();
+$user_id = 0;
+if(isset($_SESSION['id']) ){
+    $user_id = $_SESSION['id'];
+}
 
 $firstnameError = '';
 $lastnameError = '';
@@ -117,11 +121,11 @@ $consentError = '';
 <body>
 	<?php require_once('../home_page/header.php'); ?>
 	
-	<!--DELETE THE DIV SECTION IF THERE IS NO LOGIN USER-->
+	<!--DELETE THE DIV SECTION IF THERE IS NO LOGIN USER
 	<div id="loginLocation">
 		<p class="loginNotice">Signed in as: Estevan Cordero</p>
 		<button class="generalButton">LOG OUT</button>
-	</div>
+	</div>-->
 
 	<div class="container-contact100">
 		<div class="wrap-contact100">	
