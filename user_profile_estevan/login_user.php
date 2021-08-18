@@ -1,6 +1,6 @@
 <?php
 session_start();
-use Webappdev\Knightsclub\models\{Database,rss,UserWall};
+use Webappdev\Knightsclub\models\{Database,rss,UserWall,User};
 $simpleresult = '';
 require_once '../vendor/autoload.php';
 //Just manually set values for session variables till login nd registration pages get ready
@@ -11,6 +11,8 @@ if(isset($_SESSION['id']) ){
     $user_id = $_SESSION['id'];
   $dbcon = Database::getDb();
   $p = new UserWall();
+  $u = new User();
+  $user = $u->getUserById($user_id, $dbcon);
   $data = $p->getAllPostDataforProfile( $user_id, $dbcon);
   if (isset($_POST['postdata'])) {
     $date = date("Y-m-d h:i:s");
@@ -180,6 +182,7 @@ foreach ($allrss as $r){
 <body>
   <?php require_once('../home_page/header.php'); ?>
   <div class="container">
+  <input type="hidden" name="id" value="<?= $id ?>" />
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -189,34 +192,19 @@ foreach ($allrss as $r){
                 <div class="border-bottom text-center pb-4">
                 <a href="../Suong-Image-Gallery/image_gallery.php"><img src="images/estevan.jpg" alt="profile" class="img-lg rounded-circle mb-3"></a>
                   <div class="mb-3">
-                    <h3>Estevan Cordero</h3>
+                    <h3><?= $user->first_name; ?> <?=$user->last_name; ?></h3>
                     <div class="d-flex align-items-center justify-content-center">
-                      <h5 class="mb-0 mr-2 text-muted">Canada</h5>
-                      <div class="br-wrapper br-theme-css-stars"><select id="profile-rating" name="rating"
-                          autocomplete="off" style="display: none;">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                        <div class="br-widget"><a href="#" data-rating-value="1" data-rating-text="1"
-                            class="br-selected br-current"></a><a href="#" data-rating-value="2"
-                            data-rating-text="2"></a><a href="#" data-rating-value="3" data-rating-text="3"></a><a
-                            href="#" data-rating-value="4" data-rating-text="4"></a><a href="#" data-rating-value="5"
-                            data-rating-text="5"></a></div>
-                      </div>
+                      <h5 class="mb-0 mr-2 text-muted"><?= $user->country; ?></h5>
                     </div>
                   </div>
-                  <p class="w-75 mx-auto mb-3">Single, and sad owner of more then hundreds of videos games </p>
+                  <p class="w-75 mx-auto mb-3"><?= $user->bio; ?> </p>
                 </div>
                 <div class="border-bottom py-4">
-                  <p>Hobbies and Interest</p>
-                  <div>
-                    <label class="badge badge-outline-dark">Video Games</label>
-                    <label class="badge badge-outline-dark">Coding</label>
-                    <label class="badge badge-outline-dark">Working on this f**king profile</label>
-                  </div>
+                  <p><h6>Member Since:</h6>  <?= $user->date_of_signup; ?></p>
+                  <p><h6>Age:</h6>  <?= $user->age; ?></p>
+                  <p><h6>Education:</h6>  <?= $user->education; ?></p>
+                  <p><h6>Workplace:</h6>  <?= $user->workplace; ?></p>
+                  <p><h6>Subscription:</h6>  <?php if($user->subscription_type == null) { print 'None'; } else { $user->subscription_type; } ?></p>
                 </div>
                 <div class="py-4">
                   <p class="clearfix">
@@ -224,7 +212,7 @@ foreach ($allrss as $r){
                       Status
                     </span>
                     <span class="float-right text-muted">
-                      Active
+                    <?= $user->user_status; ?>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -232,7 +220,7 @@ foreach ($allrss as $r){
                       Phone
                     </span>
                     <span class="float-right text-muted">
-                      006 3435 22
+                    <?= $user->phone_number; ?>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -240,7 +228,7 @@ foreach ($allrss as $r){
                       Mail
                     </span>
                     <span class="float-right text-muted">
-                      estevan@testmail.com
+                    <?= $user->email; ?>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -248,7 +236,13 @@ foreach ($allrss as $r){
                       Facebook
                     </span>
                     <span class="float-right text-muted">
-                      <a href="#" class="facebook-link">Estevan Cordero</a>
+                      <a href="#" class="facebook-link">
+                          <?php if($user->link_to_facebook == null) {
+                              print '<p>'. 'No Account' . '</p>';
+                            } else {
+                            $user->link_to_facebook; 
+                          }?>
+                        </a>
                     </span>
                   </p>
                   <p class="clearfix">
@@ -256,7 +250,13 @@ foreach ($allrss as $r){
                       Twitter
                     </span>
                     <span class="float-right text-muted">
-                      <a href="#" class="twitter-link">@estevancordero</a>
+                      <a href="#" class="twitter-link">
+                          <?php if($user->link_to_twitter == null) {
+                            print '<p>'. 'No Account' . '</p>';
+                          } else {
+                          $user->link_to_twitter;
+                          }?>
+                        </a>
                     </span>
                     <span class="float-left">
                         <!--RSS Ajax call below-->
@@ -298,7 +298,7 @@ foreach ($allrss as $r){
                 </div>
               </div>
               <div class="col-lg-8">
-                <p class="loginNotice">Signed in as: Estevan Cordero</p>
+                <p class="loginNotice">Signed in as: <?= $user->first_name; ?> <?= $user->last_name ?></p>
                 <button class="buttonLook">LOG OUT</button>
                 <div class="mt-4 py-2 border-top border-bottom">
                   <ul class="nav profile-navbar">
@@ -337,6 +337,12 @@ foreach ($allrss as $r){
                               <i class="mdi mdi-calendar"></i>
                               Search
                           </a>
+                      </li>
+                      <li class="nav-item">
+                        <form action="./update_profile_form.php" method="post">
+                                <input type="hidden" name="id" value="<?= $user->id; ?>" />
+                                <input type="submit" name="updateProfile" value="Update Profile" />
+                        </form>
                       </li>
                   </ul>
                 </div>
