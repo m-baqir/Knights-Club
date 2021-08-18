@@ -399,12 +399,6 @@ foreach ($allrss as $r){
     </div>
   </div>
   <?php require_once('../home_page/footer.php'); ?>
-  <!--<footer id="copyRight">
-    *need to figure out what we are going to include in the footer
-    <a href="#">Sitemap |</a>
-    <a href="#">Policy</a>
-    <p class="copyRightLogo"><i class="far fa-copyright"></i> this is the footer</p>
-  </footer>-->
 </body>
 
 </html>

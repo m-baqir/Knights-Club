@@ -2,9 +2,6 @@
 // link to the user table and read off all information
 // it reads off one user profile
 // once a user logins use a session vars and catch session id and compare that to the user table 
-// using session_start();
-// session_start();
-//session_start();
 //$user_id= $_SESSION[user_id];
 //session_start();
 session_start();

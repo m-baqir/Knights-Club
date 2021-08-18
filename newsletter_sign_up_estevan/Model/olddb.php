@@ -1,4 +1,5 @@
 <?php
+// unused db connection for local computer
 namespace Model;
 class Database
 {

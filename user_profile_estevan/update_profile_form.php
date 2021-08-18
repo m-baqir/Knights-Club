@@ -2,7 +2,7 @@
 use Webappdev\Knightsclub\models\{Database, User};
 require_once '../vendor/autoload.php';
 session_start();
-
+// error when trying to update the user profile.
 $firstname = "";
 $lastname = "";
 $country = "";

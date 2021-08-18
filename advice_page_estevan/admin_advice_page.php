@@ -83,6 +83,7 @@ if($_SESSION["isadmin"] == 0){
                     function printResults($results){
                         foreach ($results as $r) { ?>
                     <li class="search-item">
+                        <!--Commented out, but allows user to have an image with their post.-->
                         <!--<div class="search-item-img">
                             Here is the image for the profile
                             <a href="#">

@@ -17,6 +17,7 @@ class Newsletter
         return $count;
     }
 
+    // Unused code for future plans.
    /* public function getAllEmails($dbcon){
         $sql = "SELECT email FROM newsletter";
         $pdostm = $dbcon->prepare($sql);
