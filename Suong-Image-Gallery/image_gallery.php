@@ -6,9 +6,11 @@ use Webappdev\Knightsclub\models\Images;
 
 require_once '../vendor/autoload.php';
 
+//Global var
 $id = $_SESSION['id'];
-$main_img_status = "1";
-$not_main_status = "0";
+$main_img_status = "main";
+$not_main_status = "";
+$gallery_limit = 6;
 
 $gallery = new Images();
 
@@ -31,7 +33,7 @@ if (isset($_FILES['upload'])) {
   $file_type = $_FILES['upload']['type'];
   $file_error = $_FILES['upload']['error'];
 
-
+  //currently unable to make popup alert message for these error
   if ($file_error > 0) {
     switch ($file_error) {
       case 1:
@@ -108,9 +110,12 @@ function alert_message($msg)
       <span class="px-1"></span>
       <?php require_once '../Suong-User-Status/userStatus.php' ?>
     </div>
+    <div class="d-flex justify-content-between pt-2">
+      <h1><a href="../user_profile_estevan/login_user.php" class="text-muted text-decoration-none"><?= $userName->username; ?>'s Profile</a></h1>
+      <h1><a class="text-muted text-decoration-none" href="image_update.php">Update Gallery</a></h1>
+    </div>
 
-    <h1><a href="../user_profile_estevan/login_user.php" class="text-muted text-decoration-none"><?= $userName->username; ?>'s Profile</a></h1>
-
+  <!-- Using bootstrap carousel style to create the gallery -->
     <div id="carouselExampleIndicators" class="carousel slide container pt-2 pb-3" data-ride="carousel">
       <ol class="carousel-indicators">
         <?php
@@ -154,8 +159,17 @@ function alert_message($msg)
       </a>
     </div>
     <div class="d-flex justify-content-around pb-2">
-      <a class="btn btn-outline-primary" href="image_update.php" role="button">Update Gallery</a>
-      <form action="image_gallery.php" enctype="multipart/form-data" method="POST" onsubmit="return confirm('Upload this picture?');">
+
+      <?php
+      //Different type of [form] according to the amount of picture the user currently have inside the system
+      $alert = "";
+      if (count($userImgs) < $gallery_limit) {
+        $alert = 'action="image_gallery.php" enctype="multipart/form-data" method="POST" onsubmit="return confirm(\'Upload this picture?\');"';
+      } else {
+        $alert = 'onsubmit="alert(\'Reach picture limit!\'); return false"';
+      }
+      ?>
+      <form <?= $alert ?>>
 
         <input type="hidden" name="MAX_FILE_SIZE" value=<?= $max_file_size ?>>
         <input type="file" name="upload" id="upload">
@@ -165,11 +179,6 @@ function alert_message($msg)
     </div>
   </main>
   <?php require_once('../home_page/footer.php'); ?>
-  <script>
-    function alertMessage(message) {
-      confirm(message);
-    }
-  </script>
 </body>
 
 </html>
