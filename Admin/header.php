@@ -4,7 +4,8 @@ session_start();
 
 use Webappdev\Knightsclub\models\{Database,Form};
 require_once '../vendor/autoload.php';
-//$uid=1;
+$_SESSION['id']=1;
+$_SESSION['isadmin']=1;
 if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ) {
 	$d = Database::getDb();
 	$fr = new Form();
@@ -12,6 +13,7 @@ if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ) {
 	$uname = $fo->username;
 	$email = $fo->email;
 }else{
+	//nobody worked on Admin login page that's why I used public user login page
   header('Location:  ../ahmed-login/login.php');
 }
 
