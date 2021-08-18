@@ -29,10 +29,9 @@ if(isset($_GET['nav-search'])){
           </div>
         </form>
       </a>
-      <a href="#">Profile</a>
-      <a href="#">Subscribe</a>
-      <a href="#">Newsletter</a>
-      <a href="../Thai-aboutus/aboutus.php">About Us</a>
-      <a href="../ContactUs_Vedanshi/ContactUs.php">Contact</a>
+      <a href="./user_profile_estevan/login_user.php">Profile</a>
+      <a href="/newsletter_sign_up_estevan/newsletter_sign_up.php">Newsletter</a>
+      <a href="/Thai-aboutus/aboutus.php">About Us</a>
+      <a href="/ContactUs_Vedanshi/ContactUs.php">Contact</a>
     </div>
   </header>
