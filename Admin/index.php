@@ -2,8 +2,8 @@
 use Webappdev\Knightsclub\models\{Database,Form};
 require_once '../vendor/autoload.php';
 //Just manually set values for session variables till login nd registration pages get ready
-//$_SESSION['user_id'] = 1;
-//$_SESSION['is_Admin'] = true;
+$_SESSION['user_id'] = 1;
+$_SESSION['isadmin'] = 1;
 if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ){
 $dbcon = Database::getDb();
 $f = new Form();

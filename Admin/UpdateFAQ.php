@@ -3,40 +3,35 @@ use Webappdev\Knightsclub\models\{Database,FAQ};
 require_once '../vendor/autoload.php';
 $question = $answer = $category = "";
 //Just manually set values for session variables till login nd registration pages get ready
-//$_SESSION['user_id'] = 1;
-//$_SESSION['is_Admin'] = true;
+$_SESSION['id'] = 1;
+$_SESSION['isadmin'] = 1;
 if(isset($_SESSION['id']) && $_SESSION["isadmin"] == 1 ){
-if (isset($_POST['updateFAQ'])) {
-  $id = $_POST['id'];
-  $db = Database::getDb();
+  if (isset($_POST['updateFAQ'])) {
+    $id = $_POST['id'];
+    $db = Database::getDb();
+    $f = new FAQ();
+    $FAQ = $f->getFAQById($id, $db);
+    $question = $FAQ->question;
+    $answer = $FAQ->answer;
+    $category = $FAQ->category;
 
-  $f = new FAQ();
-  $FAQ = $f->getFAQById($id, $db);
-
-  $question = $FAQ->question;
-  $answer = $FAQ->answer;
-  $category = $FAQ->category;
-
-}
-if (isset($_POST['submit'])) {
-  $id = $_POST['id'];
-  $answer = $_POST['answer'];
-  $question = $_POST['question'];
-
-  $category = $_POST['category'];
-
-  $db = Database::getDb();
-  $f = new FAQ();
-  $con = $f->updateFAQ($id, $question, $answer, $category, $db);
-
-
-  if ($con) {
-    header('Location:  ListFAQ.php');
-  } else {
-    echo "Error in updating!!";
   }
-}
+  if (isset($_POST['submit'])) {
+    $id = $_POST['id'];
+    $answer = $_POST['answer'];
+    $question = $_POST['question'];
+    $category = $_POST['category'];
+    $db = Database::getDb();
+    $f = new FAQ();
+    $con = $f->updateFAQ($id, $question, $answer, $category, $db);
+    if ($con) {
+      header('Location:  ListFAQ.php');
+    } else {
+      echo "Error in updating!!";
+    }
+  }
 }else{
+	//nobody worked on Admin login page that's why I used public user login page
   header('Location:  ../ahmed-login/login.php');
 }
 require_once 'header.php'
