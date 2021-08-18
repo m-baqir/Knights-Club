@@ -1,6 +1,7 @@
 <?php
 use Webappdev\Knightsclub\models\{Database, Advice};
 require_once '../vendor/autoload.php';
+session_start();
 //use Model\{Database, Advice};
 //require_once 'vendor/autoload.php';
 // here we can list through the advice store in the db
