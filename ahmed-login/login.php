@@ -24,7 +24,7 @@ if(isset($_POST['login'])){
         //Suong's comment
         //Add the ability to change user status to online whenever the user login
         $status->updateStatus($login->id,"online",$db);
-        header('Location: ../knightsclub.html');
+        header("Location: ../user_profile_estevan/login_user.php");
     } else{
         echo "error logging in.";
     }
