@@ -2,11 +2,10 @@
 //use Model\{Database, Advice};
 use Webappdev\Knightsclub\models\{Database, Advice};
 require_once '../vendor/autoload.php';
-// here we can list through the advice store in the db
-//$dbcon = Database::getDb();
-//$a = new Advice();
-//$advice = $a->getAllAdvice(Database::getDb());
-// Unused
+session_start();
+if($_SESSION["isadmin"] == 0){
+  header('Location: ../advice_page_estevan/advice_page.php');
+}
 ?>
 
 <!DOCTYPE html>

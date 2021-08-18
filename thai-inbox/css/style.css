@@ -2,9 +2,6 @@ ul{
     list-style-type: none;
 }
 
-a{
-    color: #007bff !important;
-}
 
 /*
 Main
@@ -36,11 +33,16 @@ message
 .message:hover {
     box-shadow: 1px 1px 1px grey;
 }
-#inbox:hover{
+/*#inbox:hover{
     background: #003049;
     color: aliceblue;
 }
 #sent:hover{
+    background: #003049;
+    color: aliceblue;
+}*/
+
+.control-bar-style:hover{
     background: #003049;
     color: aliceblue;
 }

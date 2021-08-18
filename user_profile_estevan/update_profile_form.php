@@ -1,6 +1,7 @@
 <?php 
 use Webappdev\Knightsclub\models\{Database, User};
 require_once '../vendor/autoload.php';
+session_start();
 
 $firstname = "";
 $lastname = "";

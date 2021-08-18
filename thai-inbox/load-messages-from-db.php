@@ -3,7 +3,6 @@ use Webappdev\Knightsclub\models\Message;
 use Webappdev\Knightsclub\models\Database;
 
 require_once '../vendor/autoload.php';
-session_start();
 /**
  * Load the list of messages from database
  * @param $controlType 1 is inbox, 2 is sent, and 3 is trash.

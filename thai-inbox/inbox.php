@@ -12,6 +12,9 @@ if(isset($_GET['controlType'])){
 if (isset($_SESSION['id'])){
     $userId = $_SESSION['id'];
 }
+else{
+    header('Location:  ../ahmed-login/login.php');
+}
 $messages = loadMessagesFromDb($userId,$controlType);
 //var_dump($messages);//for Debug
 $appearText = mergeMessagesToHTMLText($messages,$controlType);
@@ -36,8 +39,8 @@ $appearText = mergeMessagesToHTMLText($messages,$controlType);
         <main>
            
             <div class="container">
-                <div class="d-none d-md-block">
-                    <a href="#">Profile</a> > <a href="#">Mail</a>
+                <div class="d-none d-sm-block">
+                    <a href="../user_profile_estevan/login_user.php" style="color: #007bff !important;">Profile</a> > <a href="#" style="color: #007bff !important;">Mail</a>
                 </div>
                 <h1 class="text-center">Mail</h1>
                 <div class="row">
@@ -45,15 +48,15 @@ $appearText = mergeMessagesToHTMLText($messages,$controlType);
                         <div class="card">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a href="inbox_compose.php">
+                                    <a href="inbox_compose.php" style="color: #007bff !important;" id="compose">
                                         Compose
                                     </a>
                                 </li>
-                                <li class="list-group-item" id="inbox">
+                                <li class="list-group-item control-bar-style" id="inbox">
                                     Inbox
                                 </li>
-                                <li class="list-group-item" id="sent">Sent</li>
-                                <li class="list-group-item" id="trash">Trash</li>
+                                <li class="list-group-item control-bar-style" id="sent">Sent</li>
+                                <li class="list-group-item control-bar-style" id="trash">Trash</li>
                             </ul>
                         </div>
                         

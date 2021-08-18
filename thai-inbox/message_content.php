@@ -7,16 +7,18 @@ require_once '..\vendor\autoload.php';
 session_start();
 $selectedMessage = null;
 $userId = 0;
+if (isset($_SESSION['id'])){
+    $userId = $_SESSION['id'];
+}
+else{
+    header('Location:  ../ahmed-login/login.php');
+}
 if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
     $message = new Message();
     $dbConnection = Database::getDb();
     $message->markMessageAsRead($id, $dbConnection);
-
-    if (isset($_SESSION['id'])) {
-        $userId = $_SESSION['id'];
-    }
     $selectedMessage = $message->getMessageById($id, $userId, $dbConnection);
     //var_dump($selectedMessage);
 }

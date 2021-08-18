@@ -1,13 +1,11 @@
 <?php
 use Webappdev\Knightsclub\models\{Database, Advice};
 require_once '../vendor/autoload.php';
-//use Model\{Database, Advice};
-//require_once 'vendor/autoload.php';
-// here we can list through the advice store in the db
-//$dbcon = Database::getDb();
-//$a = new Advice();
-//$advice = $a->getAllAdvice(Database::getDb());
-// Unused
+session_start();
+$user_id = 0;
+if(isset($_SESSION['id']) ){
+    $user_id = $_SESSION['id'];
+}
 ?>
 
 <!DOCTYPE html>

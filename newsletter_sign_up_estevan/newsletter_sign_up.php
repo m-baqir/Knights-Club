@@ -2,6 +2,7 @@
 use Model\{Database, Newsletter};
 require_once('Model/EmailHandler.php');
 require_once 'vendor/autoload.php';
+session_start();
 
 $firstnameError = '';
 $lastnameError = '';
