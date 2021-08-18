@@ -35,7 +35,7 @@ class Login{
 
     public function RegisterUser($firstname, $lastname, $user, $pass, $email, $age, $db)
     {
-        $sql = "INSERT INTO user (first_name, last_name, username, password, email, age, date_of_signup) VALUES (:first, :last, :user, :pass, :email, :age, NOW())";
+        $sql = "INSERT INTO user (first_name, last_name, username, password, email, age, date_of_signup, isadmin) VALUES (:first, :last, :user, :pass, :email, :age, NOW(), 0)";
         $pdostmt = $db->prepare($sql);
 
         $pdostmt->bindParam(":first",  $firstname);

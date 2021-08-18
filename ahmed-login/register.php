@@ -24,8 +24,12 @@ if(isset($_POST['register'])){
             session_start();
 
             $_SESSION['id'] = $u->VerifyUser($user,$db)->id;
+            $_SESSION["firstname"] = $firstname;
+            $_SESSION["lastname"] = $lastname;
+            $_SESSION["username"] = $username;
+            $_SESSION["isadmin"] = 0;
             //header("Location: ../user_profile_estevan/login_user.php/".$_SESSION['username']);
-            header("Location: ../user_profile_estevan/login_user.php");
+            header("Location: ../ahmed-login/login.php");
         }
     } else if ($user == $validate){
         echo "You already have an account, please use login with your existing account";
