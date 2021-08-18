@@ -3,11 +3,12 @@ use Webappdev\Knightsclub\models\Database;
 use Webappdev\Knightsclub\models\AboutUs;
 
 require_once '../vendor/autoload.php';
-$isAdmin = true;
-
-/*if(isset($_SESSION['user']['admin'])){
-    $isAdmin = true;
-}*/
+session_start();
+$isAdmin = false;
+if (isset($_SESSION['isadmin']))
+{
+    $isAdmin = $_SESSION['isadmin'];
+}
 
 //Loading about us content
 $aboutus = new AboutUs();
