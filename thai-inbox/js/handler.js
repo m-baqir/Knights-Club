@@ -12,7 +12,12 @@ function showMessages(control = 1) {
         //console.log('this.readyState =' + this.readyState);
         //console.log('this.status =' + this.status);
         if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("list_messages").innerHTML = this.responseText;
+            //console.log("this.responseText: "+this.responseText);
+            if (this.responseText !== "" ){
+                document.getElementById("list_messages").innerHTML = this.responseText;
+            }
+
+
 
         }
     };
@@ -25,7 +30,7 @@ function showMessages(control = 1) {
         url= url.concat("?controlType=3");
     }
     else {
-        inboxLoadingIntervalId = setInterval(showMessages,10000);
+        inboxLoadingIntervalId = setInterval(showMessages,10000,1);
     }
     xmlHttp.open("GET", url);
     xmlHttp.setRequestHeader('Content-type','application/x-www-form-urlencoded');
@@ -77,7 +82,7 @@ function moveSelectedMessagesToTrash(controlType) {
 
 function initOnClickEvent(element, control = 1) {
     element.onclick = function () {
-
+        console.log("controlType = "+control);
         showMessages(control);
     }
 }
@@ -128,7 +133,7 @@ window.onload = function () {
         }
         showMessages();
     }*/
-    initOnClickEvent(inbox, controlType.INBOX)
+    initOnClickEvent(inbox, controlType.INBOX);
     initOnClickEvent(sent, controlType.SENT);
     initOnClickEvent(trash, controlType.TRASH);
 

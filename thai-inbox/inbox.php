@@ -8,7 +8,7 @@ if(isset($_GET['controlType'])){
     //REMEMBER: type of $_GET['controlType'] is string, not number. Hence, using intval converts from string to int.
     $controlType = intval($_GET['controlType']);
 }
-
+//print_r("controlType: ".$controlType);
 if (isset($_SESSION['id'])){
     $userId = $_SESSION['id'];
 }
@@ -48,15 +48,20 @@ $appearText = mergeMessagesToHTMLText($messages,$controlType);
                         <div class="card">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <a href="inbox_compose.php" style="color: #007bff !important;" id="compose">
+                                    <a href="inbox_compose.php" id="compose" style="color: #007bff !important;">
                                         Compose
                                     </a>
                                 </li>
-                                <li class="list-group-item control-bar-style" id="inbox">
+                                <li class="list-group-item position-relative control-bar-style" id="inbox">
+                                    <a href="inbox.php?controlType=1" class="stretched-link"></a>
                                     Inbox
                                 </li>
-                                <li class="list-group-item control-bar-style" id="sent">Sent</li>
-                                <li class="list-group-item control-bar-style" id="trash">Trash</li>
+                                <li class="list-group-item position-relative control-bar-style" id="sent"><a href="inbox.php?controlType=2"
+                                                                                                             class="stretched-link"></a> Sent
+                                </li>
+                                <li class="list-group-item position-relative control-bar-style" id="trash"><a href="inbox.php?controlType=3"
+                                                                                                              class="stretched-link"></a>Trash
+                                </li>
                             </ul>
                         </div>
                         

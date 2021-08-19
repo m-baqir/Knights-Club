@@ -44,10 +44,9 @@ if (isset($_GET['id'])) {
 <!--        </header>-->
 <?php require_once('../home_page/header.php'); ?>
 <main>
-
     <div class="container">
-        <div class="d-none d-md-block">
-            <a href="#">Profile</a> > <a href="#">Mail</a>
+        <div class="d-none d-sm-block">
+            <a href="../user_profile_estevan/login_user.php" style="color: #007bff !important;">Profile</a> > <a href="#" style="color: #007bff !important;">Mail</a>
         </div>
         <h1 class="text-center">Mail</h1>
         <div class="row">
@@ -55,18 +54,18 @@ if (isset($_GET['id'])) {
                 <div class="card">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <a href="inbox_compose.php">
+                            <a href="inbox_compose.php" id="compose" style="color: #007bff !important;">
                                 Compose
                             </a>
                         </li>
-                        <li class="list-group-item position-relative" id="inbox">
-                            <a href="inbox.php" class="stretched-link"></a>
+                        <li class="list-group-item position-relative control-bar-style" id="inbox">
+                            <a href="inbox.php?controlType=1" class="stretched-link"></a>
                             Inbox
                         </li>
-                        <li class="list-group-item position-relative" id="sent"><a href="inbox.php?controlType=2"
+                        <li class="list-group-item position-relative control-bar-style" id="sent"><a href="inbox.php?controlType=2"
                                                                                    class="stretched-link"></a> Sent
                         </li>
-                        <li class="list-group-item position-relative" id="trash"><a href="inbox.php?controlType=3"
+                        <li class="list-group-item position-relative control-bar-style" id="trash"><a href="inbox.php?controlType=3"
                                                                                     class="stretched-link"></a>Trash
                         </li>
                     </ul>
