@@ -54,3 +54,16 @@ A social media platform that is currently a work in progress.
   - This will get all the unread message from the inbox feature and turn it into a popup dropdown list so that user can click on it to see the subject of the message as well as the name of the person who has sent it.
 - Status.
   - User will be able to freely change the online status of themselve. Moreover, it will automatically change the user status to online whenever they login.
+
+### **Ahmed Hagar**
+- User Search
+  - Search for users from the nav bar and be redirected to a results page
+  - The results will show any members in our database that match the parameters the user inputs
+- Login/Register
+  - Users can register to our social network by filling out our registration form that will add them to our database
+  - Existing users can simply login with their username or email and password to access their account
+  - Client-side and server-side validation to verify only correct information can be inputted in order to allow sessions
+- Site Map
+  - All site pages are logged to a database table, divided between publicly-accessible pages and pages that can only be accessed after logging in
+  - When visiting the site map, the pages shown are pulled by the database to show what pages are available to the vistor
+
